@@ -1,755 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SchoolMS - Admin Dashboard</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"/>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SquadVertex | School Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      :root {
-        --primary: #1e40af;
-        --primary-dark: #1e3a8a;
-        --primary-light: #3b82f6;
-        --secondary: #10b981;
-        --accent: #f59e0b;
-        --bg-body: #f8fafc;
-        --bg-card: #ffffff;
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        --border-color: #e2e8f0;
-        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-        --transition: all 0.2s ease-in-out;
-      }
-
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      
-      body {
-        background-color: var(--bg-body);
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        color: var(--text-primary);
-        line-height: 1.6;
-      }
-
-      /* ============ NAVBAR STYLES ============ */
-      .navbar {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        box-shadow: var(--shadow-md);
-        padding: 0.5rem 1rem;
-        position: sticky;
-        top: 0;
-        z-index: 1030;
-      }
-
-      .navbar-brand {
-        font-weight: 700;
-        font-size: 1.3rem;
-        color: #fff !important;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-shrink: 0;
-      }
-
-      .navbar-brand i { font-size: 1.4rem; }
-
-      /* Center Nav Items */
-      .navbar-center {
-        display: flex;
-        justify-content: center;
-        flex-grow: 1;
-      }
-
-      .navbar-center .navbar-nav {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 2px;
-      }
-
-      .navbar-nav .nav-link {
-        color: rgba(255,255,255,0.9) !important;
-        font-weight: 500;
-        padding: 0.5rem 0.75rem !important;
-        border-radius: 8px;
-        transition: var(--transition);
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        white-space: nowrap;
-      }
-
-      .navbar-nav .nav-link:hover,
-      .navbar-nav .nav-link:focus {
-        color: #fff !important;
-        background: rgba(255,255,255,0.15);
-        transform: translateY(-1px);
-      }
-
-      .navbar-nav .nav-link.active {
-        background: rgba(255,255,255,0.25);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        position: relative;
-      }
-
-      .navbar-nav .nav-link.active::after {
-        content: '';
-        position: absolute;
-        bottom: -3px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 24px;
-        height: 3px;
-        background: var(--accent);
-        border-radius: 2px;
-      }
-
-      .navbar-nav .nav-link.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-
-      /* Dropdown Styles */
-      .navbar .dropdown-menu {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        box-shadow: var(--shadow-lg);
-        padding: 0.5rem;
-        margin-top: 8px;
-        min-width: 220px;
-        animation: slideDown 0.2s ease;
-      }
-
-      @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .navbar .dropdown-item {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        color: var(--text-primary);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: var(--transition);
-      }
-
-      .navbar .dropdown-item:hover {
-        background: rgba(30, 64, 175, 0.08);
-        color: var(--primary);
-        padding-left: 1.25rem;
-      }
-
-      .navbar .dropdown-item.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        color: var(--text-secondary);
-      }
-
-      .navbar .dropdown-item.disabled:hover {
-        background: transparent;
-        padding-left: 1rem;
-        color: var(--text-secondary);
-      }
-
-      .navbar .dropdown-divider {
-        margin: 0.4rem 0;
-        border-color: var(--border-color);
-      }
-
-      .dropdown-toggle::after {
-        margin-left: 4px;
-        font-size: 0.75rem;
-        vertical-align: middle;
-      }
-
-      /* Logo Placeholder - Circular */
-      .logo-placeholder {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.15);
-        border: 2px solid rgba(255,255,255,0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        cursor: pointer;
-        transition: var(--transition);
-        color: #fff;
-        font-weight: 600;
-        font-size: 0.75rem;
-        text-align: center;
-        line-height: 1.2;
-        padding: 4px;
-      }
-
-      .logo-placeholder:hover {
-        background: rgba(255,255,255,0.25);
-        border-color: var(--accent);
-        transform: scale(1.05);
-      }
-
-      .logo-placeholder img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      .logo-placeholder .placeholder-text {
-        font-size: 0.65rem;
-        letter-spacing: 0.5px;
-      }
-
-      /* Mobile Toggle */
-      .navbar-toggler {
-        border: none;
-        padding: 0.4rem;
-        margin-left: auto;
-      }
-      .navbar-toggler:focus { box-shadow: none; }
-      .navbar-toggler-icon {
-        filter: brightness(0) invert(1);
-      }
-
-      /* Mobile Layout */
-      @media (max-width: 991px) {
-        .navbar-center {
-          width: 100%;
-          order: 3;
-          margin-top: 1rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        .navbar-center .navbar-nav {
-          flex-direction: column;
-          align-items: center;
+
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+            position: relative;
         }
-        
-        .navbar-collapse {
-          background: linear-gradient(180deg, var(--primary-dark), var(--primary));
-          border-radius: 12px;
-          padding: 0.75rem;
+
+        /* Animated Background Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
         }
-        
-        .navbar-nav .nav-link {
-          padding: 0.6rem 1rem !important;
-          margin: 4px 0;
-          justify-content: center;
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 210, 255, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite;
         }
-        
-        .navbar .dropdown-menu {
-          background: rgba(255,255,255,0.1);
-          border: none;
-          box-shadow: none;
-          margin: 0;
-          padding-left: 1.5rem;
-          text-align: center;
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
-        
-        .navbar .dropdown-item {
-          color: rgba(255,255,255,0.9);
-          justify-content: center;
+
+        /* Main Container */
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 40px 60px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease-out;
         }
-        
-        .navbar .dropdown-item:hover {
-          background: rgba(255,255,255,0.15);
-          color: #fff;
-          padding-left: 1rem;
+
+        /* Logo Animation */
+        .logo-wrapper {
+            margin-bottom: 30px;
+            animation: logoFloat 3s ease-in-out infinite;
         }
-        
-        .logo-placeholder {
-          order: 2;
-          margin-left: 0.5rem;
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
-      }
 
-      /* ============ METRICS CARDS ============ */
-      .metrics-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 16px;
-        padding: 1.25rem;
-        text-align: center;
-        box-shadow: var(--shadow-sm);
-        transition: var(--transition);
-        height: 100%;
-      }
-
-      .metrics-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-lg);
-        border-color: var(--primary-light);
-      }
-
-      .metrics-card h3 {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-secondary);
-        margin-bottom: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-
-      .metrics-card p {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: var(--primary);
-        margin: 0;
-      }
-
-      .metrics-card[data-type="success"] p { color: var(--secondary); }
-      .metrics-card[data-type="warning"] p { color: var(--accent); }
-
-      /* ============ FOOTER ============ */
-      .footer-section {
-        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        color: rgba(255,255,255,0.9);
-        padding: 2rem 0 1.5rem;
-        margin-top: 3rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
-      }
-
-      .footer-section h3 {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: #fff;
-      }
-
-      .social-links a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.1);
-        margin-right: 8px;
-        transition: var(--transition);
-        border: 1px solid transparent;
-        color: #fff;
-        text-decoration: none;
-        font-size: 1.1rem;
-      }
-
-      .social-links a:hover {
-        background: rgba(255,255,255,0.2);
-        transform: translateY(-3px);
-        border-color: rgba(255,255,255,0.3);
-      }
-
-      .footer-section .copyright {
-        font-size: 0.9rem;
-        opacity: 0.85;
-        margin: 0;
-      }
-
-      .footer-section .btn-outline-light {
-        border-color: rgba(255,255,255,0.4);
-        color: #fff;
-        font-weight: 500;
-        padding: 0.5rem 1.5rem;
-        border-radius: 50px;
-        transition: var(--transition);
-      }
-
-      .footer-section .btn-outline-light:hover {
-        background: #fff;
-        color: var(--primary);
-        border-color: #fff;
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-      }
-
-      .footer-links {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .footer-links li { margin-bottom: 0.5rem; }
-
-      .footer-links a {
-        color: rgba(255,255,255,0.8);
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .footer-links a:hover {
-        color: #fff;
-        padding-left: 4px;
-      }
-
-      /* ============ UTILS ============ */
-      .section-title {
-        position: relative;
-        padding-bottom: 0.75rem;
-        margin-bottom: 1.5rem;
-        font-weight: 700;
-        color: var(--text-primary);
-      }
-
-      .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 4px;
-        background: var(--secondary);
-        border-radius: 2px;
-      }
-
-      .table th {
-        font-weight: 600;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-secondary);
-      }
-
-      .table-dark { background: var(--primary) !important; }
-      .table-secondary { background: var(--bg-card) !important; }
-
-      canvas {
-        background: var(--bg-card);
-        border-radius: 12px;
-        padding: 1rem;
-        border: 1px solid var(--border-color);
-      }
-
-      @media (max-width: 991px) {
-        .footer-section .row > div {
-          text-align: center !important;
-          margin-bottom: 1.5rem;
+        .logo-icon {
+            font-size: 4rem;
+            color: #00d2ff;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
         }
-        .footer-section .text-end { text-align: center !important; }
-        .social-links { justify-content: center; display: flex; }
-      }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(0, 210, 255, 0.5),
+                            0 0 40px rgba(0, 210, 255, 0.3),
+                            0 0 60px rgba(0, 210, 255, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(0, 210, 255, 0.8),
+                            0 0 60px rgba(0, 210, 255, 0.5),
+                            0 0 90px rgba(0, 210, 255, 0.3);
+            }
+        }
+
+        .logo-area h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5, #00d2ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s linear infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .logo-area p {
+            font-size: 1.1rem;
+            color: #a8c0ff;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .company-tag {
+            font-size: 0.85rem;
+            color: #6c7a89;
+            margin-top: 5px;
+        }
+
+        .company-tag span {
+            color: #00d2ff;
+            font-weight: 600;
+        }
+
+        /* Loading Bar */
+        .loader-container {
+            width: 350px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 30px auto;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5, #00d2ff);
+            background-size: 200% auto;
+            border-radius: 3px;
+            animation: loadProgress 3s ease-in-out forwards, gradientShift 2s linear infinite;
+            position: relative;
+        }
+
+        .loader-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            animation: shimmer 1s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(400%); }
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            30% { width: 40%; }
+            60% { width: 75%; }
+            100% { width: 100%; }
+        }
+
+        /* Loading Text with Dots */
+        .loading-text {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #a8c0ff;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .loading-text span {
+            animation: dots 1.5s infinite;
+        }
+
+        .loading-text span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-text span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dots {
+            0%, 20% { opacity: 0; }
+            50% { opacity: 1; }
+            80%, 100% { opacity: 0; }
+        }
+
+        /* Status Icons */
+        .status-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #00d2ff;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .status-icon.active {
+            opacity: 1;
+            background: rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Footer Info */
+        .footer-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            color: #6c7a89;
+        }
+
+        .footer-info p {
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 40px;
+                margin: 20px;
+            }
+            .logo-area h1 {
+                font-size: 2.5rem;
+            }
+            .loader-container {
+                width: 280px;
+            }
+        }
     </style>
-  </head>
-  
-  <body>
-    <!-- ============ HEADER ============ -->
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        
-        <!-- LEFT: Brand -->
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-building-check"></i>
-          <span>SchoolMS</span>
-        </a>
-        
-        <!-- TOGGLER (Mobile) -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <!-- CENTER: Nav Items -->
-        <div class="collapse navbar-collapse navbar-center" id="navbarContent">
-          <ul class="navbar-nav">
-            
-            <!-- Dashboard -->
-            <li class="nav-item">
-              <a class="nav-link active" href="admin_dashboard.html">
-                <i class="bi bi-speedometer2"></i> Dashboard
-              </a>
-            </li>
+</head>
+<body>
 
-            <!-- 👥 Students Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-people"></i> Students
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
-                <li><a class="dropdown-item" href="attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Student Profile</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
-              </ul>
-            </li>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
 
-            <!-- 💰 Finance Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-wallet2"></i> Finance
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="fees_module/fees_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
-                <li><a class="dropdown-item" href="exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Fee Reports</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
-              </ul>
-            </li>
-
-            <!-- 🏫 Institute Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-building"></i> Institute
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="library/library.html"><i class="bi bi-book"></i> Library</a></li>
-                <li><a class="dropdown-item" href="hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
-                <li><a class="dropdown-item" href="events/events.html"><i class="bi bi-calendar-event"></i> Events</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
-              </ul>
-            </li>
-
-            <!-- 👔 Staff -->
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                <i class="bi bi-briefcase"></i> Staff
-              </a>
-            </li>
-
-            <!-- ⚙️ Settings -->
-            <li class="nav-item">
-              <a class="nav-link" href="admin_panel/admin_panel.html">
-                <i class="bi bi-gear"></i> Settings
-              </a>
-            </li>
-
-          </ul>
+    <div class="container" id="mainContent">
+        <div class="logo-wrapper">
+            <div class="logo-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
         </div>
-        
-        <!-- RIGHT: Logo Placeholder -->
-        <div class="logo-placeholder" title="SquadVertex Logo">
-          <!-- Uncomment when logo is ready -->
-          <!-- <img src="path/to/squadvertex-logo.png" alt="SquadVertex"> -->
-          <span class="placeholder-text">SV<br>Logo</span>
+
+        <div class="logo-area">
+            <h1>SquadVertex</h1>
+            <p>School Management System</p>
+            <p class="company-tag">Powered by <span>Galaxy Designs</span></p>
         </div>
-        
-      </div>
-    </nav>
 
-    <!-- Main Container -->
-    <div class="container my-4">
-      <!-- Key Metrics -->
-      <h2 class="section-title">Key Metrics</h2>
-      <div class="row g-3">
-        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Total Students</h3><p>1,200</p></div></div>
-        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Teachers</h3><p>80</p></div></div>
-        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Staff</h3><p>50</p></div></div>
-        <div class="col-6 col-md-3"><div class="metrics-card" data-type="success"><h3>Attendance</h3><p>95%</p></div></div>
-      </div>
-      <div class="row g-3 mt-1">
-        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Boys</h3><p>700</p></div></div>
-        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Girls</h3><p>500</p></div></div>
-        <div class="col-6 col-md-3"><div class="metrics-card" data-type="success"><h3>Present</h3><p>1,100</p></div></div>
-        <div class="col-6 col-md-3"><div class="metrics-card" data-type="warning"><h3>Earnings</h3><p>$75K</p></div></div>
-      </div>
+        <div class="loader-container">
+            <div class="loader-bar" id="loaderBar"></div>
+        </div>
 
-      <!-- Reports -->
-      <h2 class="section-title mt-5">Reporting & Analytics</h2>
-      <div class="row g-4">
-        <div class="col-md-6"><canvas id="feesChart"></canvas></div>
-        <div class="col-md-6"><canvas id="attendanceChart"></canvas></div>
-      </div>
-      <div class="row g-4 mt-3">
-        <div class="col-md-6"><canvas id="genderChart"></canvas></div>
-        <div class="col-md-6"><canvas id="earningsChart"></canvas></div>
-      </div>
+        <p class="loading-text" id="statusText">
+            Initializing<span>.</span><span>.</span><span>.</span>
+        </p>
 
-      <!-- Summary Table -->
-      <h3 class="mt-5 mb-3 fw-semibold">Summary Reports</h3>
-      <div class="table-responsive rounded-3 overflow-hidden">
-        <table class="table table-bordered mb-0">
-          <thead class="table-dark"><tr><th>Module</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Admissions</td><td><span class="badge bg-success">Active</span></td></tr>
-            <tr><td>Staff</td><td><span class="badge bg-secondary">Locked</span></td></tr>
-            <tr><td>Attendance</td><td><span class="badge bg-success">Active</span></td></tr>
-            <tr><td>Exams</td><td><span class="badge bg-success">Active</span></td></tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="status-icons">
+            <div class="status-icon" id="icon1">
+                <i class="fas fa-server"></i>
+            </div>
+            <div class="status-icon" id="icon2">
+                <i class="fas fa-database"></i>
+            </div>
+            <div class="status-icon" id="icon3">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="status-icon" id="icon4">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
 
-      <!-- Transactions -->
-      <h3 class="mt-4 mb-3 fw-semibold">Recent Transactions</h3>
-      <div class="table-responsive rounded-3 overflow-hidden">
-        <table class="table table-striped mb-0">
-          <thead class="table-secondary"><tr><th>Date</th><th>Description</th><th class="text-end">Amount</th></tr></thead>
-          <tbody>
-            <tr><td>Mar 01</td><td>Tuition Fee</td><td class="text-end fw-semibold text-success">$5,000</td></tr>
-            <tr><td>Mar 05</td><td>Library Fee</td><td class="text-end fw-semibold text-success">$500</td></tr>
-            <tr><td>Mar 10</td><td>Exam Fee</td><td class="text-end fw-semibold text-success">$1,200</td></tr>
-            <tr><td>Mar 15</td><td>Transport Fee</td><td class="text-end fw-semibold text-success">$800</td></tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="footer-info">
+            <p>© 2024 SquadVertex. All Rights Reserved.</p>
+            <p>Founder & CEO: Prince Gahlot</p>
+        </div>
     </div>
 
-    <!-- ============ FOOTER ============ -->
-    <footer class="footer-section">
-      <div class="container">
-        <div class="row align-items-center g-4">
-          <!-- Social -->
-          <div class="col-lg-4 col-md-6">
-            <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
-            <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
-              <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
-              <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
-              <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
-            </div>
-          </div>
-          
-          <!-- Quick Links -->
-          <div class="col-lg-4 col-md-6">
-            <h3>Quick Links</h3>
-            <ul class="footer-links">
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Documentation</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
-            </ul>
-          </div>
-          
-          <!-- Copyright + Docs -->
-          <div class="col-lg-4 col-md-12 text-lg-end">
-            <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-light mb-3">
-              <i class="bi bi-book me-1"></i>View Docs
-            </a>
-            <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Charts - FIXED SYNTAX -->
     <script>
-      Chart.defaults.font.family = "'Inter', sans-serif";
-      Chart.defaults.color = '#64748b';
-      
-      // Fees Chart (Bar)
-      const feesCtx = document.getElementById("feesChart").getContext("2d");
-      new Chart(feesCtx, {
-        type: "bar",
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-          datasets: [{
-            label: "Fees Collected",
-            data: [15000, 17000, 14000, 16000, 18000],
-            backgroundColor: "rgba(30, 64, 175, 0.7)",
-            borderRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: { display: true, text: "Monthly Fees Collection", font: {size:14, weight:'600'} },
-            legend: { display: false }
-          },
-          scales: {
-            y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
-            x: { grid: { display: false } }
-          }
-        }
-      });
+        // Configuration
+        const REDIRECT_TIME = 3500;
+        const TARGET_PAGE = 'admin_dashboard.html';
 
-      // Attendance Chart (Pie)
-      const attendanceCtx = document.getElementById("attendanceChart").getContext("2d");
-      new Chart(attendanceCtx, {
-        type: "pie",
-        data: {
-          labels: ["Present", "Absent"],
-          datasets: [{
-            data: [1100, 100],
-            backgroundColor: ["#10b981", "#ef4444"],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: { display: true, text: "Overall Attendance", font: {size:14, weight:'600'} },
-            legend: { position: 'bottom' }
-          }
-        }
-      });
+        // Create Background Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
 
-      // Gender Chart (Doughnut)
-      const genderCtx = document.getElementById("genderChart").getContext("2d");
-      new Chart(genderCtx, {
-        type: "doughnut",
-        data: {
-          labels: ["Boys", "Girls"],
-          datasets: [{
-            data: [700, 500],
-            backgroundColor: ["#3b82f6", "#f59e0b"],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: { display: true, text: "Gender Ratio", font: {size:14, weight:'600'} },
-            legend: { position: 'bottom' }
-          },
-          cutout: '65%'
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                particlesContainer.appendChild(particle);
+            }
         }
-      });
 
-      // Earnings Chart (Line)
-      const earningsCtx = document.getElementById("earningsChart").getContext("2d");
-      new Chart(earningsCtx, {
-        type: "line",
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-          datasets: [{
-            label: "Earnings Trend",
-            data: [12000, 15000, 13000, 16000, 17000],
-            borderColor: "#1e40af",
-            backgroundColor: "rgba(30, 64, 175, 0.1)",
-            fill: true,
-            tension: 0.4,
-            pointBackgroundColor: "#fff",
-            pointBorderColor: "#1e40af",
-            pointBorderWidth: 2,
-            pointRadius: 4
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: { display: true, text: "Monthly Earnings Trend", font: {size:14, weight:'600'} },
-            legend: { display: false }
-          },
-          scales: {
-            y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
-            x: { grid: { display: false } }
-          }
-        }
-      });
+        // Initialize
+        window.onload = function() {
+            createParticles();
+
+            const statusText = document.getElementById('statusText');
+            const loaderBar = document.getElementById('loaderBar');
+            const mainContent = document.getElementById('mainContent');
+            const icons = [
+                document.getElementById('icon1'),
+                document.getElementById('icon2'),
+                document.getElementById('icon3'),
+                document.getElementById('icon4')
+            ];
+
+            const statusMessages = [
+                'Initializing System<span>.</span><span>.</span><span>.</span>',
+                'Connecting to Server<span>.</span><span>.</span><span>.</span>',
+                'Loading Database<span>.</span><span>.</span><span>.</span>',
+                'Verifying Security<span>.</span><span>.</span><span>.</span>',
+                'Ready<span>!</span>'
+            ];
+
+            // Activate icons sequentially
+            icons.forEach((icon, index) => {
+                setTimeout(() => {
+                    icon.classList.add('active');
+                }, (index + 1) * (REDIRECT_TIME / 5));
+            });
+
+            // Update status text
+            statusMessages.forEach((msg, index) => {
+                setTimeout(() => {
+                    statusText.innerHTML = msg;
+                }, (index + 1) * (REDIRECT_TIME / 5));
+            });
+
+            // Handle Redirect
+            setTimeout(() => {
+                mainContent.style.opacity = '0';
+                mainContent.style.transform = 'scale(0.9)';
+
+                setTimeout(() => {
+                    window.location.href = TARGET_PAGE;
+                }, 500);
+
+            }, REDIRECT_TIME);
+        };
     </script>
-  </body>
+</body>
 </html>
