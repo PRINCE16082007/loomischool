@@ -1,566 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SchoolMS - Admin Dashboard</title>
-  <!-- Bootstrap 5 CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
-  />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      background-color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
-    }
-    /* Modern Hamburger Styling */
-    .navbar-toggler {
-      border: none;
-      outline: none !important;
-      position: relative;
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      cursor: pointer;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SchoolMS - Admin Dashboard</title>
     
-    .navbar-toggler:focus {
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    .hamburger {
-      position: relative;
-      width: 24px;
-      height: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-    }    
-    .hamburger span {
-      display: block;
-      height: 2px;
-      width: 100%;
-      background: #fff;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-      transform-origin: center;
-    }
-    
-    .navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
-    }
-    
-    .navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
-    
-    .navbar-toggler[aria-expanded="false"] .hamburger span:nth-child(1) {
-      transform: none;
-    }
-    
-    .navbar-toggler[aria-expanded="false"] .hamburger span:nth-child(2) {
-      opacity: 1;
-    }
-    
-    .navbar-toggler[aria-expanded="false"] .hamburger span:nth-child(3) {
-      transform: none;
-    }
+    <style>
+      :root {
+        --primary: #1e40af;
+        --primary-dark: #1e3a8a;
+        --primary-light: #3b82f6;
+        --secondary: #10b981;
+        --accent: #f59e0b;
+        --bg-body: #f8fafc;
+        --bg-card: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --border-color: #e2e8f0;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        --transition: all 0.2s ease-in-out;
+      }
 
-    .navbar-brand {
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
-    
-    /* Dynamic Hover Effects for Nav Items */
-    .navbar-nav .nav-link {
-      position: relative;
-      padding: 8px 15px;
-      margin: 0 5px;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-    }
-    
-    .navbar-nav .nav-link:hover {      background-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-    }
-    
-    .navbar-nav .nav-link.active {
-      color: #fff;
-      background-color: #007bff;
-      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-    }
-    
-    /* Dynamic indicator effect */
-    .navbar-nav .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: #007bff;
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-    
-    .navbar-nav .nav-link:hover::after {
-      width: 80%;
-    }
-    
-    .navbar-nav .nav-link.active::after {
-      width: 100%;
-      background: #fff;
-      opacity: 0.8;
-    }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      
+      body {
+        background-color: var(--bg-body);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--text-primary);
+        line-height: 1.6;
+      }
 
-    /* Metrics Cards */
-    .metrics-card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      padding: 20px;
-      text-align: center;
-      background-color: #f8f9fa;
-      margin-bottom: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .metrics-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-        .metrics-card h3 {
-      margin-bottom: 10px;
-    }
-    .metrics-card p {
-      font-size: 1.2rem;
-      margin: 0;
-      font-weight: bold;
-    }
-    /* Reports Section */
-    .reports-section {
-      margin-top: 30px;
-    }
-    /* Summary Table */
-    #summary-report th,
-    #summary-report td {
-      vertical-align: middle;
-    }
-    /* Enhanced Button Styling */
-    .btn {
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-size: 0.875rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-    
-    .btn:active {
-      transform: translateY(0);
-    }
-    
-    .btn-outline-primary {
-      border-width: 2px;
-    }
-    
-    .btn-outline-primary:hover {
-      background-color: #007bff;
-      border-color: #007bff;
-      color: white;
-    }
-  </style>
-</head>
-<body><nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">SchoolMS</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarContent"
-      aria-controls="navbarContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="admin_dashboard.html">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="admission/admission.html">Admissions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-            Staff <span class="bi bi-lock"></span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="attendance/attendance.html">Attendance</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-            Classes <span class="bi bi-lock"></span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="fees_module/fees_module.html">Payment Module</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="exam_module/exam_module.html">Exam Module</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="library/library.html">Library</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">            Transport <span class="bi bi-lock"></span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="hostel/hostel.html">Hostel</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-            Communications <span class="bi bi-lock"></span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-            Inventory <span class="bi bi-lock"></span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="events/events.html">Events</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="admin_panel/admin_panel.html">Admin & Settings panel</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-            Reports <span class="bi bi-lock"></span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+      /* ============ NAVBAR STYLES ============ */
+      .navbar {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        box-shadow: var(--shadow-md);
+        padding: 0.5rem 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+      }
 
-<!-- Main Container -->
-<div class="container my-4">
-  <!-- Key Metrics Section -->
-  <h2 class="mb-4">Key Metrics</h2>
-  <div class="row">
-    <!-- Existing Cards -->
-    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Total Students</h3>
-        <p>1200</p>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Total Teachers</h3>
-        <p>80</p>
-      </div>
-    </div>    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Total Staff</h3>
-        <p>50</p>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Attendance Rate</h3>
-        <p>95%</p>
-      </div>
-    </div>
-  </div>
-  <!-- New Metrics Cards -->
-  <div class="row">
-    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Total Boys</h3>
-        <p>700</p>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Total Girls</h3>
-        <p>500</p>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Total Present</h3>
-        <p>1100</p>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="metrics-card">
-        <h3>Total Earnings</h3>
-        <p>$75,000</p>
-      </div>
-    </div>
-  </div>
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: #fff !important;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
 
-  <!-- Reports & Analytics Section -->
-  <div class="reports-section">
-    <h2 class="mt-5">Reporting & Analytics</h2>
-    <div class="row g-4">
-      <!-- Fees Chart (Bar) -->
-      <div class="col-md-6">
-        <canvas id="feesChart"></canvas>
+      .navbar-brand i { font-size: 1.4rem; }
+
+      /* Center Nav Items */
+      .navbar-center {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+      }
+
+      .navbar-center .navbar-nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2px;
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255,255,255,0.9) !important;
+        font-weight: 500;
+        padding: 0.5rem 0.75rem !important;
+        border-radius: 8px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+      }
+
+      .navbar-nav .nav-link:hover,
+      .navbar-nav .nav-link:focus {
+        color: #fff !important;
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-1px);
+      }
+
+      .navbar-nav .nav-link.active {
+        background: rgba(255,255,255,0.25);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        position: relative;
+      }
+
+      .navbar-nav .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .navbar-nav .nav-link.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Dropdown Styles */
+      .navbar .dropdown-menu {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        padding: 0.5rem;
+        margin-top: 8px;
+        min-width: 220px;
+        animation: slideDown 0.2s ease;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .navbar .dropdown-item {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+      }
+
+      .navbar .dropdown-item:hover {
+        background: rgba(30, 64, 175, 0.08);
+        color: var(--primary);
+        padding-left: 1.25rem;
+      }
+
+      .navbar .dropdown-item.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        color: var(--text-secondary);
+      }
+
+      .navbar .dropdown-item.disabled:hover {
+        background: transparent;
+        padding-left: 1rem;
+        color: var(--text-secondary);
+      }
+
+      .navbar .dropdown-divider {
+        margin: 0.4rem 0;
+        border-color: var(--border-color);
+      }
+
+      .dropdown-toggle::after {
+        margin-left: 4px;
+        font-size: 0.75rem;
+        vertical-align: middle;
+      }
+
+      /* Logo Placeholder - Circular */
+      .logo-placeholder {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        border: 2px solid rgba(255,255,255,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: var(--transition);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-align: center;
+        line-height: 1.2;
+        padding: 4px;
+      }
+
+      .logo-placeholder:hover {
+        background: rgba(255,255,255,0.25);
+        border-color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .logo-placeholder img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .logo-placeholder .placeholder-text {
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+      }
+
+      /* Mobile Toggle */
+      .navbar-toggler {
+        border: none;
+        padding: 0.4rem;
+        margin-left: auto;
+      }
+      .navbar-toggler:focus { box-shadow: none; }
+      .navbar-toggler-icon {
+        filter: brightness(0) invert(1);
+      }
+
+      /* Mobile Layout */
+      @media (max-width: 991px) {
+        .navbar-center {
+          width: 100%;
+          order: 3;
+          margin-top: 1rem;
+        }
+        
+        .navbar-center .navbar-nav {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .navbar-collapse {
+          background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+          border-radius: 12px;
+          padding: 0.75rem;
+        }
+        
+        .navbar-nav .nav-link {
+          padding: 0.6rem 1rem !important;
+          margin: 4px 0;
+          justify-content: center;
+        }
+        
+        .navbar .dropdown-menu {
+          background: rgba(255,255,255,0.1);
+          border: none;
+          box-shadow: none;
+          margin: 0;
+          padding-left: 1.5rem;
+          text-align: center;
+        }
+        
+        .navbar .dropdown-item {
+          color: rgba(255,255,255,0.9);
+          justify-content: center;
+        }
+        
+        .navbar .dropdown-item:hover {
+          background: rgba(255,255,255,0.15);
+          color: #fff;
+          padding-left: 1rem;
+        }
+        
+        .logo-placeholder {
+          order: 2;
+          margin-left: 0.5rem;
+        }
+      }
+
+      /* ============ METRICS CARDS ============ */
+      .metrics-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1.25rem;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        height: 100%;
+      }
+
+      .metrics-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-light);
+      }
+
+      .metrics-card h3 {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .metrics-card p {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 0;
+      }
+
+      .metrics-card[data-type="success"] p { color: var(--secondary); }
+      .metrics-card[data-type="warning"] p { color: var(--accent); }
+
+      /* ============ FOOTER ============ */
+      .footer-section {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        color: rgba(255,255,255,0.9);
+        padding: 2rem 0 1.5rem;
+        margin-top: 3rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .footer-section h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #fff;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.1);
+        margin-right: 8px;
+        transition: var(--transition);
+        border: 1px solid transparent;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.1rem;
+      }
+
+      .social-links a:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-3px);
+        border-color: rgba(255,255,255,0.3);
+      }
+
+      .footer-section .copyright {
+        font-size: 0.9rem;
+        opacity: 0.85;
+        margin: 0;
+      }
+
+      .footer-section .btn-outline-light {
+        border-color: rgba(255,255,255,0.4);
+        color: #fff;
+        font-weight: 500;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .footer-section .btn-outline-light:hover {
+        background: #fff;
+        color: var(--primary);
+        border-color: #fff;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li { margin-bottom: 0.5rem; }
+
+      .footer-links a {
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .footer-links a:hover {
+        color: #fff;
+        padding-left: 4px;
+      }
+
+      /* ============ UTILS ============ */
+      .section-title {
+        position: relative;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 4px;
+        background: var(--secondary);
+        border-radius: 2px;
+      }
+
+      .table th {
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-secondary);
+      }
+
+      .table-dark { background: var(--primary) !important; }
+      .table-secondary { background: var(--bg-card) !important; }
+
+      canvas {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+      }
+
+      @media (max-width: 991px) {
+        .footer-section .row > div {
+          text-align: center !important;
+          margin-bottom: 1.5rem;
+        }
+        .footer-section .text-end { text-align: center !important; }
+        .social-links { justify-content: center; display: flex; }
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- ============ HEADER ============ -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        
+        <!-- LEFT: Brand -->
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-building-check"></i>
+          <span>SchoolMS</span>
+        </a>
+        
+        <!-- TOGGLER (Mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- CENTER: Nav Items -->
+        <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+          <ul class="navbar-nav">
+            
+            <!-- Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link active" href="admin_dashboard.html">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </li>
+
+            <!-- 👥 Students Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-people"></i> Students
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+                <li><a class="dropdown-item" href="attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Student Profile</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+              </ul>
+            </li>
+
+            <!-- 💰 Finance Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-wallet2"></i> Finance
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="fees_module/fees_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+                <li><a class="dropdown-item" href="exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Fee Reports</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+              </ul>
+            </li>
+
+            <!-- 🏫 Institute Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-building"></i> Institute
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="library/library.html"><i class="bi bi-book"></i> Library</a></li>
+                <li><a class="dropdown-item" href="hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+                <li><a class="dropdown-item" href="events/events.html"><i class="bi bi-calendar-event"></i> Events</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+              </ul>
+            </li>
+
+            <!-- 👔 Staff -->
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                <i class="bi bi-briefcase"></i> Staff
+              </a>
+            </li>
+
+            <!-- ⚙️ Settings -->
+            <li class="nav-item">
+              <a class="nav-link" href="admin_panel/admin_panel.html">
+                <i class="bi bi-gear"></i> Settings
+              </a>
+            </li>
+
+          </ul>
+        </div>
+        
+        <!-- RIGHT: Logo Placeholder -->
+        <div class="logo-placeholder" title="SquadVertex Logo">
+          <!-- Uncomment when logo is ready -->
+          <!-- <img src="path/to/squadvertex-logo.png" alt="SquadVertex"> -->
+          <span class="placeholder-text">SV<br>Logo</span>
+        </div>
+        
       </div>
-      <!-- Attendance Chart (Pie) -->      <div class="col-md-6">
-        <canvas id="attendanceChart"></canvas>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container my-4">
+      <!-- Key Metrics -->
+      <h2 class="section-title">Key Metrics</h2>
+      <div class="row g-3">
+        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Total Students</h3><p>1,200</p></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Teachers</h3><p>80</p></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Staff</h3><p>50</p></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card" data-type="success"><h3>Attendance</h3><p>95%</p></div></div>
       </div>
-    </div>
-    <div class="row g-4 mt-4">
-      <!-- New Gender Ratio Chart (Doughnut) -->
-      <div class="col-md-6">
-        <canvas id="genderChart"></canvas>
+      <div class="row g-3 mt-1">
+        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Boys</h3><p>700</p></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card"><h3>Girls</h3><p>500</p></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card" data-type="success"><h3>Present</h3><p>1,100</p></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card" data-type="warning"><h3>Earnings</h3><p>$75K</p></div></div>
       </div>
-      <!-- New Earnings Trend Chart (Line) -->
-      <div class="col-md-6">
-        <canvas id="earningsChart"></canvas>
+
+      <!-- Reports -->
+      <h2 class="section-title mt-5">Reporting & Analytics</h2>
+      <div class="row g-4">
+        <div class="col-md-6"><canvas id="feesChart"></canvas></div>
+        <div class="col-md-6"><canvas id="attendanceChart"></canvas></div>
+      </div>
+      <div class="row g-4 mt-3">
+        <div class="col-md-6"><canvas id="genderChart"></canvas></div>
+        <div class="col-md-6"><canvas id="earningsChart"></canvas></div>
+      </div>
+
+      <!-- Summary Table -->
+      <h3 class="mt-5 mb-3 fw-semibold">Summary Reports</h3>
+      <div class="table-responsive rounded-3 overflow-hidden">
+        <table class="table table-bordered mb-0">
+          <thead class="table-dark"><tr><th>Module</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Admissions</td><td><span class="badge bg-success">Active</span></td></tr>
+            <tr><td>Staff</td><td><span class="badge bg-secondary">Locked</span></td></tr>
+            <tr><td>Attendance</td><td><span class="badge bg-success">Active</span></td></tr>
+            <tr><td>Exams</td><td><span class="badge bg-success">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Transactions -->
+      <h3 class="mt-4 mb-3 fw-semibold">Recent Transactions</h3>
+      <div class="table-responsive rounded-3 overflow-hidden">
+        <table class="table table-striped mb-0">
+          <thead class="table-secondary"><tr><th>Date</th><th>Description</th><th class="text-end">Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Mar 01</td><td>Tuition Fee</td><td class="text-end fw-semibold text-success">$5,000</td></tr>
+            <tr><td>Mar 05</td><td>Library Fee</td><td class="text-end fw-semibold text-success">$500</td></tr>
+            <tr><td>Mar 10</td><td>Exam Fee</td><td class="text-end fw-semibold text-success">$1,200</td></tr>
+            <tr><td>Mar 15</td><td>Transport Fee</td><td class="text-end fw-semibold text-success">$800</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <!-- Summary Reports Table -->
-    <h3 class="mt-5">Summary Reports</h3>
-    <div class="table-responsive">
-      <table class="table table-bordered" id="summary-report">
-        <thead class="table-dark">
-          <tr>
-            <th>Module</th>
-            <th>Data Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Admissions</td>
-            <td>Dummy Data</td>
-          </tr>
-          <tr>
-            <td>Staff</td>
-            <td>Dummy Data</td>
-          </tr>
-          <tr>
-            <td>Attendance</td>
-            <td>Dummy Data</td>
-          </tr>
-          <tr>
-            <td>Exams</td>
-            <td>Dummy Data</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Dummy Transactions Table for Earnings -->
-    <h3 class="mt-5">Recent Transactions</h3>
-    <div class="table-responsive">
-      <table class="table table-striped">        <thead class="table-secondary">
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2025-03-01</td>
-            <td>Tuition Fee</td>
-            <td>$5,000</td>
-          </tr>
-          <tr>
-            <td>2025-03-05</td>
-            <td>Library Fee</td>
-            <td>$500</td>
-          </tr>
-          <tr>
-            <td>2025-03-10</td>
-            <td>Exam Fee</td>
-            <td>$1,200</td>
-          </tr>
-          <tr>
-            <td>2025-03-15</td>
-            <td>Transport Fee</td>
-            <td>$800</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<footer class="footer-section" style="background-color: #f8f9fa; padding: 20px 0; border-top: 1px solid #ccc; margin-top: 40px;">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- Social Links -->
-      <div class="col-md-4">
-        <h3 style="margin-bottom: 15px;">Connect with Us</h3>
-        <div class="social-links">
-          <a href="https://www.instagram.com/squadvertex/?igsh=YzljYTk1ODg3Zg%3D%3D#" target="_blank" title="Instagram" style="margin-right: 10px;">
-            <img src="https://img.icons8.com/color/48/instagram-new.png" alt="Instagram" style="width:32px; height:32px;">
-          </a>
-          <a href="https://x.com/SquadVertex_?t=iw82z-AjSDlmZxTzNid9sw&s=09" target="_blank" title="Twitter" style="margin-right: 10px;">
-            <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter" style="width:32px; height:32px;">
-          </a>
-          <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord" style="margin-right: 10px;">
-            <img src="https://img.icons8.com/color/48/discord-logo.png" alt="Discord" style="width:32px; height:32px;">
-          </a>
-          <a href="https://youtube.com/@prince_squadvertex?si=djSrTHGczq73iFOi" target="_blank" title="YouTube">            <img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube" style="width:32px; height:32px;">
-          </a>
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer-section">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <!-- Social -->
+          <div class="col-lg-4 col-md-6">
+            <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
+            <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
+            <div class="social-links">
+              <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+              <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
+              <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+          
+          <!-- Quick Links -->
+          <div class="col-lg-4 col-md-6">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+            </ul>
+          </div>
+          
+          <!-- Copyright + Docs -->
+          <div class="col-lg-4 col-md-12 text-lg-end">
+            <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-light mb-3">
+              <i class="bi bi-book me-1"></i>View Docs
+            </a>
+            <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+          </div>
         </div>
       </div>
-      <!-- Copyright -->
-      <div class="col-md-4 text-center">
-        <p style="margin: 0;">&copy; 2025 SquadVertex. All rights reserved.</p>
-      </div>
-      <!-- Docs Redirect Button -->
-      <div class="col-md-4 text-end">
-        <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-primary" style="border-radius: 20px; padding: 6px 20px;">
-          Docs
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
-<!-- Bootstrap 5 JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  // Fees Chart: Dummy data for now.
-  const feesCtx = document.getElementById("feesChart").getContext("2d");
-  new Chart(feesCtx, {
-    type: "bar",
-     {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-      datasets: [
-        {
-          label: "Fees Collected",
-           [15000, 17000, 14000, 16000, 18000],
-          backgroundColor: "rgba(54, 162, 235, 0.6)",
-        },
-      ],
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: "Monthly Fees Collection",
-        },
-      },
-      scales: {
-        y: { beginAtZero: true },
-      },
-    },
-  });
+    </footer>
 
-  // Attendance Chart: Dummy data.
-  const attendanceCtx = document.getElementById("attendanceChart").getContext("2d");
-  new Chart(attendanceCtx, {    type: "pie",
-     {
-      labels: ["Present", "Absent"],
-      datasets: [
-        {
-          data: [1100, 100],
-          backgroundColor: [
-            "rgba(75, 192, 192, 0.6)",
-            "rgba(255, 99, 132, 0.6)",
-          ],
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Charts - FIXED SYNTAX -->
+    <script>
+      Chart.defaults.font.family = "'Inter', sans-serif";
+      Chart.defaults.color = '#64748b';
+      
+      // Fees Chart (Bar)
+      const feesCtx = document.getElementById("feesChart").getContext("2d");
+      new Chart(feesCtx, {
+        type: "bar",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+          datasets: [{
+            label: "Fees Collected",
+            data: [15000, 17000, 14000, 16000, 18000],
+            backgroundColor: "rgba(30, 64, 175, 0.7)",
+            borderRadius: 6
+          }]
         },
-      ],
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: "Overall Attendance",
-        },
-      },
-    },
-  });
+        options: {
+          responsive: true,
+          plugins: {
+            title: { display: true, text: "Monthly Fees Collection", font: {size:14, weight:'600'} },
+            legend: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
 
-  // Gender Ratio Chart: Doughnut chart with dummy data.
-  const genderCtx = document.getElementById("genderChart").getContext("2d");
-  new Chart(genderCtx, {
-    type: "doughnut",
-     {
-      labels: ["Boys", "Girls"],
-      datasets: [
-        {
-           [700, 500],
-          backgroundColor: ["rgba(54, 162, 235, 0.6)", "rgba(255, 159, 64, 0.6)"],
+      // Attendance Chart (Pie)
+      const attendanceCtx = document.getElementById("attendanceChart").getContext("2d");
+      new Chart(attendanceCtx, {
+        type: "pie",
+        data: {
+          labels: ["Present", "Absent"],
+          datasets: [{
+            data: [1100, 100],
+            backgroundColor: ["#10b981", "#ef4444"],
+            borderWidth: 0
+          }]
         },
-      ],
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: "Gender Ratio",
-        },
-      },
-    },
-  });
+        options: {
+          responsive: true,
+          plugins: {
+            title: { display: true, text: "Overall Attendance", font: {size:14, weight:'600'} },
+            legend: { position: 'bottom' }
+          }
+        }
+      });
 
-  // Earnings Trend Chart: Line chart with dummy data.
-  const earningsCtx = document.getElementById("earningsChart").getContext("2d");
-  new Chart(earningsCtx, {
-    type: "line",    data: {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-      datasets: [
-        {
-          label: "Earnings Trend",
-          data: [12000, 15000, 13000, 16000, 17000],
-          backgroundColor: "rgba(153, 102, 255, 0.4)",
-          borderColor: "rgba(153, 102, 255, 1)",
-          fill: true,
+      // Gender Chart (Doughnut)
+      const genderCtx = document.getElementById("genderChart").getContext("2d");
+      new Chart(genderCtx, {
+        type: "doughnut",
+        data: {
+          labels: ["Boys", "Girls"],
+          datasets: [{
+            data: [700, 500],
+            backgroundColor: ["#3b82f6", "#f59e0b"],
+            borderWidth: 0
+          }]
         },
-      ],
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: "Monthly Earnings Trend",
+        options: {
+          responsive: true,
+          plugins: {
+            title: { display: true, text: "Gender Ratio", font: {size:14, weight:'600'} },
+            legend: { position: 'bottom' }
+          },
+          cutout: '65%'
+        }
+      });
+
+      // Earnings Chart (Line)
+      const earningsCtx = document.getElementById("earningsChart").getContext("2d");
+      new Chart(earningsCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+          datasets: [{
+            label: "Earnings Trend",
+            data: [12000, 15000, 13000, 16000, 17000],
+            borderColor: "#1e40af",
+            backgroundColor: "rgba(30, 64, 175, 0.1)",
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: "#fff",
+            pointBorderColor: "#1e40af",
+            pointBorderWidth: 2,
+            pointRadius: 4
+          }]
         },
-      },
-      scales: {
-        y: { beginAtZero: true },
-      },
-    },
-  });
-</script>
-</body>
+        options: {
+          responsive: true,
+          plugins: {
+            title: { display: true, text: "Monthly Earnings Trend", font: {size:14, weight:'600'} },
+            legend: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
