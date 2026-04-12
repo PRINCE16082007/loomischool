@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fee Management - SchoolMS</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    
+    <style>
+      :root {
+        --primary: #1e40af;
+        --primary-dark: #1e3a8a;
+        --primary-light: #3b82f6;
+        --secondary: #10b981;
+        --accent: #f59e0b;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        --bg-body: #f8fafc;
+        --bg-card: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --border-color: #e2e8f0;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        --transition: all 0.2s ease-in-out;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      
+      body {
+        background-color: var(--bg-body);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* ============ NAVBAR (Same as Dashboard) ============ */
+      .navbar {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        box-shadow: var(--shadow-md);
+        padding: 0.5rem 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: #fff !important;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      .navbar-brand i { font-size: 1.4rem; }
+
+      .navbar-center {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+      }
+
+      .navbar-center .navbar-nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2px;
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255,255,255,0.9) !important;
+        font-weight: 500;
+        padding: 0.5rem 0.75rem !important;
+        border-radius: 8px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+      }
+
+      .navbar-nav .nav-link:hover,
+      .navbar-nav .nav-link:focus {
+        color: #fff !important;
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-1px);
+      }
+
+      .navbar-nav .nav-link.active {
+        background: rgba(255,255,255,0.25);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        position: relative;
+      }
+
+      .navbar-nav .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
+
+      .navbar .dropdown-menu {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        padding: 0.5rem;
+        margin-top: 8px;
+        min-width: 220px;
+        animation: slideDown 0.2s ease;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .navbar .dropdown-item {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+      }
+
+      .navbar .dropdown-item:hover {
+        background: rgba(30, 64, 175, 0.08);
+        color: var(--primary);
+        padding-left: 1.25rem;
+      }
+
+      .navbar .dropdown-item.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        color: var(--text-secondary);
+      }
+
+      .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
+      .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
+
+      .logo-placeholder {
+        width: 42px; height: 42px; border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        border: 2px solid rgba(255,255,255,0.3);
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; cursor: pointer; transition: var(--transition);
+        color: #fff; font-weight: 600; font-size: 0.75rem;
+        text-align: center; line-height: 1.2; padding: 4px;
+      }
+
+      .logo-placeholder:hover {
+        background: rgba(255,255,255,0.25);
+        border-color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .logo-placeholder img {
+        width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+      }
+
+      .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
+
+      .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
+      .navbar-toggler:focus { box-shadow: none; }
+      .navbar-toggler-icon { filter: brightness(0) invert(1); }
+
+      @media (max-width: 991px) {
+        .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
+        .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
+        .navbar-collapse {
+          background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+          border-radius: 12px; padding: 0.75rem;
+        }
+        .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
+        .navbar .dropdown-menu {
+          background: rgba(255,255,255,0.1); border: none; box-shadow: none;
+          margin: 0; padding-left: 1.5rem; text-align: center;
+        }
+        .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
+        .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
+        .logo-placeholder { order: 2; margin-left: 0.5rem; }
+      }
+
+      /* ============ PAGE CONTENT STYLES ============ */
+      .page-header {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin: 1.5rem 0 1rem;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .page-header h3 {
+        margin: 0;
+        font-weight: 700;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .page-header h3 i { font-size: 1.4rem; }
+
+      .page-breadcrumb {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .page-breadcrumb a { color: var(--primary); text-decoration: none; }
+
+      /* Filter Bar */
+      .filter-bar {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .filter-bar .form-control,
+      .filter-bar .form-select {
+        border-radius: 10px;
+        border-color: var(--border-color);
+        padding: 0.5rem 0.85rem;
+        font-size: 0.9rem;
+      }
+
+      .filter-bar .form-control:focus,
+      .filter-bar .form-select:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+
+      .filter-bar .form-control::placeholder { color: var(--text-secondary); }
+
+      /* Table Styles */
+      .table-container {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 1rem;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+      }
+
+      .table thead th {
+        background: var(--primary);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        padding: 0.85rem 1rem;
+      }
+
+      .table tbody td {
+        padding: 0.85rem 1rem;
+        vertical-align: middle;
+        border-color: var(--border-color);
+        font-size: 0.95rem;
+      }
+
+      .table tbody tr:hover {
+        background: rgba(30, 64, 175, 0.03);
+      }
+
+      .vehicle-eligible-icon {
+        font-size: 1.1rem;
+        margin-left: 6px;
+        vertical-align: middle;
+        cursor: help;
+      }
+
+      /* Action Buttons */
+      .btn-action {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border-radius: 8px;
+        margin: 2px;
+        transition: var(--transition);
+      }
+
+      .btn-action.btn-primary {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .btn-action.btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+      }
+
+      .btn-action.btn-info {
+        background: var(--bg-body);
+        color: var(--primary);
+        border: 1px solid var(--primary-light);
+      }
+
+      .btn-action.btn-info:hover {
+        background: var(--primary);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      .btn-action.btn-warning {
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+      }
+
+      .btn-action.btn-warning:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      .btn-action.btn-success {
+        background: rgba(16, 185, 129, 0.15);
+        color: var(--secondary);
+        border: 1px solid var(--secondary);
+      }
+
+      .btn-action.btn-success:hover {
+        background: var(--secondary);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      /* ============ MODAL STYLES ============ */
+      .modal-content {
+        border: none;
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .modal-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        border-radius: 16px 16px 0 0;
+        padding: 1rem 1.5rem;
+        border: none;
+      }
+
+      .modal-header .modal-title {
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .modal-header .btn-close {
+        filter: brightness(0) invert(1);
+      }
+
+      .modal-body {
+        padding: 1.25rem 1.5rem;
+      }
+
+      .modal-footer {
+        border-top: 1px solid var(--border-color);
+        padding: 1rem 1.5rem;
+        background: var(--bg-body);
+        border-radius: 0 0 16px 16px;
+      }
+
+      .modal .form-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        margin-bottom: 0.4rem;
+      }
+
+      .modal .form-control,
+      .modal .form-select {
+        border-radius: 10px;
+        border-color: var(--border-color);
+        padding: 0.5rem 0.85rem;
+        font-size: 0.95rem;
+      }
+
+      .modal .form-control:focus,
+      .modal .form-select:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+
+      .modal .form-text {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+      }
+
+      .modal .alert {
+        border-radius: 10px;
+        font-size: 0.9rem;
+        padding: 0.75rem 1rem;
+      }
+
+      .modal .alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: var(--danger);
+      }
+
+      /* Vehicle Fee Modal Specific */
+      .vehicle-section {
+        background: rgba(30, 64, 175, 0.04);
+        border-radius: 12px;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-left: 4px solid var(--primary);
+      }
+
+      .month-checkboxes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      @media (max-width: 576px) {
+        .month-checkboxes { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      .month-checkboxes .form-check {
+        margin: 0;
+      }
+
+      .month-checkboxes .form-check-label {
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+
+      /* Details Modal - Info Cards */
+      .info-card {
+        background: var(--bg-body);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+      }
+
+      .info-card h6 {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .info-card p {
+        margin: 0.25rem 0;
+        font-size: 0.95rem;
+      }
+
+      .info-card p strong {
+        color: var(--text-primary);
+        min-width: 140px;
+        display: inline-block;
+      }
+
+      .fee-summary {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      .fee-item {
+        background: var(--bg-card);
+        padding: 0.75rem;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+      }
+
+      .fee-item .label {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+      }
+
+      .fee-item .value {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .fee-item .value.pending { color: var(--danger); }
+      .fee-item .value.paid { color: var(--secondary); }
+
+      .transaction-table th {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        background: var(--bg-body);
+      }
+
+      .transaction-table td {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.75rem;
+      }
+
+      /* Empty State */
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--text-secondary);
+      }
+
+      .empty-state i {
+        font-size: 3rem;
+        color: var(--border-color);
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      /* ============ FOOTER (Same as Dashboard) ============ */
+      .footer-section {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        color: rgba(255,255,255,0.9);
+        padding: 2rem 0 1.5rem;
+        margin-top: 3rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .footer-section h3 {
+        font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff;
+      }
+
+      .social-links a {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 40px; height: 40px; border-radius: 10px;
+        background: rgba(255,255,255,0.1); margin-right: 8px;
+        transition: var(--transition); border: 1px solid transparent;
+        color: #fff; text-decoration: none; font-size: 1.1rem;
+      }
+
+      .social-links a:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-3px);
+        border-color: rgba(255,255,255,0.3);
+      }
+
+      .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
+
+      .footer-section .btn-outline-light {
+        border-color: rgba(255,255,255,0.4); color: #fff;
+        font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .footer-section .btn-outline-light:hover {
+        background: #fff; color: var(--primary); border-color: #fff;
+        transform: translateY(-2px); box-shadow: var(--shadow-md);
+      }
+
+      .footer-links { list-style: none; padding: 0; margin: 0; }
+      .footer-links li { margin-bottom: 0.5rem; }
+      .footer-links a {
+        color: rgba(255,255,255,0.8); text-decoration: none;
+        font-size: 0.9rem; transition: var(--transition);
+        display: flex; align-items: center; gap: 6px;
+      }
+      .footer-links a:hover { color: #fff; padding-left: 4px; }
+
+      @media (max-width: 991px) {
+        .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
+        .footer-section .text-end { text-align: center !important; }
+        .social-links { justify-content: center; display: flex; }
+        .page-header { flex-direction: column; text-align: center; }
+        .filter-bar { flex-direction: column; align-items: stretch; }
+        .filter-bar .col-md-3 { width: 100%; }
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- ============ HEADER (Same as Dashboard) ============ -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        
+        <!-- LEFT: Brand -->
+        <a class="navbar-brand" href="../admin_dashboard.html">
+          <i class="bi bi-building-check"></i>
+          <span>SchoolMS</span>
+        </a>
+        
+        <!-- TOGGLER -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- CENTER: Nav Items -->
+        <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+          <ul class="navbar-nav">
+            
+            <li class="nav-item">
+              <a class="nav-link" href="../admin_dashboard.html">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </li>
+
+            <!-- 👥 Students -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-people"></i> Students
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+                <li><a class="dropdown-item" href="../attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+              </ul>
+            </li>
+
+            <!-- 💰 Finance (Active) -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-wallet2"></i> Finance
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item active" href="fees_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+                <li><a class="dropdown-item" href="../exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Fee Reports</a></li>
+              </ul>
+            </li>
+
+            <!-- 🏫 Institute -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-building"></i> Institute
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../library/library.html"><i class="bi bi-book"></i> Library</a></li>
+                <li><a class="dropdown-item" href="../hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+                <li><a class="dropdown-item" href="../events/events.html"><i class="bi bi-calendar-event"></i> Events</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                <i class="bi bi-briefcase"></i> Staff
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="../admin_panel/admin_panel.html">
+                <i class="bi bi-gear"></i> Settings
+              </a>
+            </li>
+
+          </ul>
+        </div>
+        
+        <!-- RIGHT: Logo Placeholder -->
+        <div class="logo-placeholder" title="SquadVertex Logo">
+          <span class="placeholder-text">SV<br>Logo</span>
+        </div>
+        
+      </div>
+    </nav>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <div class="container" style="max-width: 1400px;">
+      
+      <!-- Page Header -->
+      <div class="page-header">
+        <h3><i class="bi bi-currency-dollar"></i> Fee Management</h3>
+        <nav class="page-breadcrumb">
+          <a href="../admin_dashboard.html">Dashboard</a>
+          <span class="mx-2">/</span>
+          <a href="fees_module.html">Finance</a>
+          <span class="mx-2">/</span>
+          <span class="text-primary">Payments</span>
+        </nav>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="col-md-4 col-12">
+          <input type="text" id="student-search" class="form-control" placeholder="🔍 Search by Name or SR Number">
+        </div>
+        <div class="col-md-3 col-6">
+          <select id="class-filter" class="form-select">
+            <option value="">All Classes</option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-6">
+          <select id="stream-filter" class="form-select">
+            <option value="">All Streams</option>
+            <option value="Science">Science</option>
+            <option value="Commerce">Commerce</option>
+            <option value="Arts">Arts</option>
+            <option value="Agriculture">Agriculture</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-12 text-end">
+          <button class="btn btn-outline-primary btn-sm" onclick="loadStudents()">
+            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Students Table -->
+      <div class="table-container">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0" id="students-table">
+            <thead>
+              <tr>
+                <th>SR Number</th>
+                <th>Student Name</th>
+                <th>Father's Name</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="students-tbody">
+              <!-- Dynamic rows loaded via JS -->
+              <tr>
+                <td colspan="4" class="text-center py-5">
+                  <div class="empty-state">
+                    <i class="bi bi-hourglass-split"></i>
+                    <p>Loading students...</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="row g-3 mt-3">
+        <div class="col-6 col-md-3">
+          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--primary);" id="stat-total">-</div>
+            <div style="font-size:0.8rem;color:var(--text-secondary);">Total Students</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--secondary);" id="stat-collected">-</div>
+            <div style="font-size:0.8rem;color:var(--text-secondary);">Fees Collected</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--accent);" id="stat-pending">-</div>
+            <div style="font-size:0.8rem;color:var(--text-secondary);">Pending</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--danger);" id="stat-vehicles">-</div>
+            <div style="font-size:0.8rem;color:var(--text-secondary);">Vehicle Users</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ MODALS ============ -->
+
+    <!-- Add Payment Modal -->
+    <div class="modal fade" id="addPaymentModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form id="payment-form">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="bi bi-plus-circle"></i> Add Payment</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="payment-student-id">
+              
+              <div class="mb-3">
+                <label for="payment-amount" class="form-label">Amount Paid (₹)</label>
+                <input type="number" class="form-control" id="payment-amount" required min="0" step="0.01" placeholder="Enter amount">
+              </div>
+              
+              <div class="mb-3">
+                <label for="payment-type" class="form-label">Payment For</label>
+                <select class="form-select" id="payment-type">
+                  <option value="school fee" selected>School Fee</option>
+                  <option value="vehicle fee">Vehicle Fee</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="payment-mode" class="form-label">Payment Mode</label>
+                <select class="form-select" id="payment-mode">
+                  <option value="Cash">Cash</option>
+                  <option value="UPI">UPI</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Cheque">Cheque</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="transaction-id" class="form-label">Transaction ID <small class="text-muted">(optional)</small></label>
+                <input type="text" class="form-control" id="transaction-id" placeholder="UPI ref / Cheque no.">
+              </div>
+              
+              <div class="mb-3">
+                <label for="payment-remarks" class="form-label">Remarks</label>
+                <textarea class="form-control" id="payment-remarks" rows="2" placeholder="Any notes..."></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save Payment</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Give Discount Modal -->
+    <div class="modal fade" id="giveDiscountModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form id="discount-form">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="bi bi-tag"></i> Apply Discount</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-danger">
+                <i class="bi bi-shield-lock me-2"></i>
+                <strong>Admin Only:</strong> This action requires admin password.
+              </div>
+              
+              <input type="hidden" id="discount-student-id">
+              
+              <div class="mb-3">
+                <label for="discount-amount" class="form-label">Discount Amount (₹)</label>
+                <input type="number" class="form-control" id="discount-amount" required min="0" step="0.01">
+              </div>
+              
+              <div class="mb-3">
+                <label for="admin-password" class="form-label">Admin Password</label>
+                <input type="password" class="form-control" id="admin-password" required placeholder="Enter master password">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-warning"><i class="bi bi-check-lg me-1"></i>Apply Discount</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Details Modal -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="bi bi-person-lines-fill"></i> Student Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <!-- Basic Info Card -->
+            <div class="info-card">
+              <h6><i class="bi bi-person-badge"></i> Basic Information</h6>
+              <p><strong>SR Number:</strong> <span id="detail-sr">-</span></p>
+              <p><strong>Student Name:</strong> <span id="detail-name">-</span></p>
+              <p><strong>Father's Name:</strong> <span id="detail-father">-</span></p>
+              <p><strong>Class:</strong> <span id="detail-class">-</span> | <strong>Stream:</strong> <span id="detail-stream">-</span></p>
+            </div>
+
+            <!-- Fee Summary Cards -->
+            <div class="info-card">
+              <h6><i class="bi bi-calculator"></i> Fee Summary</h6>
+              <div class="fee-summary">
+                <div class="fee-item">
+                  <div class="label">Base School Fee</div>
+                  <div class="value" id="detail-base-fee">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">Discount Applied</div>
+                  <div class="value" id="detail-discount">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">Final School Fee</div>
+                  <div class="value" id="detail-final-school">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">Vehicle Fee</div>
+                  <div class="value" id="detail-vehicle-fee">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">Total Fee</div>
+                  <div class="value" id="detail-total-fee">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">School Paid</div>
+                  <div class="value paid" id="detail-school-paid">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">Vehicle Paid</div>
+                  <div class="value paid" id="detail-vehicle-paid">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">School Pending</div>
+                  <div class="value pending" id="detail-school-pending">₹0</div>
+                </div>
+                <div class="fee-item">
+                  <div class="label">Vehicle Pending</div>
+                  <div class="value pending" id="detail-vehicle-pending">₹0</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Universal Fee Chart -->
+            <div class="info-card">
+              <h6><i class="bi bi-card-list"></i> Universal Fee Chart</h6>
+              <p>For <strong>Class <span id="ufc-class">-</span> - <span id="ufc-stream">-</span></strong>:</p>
+              <ul class="mb-0">
+                <li><strong>Base Fee:</strong> ₹<span id="ufc-fee">0</span></li>
+                <li><strong>Vehicle Rent:</strong> <span id="ufc-vehicle-fee">N/A</span></li>
+                <li><strong>Discount:</strong> ₹<span id="ufc-discount">0</span></li>
+              </ul>
+            </div>
+
+            <!-- Transaction History -->
+            <h6 class="mt-4 mb-3"><i class="bi bi-clock-history"></i> Transaction History</h6>
+            <div class="table-responsive">
+              <table class="table table-sm transaction-table mb-0">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Mode</th>
+                    <th>Txn ID</th>
+                    <th>Type</th>
+                  </tr>
+                </thead>
+                <tbody id="student-transactions">
+                  <tr><td colspan="5" class="text-center text-muted py-3">No transactions yet</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle Fee Modal -->
+    <div class="modal fade" id="vehicleFeeModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <form id="vehicle-fee-form">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="bi bi-truck"></i> Vehicle Fee Management</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              
+              <input type="hidden" id="vehicle-student-id">
+              
+              <!-- Eligibility Checkbox -->
+              <div class="form-check form-switch mb-3">
+                <input type="checkbox" class="form-check-input" id="vehicle-eligible-checkbox" role="switch">
+                <label class="form-check-label" for="vehicle-eligible-checkbox">
+                  <strong>🚗 Eligible for Vehicle Fee</strong>
+                </label>
+              </div>
+
+              <!-- Vehicle Details Section (Conditional) -->
+              <div id="vehicle-details-section" class="vehicle-section" style="display:none;">
+                
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="vehicle-select" class="form-label">Select Vehicle</label>
+                    <select class="form-select" id="vehicle-select">
+                      <option value="">Select Vehicle</option>
+                      <!-- Populated dynamically -->
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="vehicle-location" class="form-label">Select Location</label>
+                    <select class="form-select" id="vehicle-location">
+                      <option value="">Select Location</option>
+                      <!-- Populated dynamically -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Rent Amount (per month)</label>
+                  <input type="text" class="form-control" id="vehicle-rent" readonly placeholder="Select vehicle & location">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Fee Calculation Option</label>
+                  <div class="d-flex gap-3">
+                    <div class="form-check">
+                      <input type="radio" name="vehicle-fee-option" id="fee-option-fixed" value="fixed" class="form-check-input" checked>
+                      <label class="form-check-label" for="fee-option-fixed">Fixed Amount</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="radio" name="vehicle-fee-option" id="fee-option-months" value="months" class="form-check-input">
+                      <label class="form-check-label" for="fee-option-months">By Months</label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Fixed Amount Section -->
+                <div class="mb-3" id="fixed-amount-section">
+                  <label for="vehicle-fixed-amount" class="form-label">Fixed Amount (₹)</label>
+                  <input type="number" class="form-control" id="vehicle-fixed-amount" placeholder="Enter custom fixed amount" min="0" step="0.01">
+                </div>
+
+                <!-- Months Checkboxes Section -->
+                <div class="mb-3" id="months-checkboxes" style="display:none;">
+                  <label class="form-label">Select Months</label>
+                  <div class="month-checkboxes">
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="January" id="month-January"><label class="form-check-label" for="month-January">January</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="February" id="month-February"><label class="form-check-label" for="month-February">February</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="March" id="month-March"><label class="form-check-label" for="month-March">March</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="April" id="month-April"><label class="form-check-label" for="month-April">April</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="May" id="month-May"><label class="form-check-label" for="month-May">May</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="June" id="month-June"><label class="form-check-label" for="month-June">June</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="July" id="month-July"><label class="form-check-label" for="month-July">July</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="August" id="month-August"><label class="form-check-label" for="month-August">August</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="September" id="month-September"><label class="form-check-label" for="month-September">September</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="October" id="month-October"><label class="form-check-label" for="month-October">October</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="November" id="month-November"><label class="form-check-label" for="month-November">November</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="December" id="month-December"><label class="form-check-label" for="month-December">December</label></div>
+                  </div>
+                </div>
+
+                <div class="mb-0">
+                  <label class="form-label">Last Updated</label>
+                  <input type="text" class="form-control" id="vehicle-last-update" readonly placeholder="Not set">
+                </div>
+
+              </div>
+
+              <!-- Instructions -->
+              <div class="mt-3 p-3 rounded-3" style="background:var(--bg-body);font-size:0.9rem;color:var(--text-secondary);">
+                <i class="bi bi-info-circle me-2"></i>
+                <strong>Tip:</strong> If eligible, select vehicle & location to auto-fill rent. Choose fixed amount or calculate by selected months (rent × months).
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-success"><i class="bi bi-check-lg me-1"></i>Save Vehicle Fee</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ FOOTER (Same as Dashboard) ============ -->
+    <footer class="footer-section">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <!-- Social -->
+          <div class="col-lg-4 col-md-6">
+            <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
+            <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
+            <div class="social-links">
+              <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+              <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
+              <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+          
+          <!-- Quick Links -->
+          <div class="col-lg-4 col-md-6">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+            </ul>
+          </div>
+          
+          <!-- Copyright + Docs -->
+          <div class="col-lg-4 col-md-12 text-lg-end">
+            <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-light mb-3">
+              <i class="bi bi-book me-1"></i>View Docs
+            </a>
+            <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase (Compat for existing logic) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
+    <!-- jQuery (for modal compatibility with existing code) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBV7Jg0BVzeCNQW9oiIiNItnejUsjj2DhA",
+        authDomain: "squadvertex2007.firebaseapp.com",
+        projectId: "squadvertex2007",
+        storageBucket: "squadvertex2007.appspot.com",
+        messagingSenderId: "168905083514",
+        appId: "1:168905083514:web:c8bbe2ce9f87800a0f09c3"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      let systemSettings = {};
+
+      // Load system settings
+      function loadSystemSettings() {
+        return db.collection("001-school").doc("systemSettings").get()
+          .then(doc => {
+            if (doc.exists) {
+              systemSettings = doc.data();
+              // Populate vehicle dropdown
+              if(systemSettings.vehicleFeesChart && Array.isArray(systemSettings.vehicleFeesChart)) {
+                const vehicleSelect = document.getElementById("vehicle-select");
+                vehicleSelect.innerHTML = '<option value="">Select Vehicle</option>';
+                const uniqueVehicles = {};
+                systemSettings.vehicleFeesChart.forEach(item => {
+                  uniqueVehicles[item.vehicleName.trim()] = item;
+                });
+                for (const vehicle in uniqueVehicles) {
+                  const option = document.createElement("option");
+                  option.value = vehicle;
+                  option.textContent = vehicle;
+                  vehicleSelect.appendChild(option);
+                }
+              }
+              return true;
+            } else {
+              console.error("System settings not found!");
+              return false;
+            }
+          })
+          .catch(err => {
+            console.error("Error loading system settings:", err);
+            return false;
+          });
+      }
+
+      // Load all vehicle fee records
+      function loadAllVehicleRecords() {
+        return db.collection("001-school").doc("vehicleTransactions").collection("records").get()
+          .then(snapshot => {
+            const vehicleMap = {};
+            snapshot.forEach(doc => {
+              vehicleMap[doc.id] = doc.data();
+            });
+            return vehicleMap;
+          })
+          .catch(err => {
+            console.error("Error loading vehicle records:", err);
+            return {};
+          });
+      }
+
+      // Load students and populate table
+      function loadStudents() {
+        const tbody = document.getElementById("students-tbody");
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div><p class="mb-0 mt-2">Loading students...</p></td></tr>`;
+        
+        loadAllVehicleRecords().then(vehicleMap => {
+          db.collection("001-school").doc("students").collection("list").get()
+            .then(querySnapshot => {
+              tbody.innerHTML = "";
+              let totalStudents = 0;
+              let vehicleCount = 0;
+              
+              if (querySnapshot.empty) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-5 text-muted">No students found</td></tr>`;
+                updateStats(0, 0, 0, 0);
+                return;
+              }
+              
+              querySnapshot.forEach(doc => {
+                const student = doc.data();
+                const studentId = doc.id;
+                const srNumber = student.srNumber || "N/A";
+                const name = student.studentName || "Unknown";
+                const fatherName = student.fatherName || "-";
+                
+                totalStudents++;
+                
+                // Check vehicle eligibility
+                let vehicleIcon = "";
+                if (vehicleMap[studentId] && vehicleMap[studentId].eligible === "Yes") {
+                  vehicleIcon = ' <span class="vehicle-eligible-icon text-warning" title="Vehicle Eligible">🚗</span>';
+                  vehicleCount++;
+                }
+                
+                const row = document.createElement("tr");
+                row.setAttribute("data-class", student.class || "");
+                row.setAttribute("data-stream", student.stream || "");
+                row.innerHTML = `
+                  <td><strong>${srNumber}</strong>${vehicleIcon}</td>
+                  <td>${name}</td>
+                  <td>${fatherName}</td>
+                  <td class="text-end">
+                    <button class="btn-action btn-primary" onclick="openPaymentModal('${studentId}')"><i class="bi bi-plus"></i> Payment</button>
+                    <button class="btn-action btn-info" onclick="viewDetails('${studentId}')"><i class="bi bi-eye"></i> View</button>
+                    <button class="btn-action btn-warning" onclick="openDiscountModal('${studentId}')"><i class="bi bi-tag"></i> Discount</button>
+                    <button class="btn-action btn-success" onclick="openVehicleFeeModal('${studentId}')"><i class="bi bi-truck"></i> Vehicle</button>
+                  </td>
+                `;
+                tbody.appendChild(row);
+              });
+              
+              updateStats(totalStudents, 0, 0, vehicleCount); // Simplified stats
+            })
+            .catch(err => {
+              console.error("Error loading students:", err);
+              tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-danger">Error loading students: ${err.message}</td></tr>`;
+            });
+        });
+      }
+
+      // Update stats display
+      function updateStats(total, collected, pending, vehicles) {
+        document.getElementById("stat-total").textContent = total.toLocaleString();
+        document.getElementById("stat-collected").textContent = "₹" + (collected/1000).toFixed(1) + "K";
+        document.getElementById("stat-pending").textContent = "₹" + (pending/1000).toFixed(1) + "K";
+        document.getElementById("stat-vehicles").textContent = vehicles;
+      }
+
+      // Filtering
+      function applyFilters() {
+        const searchFilter = document.getElementById("student-search").value.toLowerCase();
+        const classFilter = document.getElementById("class-filter").value;
+        const streamFilter = document.getElementById("stream-filter").value;
+        const rows = document.querySelectorAll("#students-table tbody tr");
+        
+        rows.forEach(row => {
+          if(row.querySelector('.spinner-border')) return; // Skip loading row
+          const sr = row.cells[0].textContent.toLowerCase();
+          const name = row.cells[1].textContent.toLowerCase();
+          const studentClass = row.getAttribute("data-class");
+          const studentStream = row.getAttribute("data-stream");
+          
+          if ((sr.includes(searchFilter) || name.includes(searchFilter)) &&
+              (classFilter === "" || studentClass === classFilter) &&
+              (streamFilter === "" || studentStream === streamFilter)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      document.getElementById("student-search")?.addEventListener("input", applyFilters);
+      document.getElementById("class-filter")?.addEventListener("change", applyFilters);
+      document.getElementById("stream-filter")?.addEventListener("change", applyFilters);
+
+      // ============ MODAL FUNCTIONS ============
+
+      // Payment Modal
+      function openPaymentModal(studentId) {
+        document.getElementById("payment-student-id").value = studentId;
+        document.getElementById("payment-form").reset();
+        new bootstrap.Modal(document.getElementById("addPaymentModal")).show();
+      }
+
+      document.getElementById("payment-form")?.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const studentId = document.getElementById("payment-student-id").value;
+        const amount = parseFloat(document.getElementById("payment-amount").value);
+        const paymentType = document.getElementById("payment-type").value;
+        const mode = document.getElementById("payment-mode").value;
+        const txnId = document.getElementById("transaction-id").value;
+        const remarks = document.getElementById("payment-remarks").value;
+
+        const payment = {
+          installment: 0,
+          date: new Date().toLocaleDateString(),
+          amount: amount,
+          paymentType: paymentType,
+          mode: mode,
+          txnId: txnId,
+          remarks: remarks,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        db.collection("001-school").doc("students").collection("list").doc(studentId).get()
+          .then(doc => {
+            if (doc.exists) {
+              const student = doc.data();
+              const studentClass = student.class;
+              db.collection("001-school").doc("transactions")
+                .collection("class" + studentClass)
+                .doc(studentId)
+                .collection("payments")
+                .add(payment)
+                .then(() => {
+                  alert("✅ Payment added successfully!");
+                  bootstrap.Modal.getInstance(document.getElementById("addPaymentModal")).hide();
+                  loadStudents();
+                })
+                .catch(err => alert("❌ Error: " + err.message));
+            } else {
+              alert("Student record not found!");
+            }
+          })
+          .catch(err => alert("Error: " + err.message));
+      });
+
+      // Discount Modal
+      function openDiscountModal(studentId) {
+        document.getElementById("discount-student-id").value = studentId;
+        document.getElementById("discount-form").reset();
+        new bootstrap.Modal(document.getElementById("giveDiscountModal")).show();
+      }
+
+      document.getElementById("discount-form")?.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const studentId = document.getElementById("discount-student-id").value;
+        const discountAmount = parseFloat(document.getElementById("discount-amount").value);
+        const adminPassword = document.getElementById("admin-password").value;
+        
+        if (systemSettings.masterPassword && adminPassword === systemSettings.masterPassword) {
+          db.collection("001-school").doc("students").collection("list").doc(studentId)
+            .update({ discount: firebase.firestore.FieldValue.increment(discountAmount) })
+            .then(() => {
+              alert("✅ Discount applied!");
+              bootstrap.Modal.getInstance(document.getElementById("giveDiscountModal")).hide();
+            })
+            .catch(err => alert("❌ Error: " + err.message));
+        } else {
+          alert("❌ Incorrect admin password!");
+        }
+      });
+
+      // Vehicle Fee Modal
+      function openVehicleFeeModal(studentId) {
+        document.getElementById("vehicle-student-id").value = studentId;
+        const form = document.getElementById("vehicle-fee-form");
+        form.reset();
+        document.getElementById("vehicle-details-section").style.display = "none";
+        document.getElementById("vehicle-last-update").value = "";
+        
+        // Load existing record
+        db.collection("001-school").doc("vehicleTransactions").collection("records").doc(studentId).get()
+          .then(doc => {
+            if(doc.exists){
+              const data = doc.data();
+              if(data.eligible === "Yes") {
+                document.getElementById("vehicle-eligible-checkbox").checked = true;
+                document.getElementById("vehicle-details-section").style.display = "block";
+                if(data.vehicleData) {
+                  document.getElementById("vehicle-select").value = data.vehicleData.vehicle || "";
+                  document.getElementById("vehicle-location").value = data.vehicleData.location || "";
+                  if(data.vehicleData.vehicle && systemSettings.vehicleFeesChart) {
+                    const match = systemSettings.vehicleFeesChart.find(item => item.vehicleName.trim() === data.vehicleData.vehicle);
+                    if(match) document.getElementById("vehicle-rent").value = "₹" + match.amount;
+                  }
+                  if(data.vehicleData.feeOption === "fixed"){
+                    document.getElementById("fee-option-fixed").checked = true;
+                    document.getElementById("fixed-amount-section").style.display = "block";
+                    document.getElementById("months-checkboxes").style.display = "none";
+                    document.getElementById("vehicle-fixed-amount").value = data.vehicleData.fixedAmount || "";
+                  } else if(data.vehicleData.feeOption === "months"){
+                    document.getElementById("fee-option-months").checked = true;
+                    document.getElementById("fixed-amount-section").style.display = "none";
+                    document.getElementById("months-checkboxes").style.display = "block";
+                    (data.vehicleData.months || []).forEach(m => {
+                      const cb = document.getElementById("month-"+m);
+                      if(cb) cb.checked = true;
+                    });
+                  }
+                }
+              }
+              document.getElementById("vehicle-last-update").value = data.lastUpdated || "";
+            }
+            new bootstrap.Modal(document.getElementById("vehicleFeeModal")).show();
+          })
+          .catch(err => {
+            console.error("Error:", err);
+            new bootstrap.Modal(document.getElementById("vehicleFeeModal")).show();
+          });
+      }
+
+      // Vehicle eligibility toggle
+      document.getElementById("vehicle-eligible-checkbox")?.addEventListener("change", function() {
+        document.getElementById("vehicle-details-section").style.display = this.checked ? "block" : "none";
+      });
+
+      // Vehicle selection -> populate locations
+      document.getElementById("vehicle-select")?.addEventListener("change", function() {
+        const selectedVehicle = this.value;
+        const locationSelect = document.getElementById("vehicle-location");
+        locationSelect.innerHTML = '<option value="">Select Location</option>';
+        
+        if(systemSettings.vehicleFeesChart && Array.isArray(systemSettings.vehicleFeesChart)) {
+          const matches = systemSettings.vehicleFeesChart.filter(item => item.vehicleName.trim() === selectedVehicle);
+          matches.forEach(item => {
+            const opt = document.createElement("option");
+            opt.value = item.destination;
+            opt.textContent = item.destination;
+            locationSelect.appendChild(opt);
+          });
+          if(matches.length === 1) {
+            document.getElementById("vehicle-rent").value = "₹" + matches[0].amount;
+          }
+        }
+      });
+
+      // Location selection -> update rent
+      document.getElementById("vehicle-location")?.addEventListener("change", function() {
+        const vehicle = document.getElementById("vehicle-select").value;
+        const location = this.value;
+        if(systemSettings.vehicleFeesChart) {
+          const match = systemSettings.vehicleFeesChart.find(item => 
+            item.vehicleName.trim() === vehicle && item.destination === location);
+          if(match) document.getElementById("vehicle-rent").value = "₹" + match.amount;
+        }
+      });
+
+      // Fee option toggle
+      document.getElementById("fee-option-fixed")?.addEventListener("change", function(){
+        if(this.checked){
+          document.getElementById("fixed-amount-section").style.display = "block";
+          document.getElementById("months-checkboxes").style.display = "none";
+        }
+      });
+      document.getElementById("fee-option-months")?.addEventListener("change", function(){
+        if(this.checked){
+          document.getElementById("fixed-amount-section").style.display = "none";
+          document.getElementById("months-checkboxes").style.display = "block";
+        }
+      });
+
+      // Vehicle Fee Form Submit
+      document.getElementById("vehicle-fee-form")?.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const studentId = document.getElementById("vehicle-student-id").value;
+        const eligible = document.getElementById("vehicle-eligible-checkbox").checked ? "Yes" : "No";
+        let vehicleData = {};
+        
+        if (eligible === "Yes") {
+          const vehicle = document.getElementById("vehicle-select").value;
+          const location = document.getElementById("vehicle-location").value;
+          const rent = document.getElementById("vehicle-rent").value.replace("₹", "");
+          const feeOption = document.querySelector('input[name="vehicle-fee-option"]:checked').value;
+          vehicleData = { vehicle, location, feeOption };
+          
+          if(feeOption === "fixed"){
+            vehicleData.fixedAmount = parseFloat(document.getElementById("vehicle-fixed-amount").value) || 0;
+          } else if(feeOption === "months"){
+            const months = [];
+            document.querySelectorAll(".month-checkbox:checked").forEach(cb => months.push(cb.value));
+            vehicleData.months = months;
+            vehicleData.rent = parseFloat(rent) || 0;
+          }
+        }
+        
+        const record = {
+          eligible,
+          vehicleData,
+          lastUpdated: new Date().toLocaleString(),
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        
+        db.collection("001-school").doc("vehicleTransactions")
+          .collection("records").doc(studentId).set(record, { merge: true })
+          .then(() => {
+            alert("✅ Vehicle fee saved!");
+            loadStudents();
+            bootstrap.Modal.getInstance(document.getElementById("vehicleFeeModal")).hide();
+          })
+          .catch(err => alert("❌ Error: " + err.message));
+      });
+
+      // View Details Modal
+      function viewDetails(studentId) {
+        db.collection("001-school").doc("students").collection("list").doc(studentId).get()
+          .then(doc => {
+            if (!doc.exists) { alert("Student not found"); return; }
+            const student = doc.data();
+            
+            // Basic info
+            document.getElementById("detail-sr").textContent = student.srNumber || "-";
+            document.getElementById("detail-name").textContent = student.studentName || "-";
+            document.getElementById("detail-father").textContent = student.fatherName || "-";
+            document.getElementById("detail-class").textContent = student.class || "-";
+            document.getElementById("detail-stream").textContent = student.stream || "-";
+            
+            // Calculate school fee from universal chart
+            let baseFee = 0;
+            if (systemSettings.universalFeesChart && Array.isArray(systemSettings.universalFeesChart)) {
+              const match = systemSettings.universalFeesChart.find(f => f.class === student.class && f.stream === student.stream);
+              if (match) baseFee = match.baseFee || 0;
+            }
+            const discount = student.discount || 0;
+            const finalSchoolFee = baseFee - discount;
+            
+            // Load payments
+            db.collection("001-school").doc("transactions")
+              .collection("class" + student.class)
+              .doc(studentId)
+              .collection("payments")
+              .orderBy("timestamp", "asc")
+              .get()
+              .then(paymentSnap => {
+                let schoolPaid = 0, vehiclePaid = 0;
+                const transBody = document.getElementById("student-transactions");
+                transBody.innerHTML = "";
+                
+                if (paymentSnap.empty) {
+                  transBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-3">No transactions</td></tr>`;
+                } else {
+                  paymentSnap.forEach(pDoc => {
+                    const tx = pDoc.data();
+                    const txDate = tx.timestamp?.toDate?.()?.toLocaleDateString() || tx.date || "-";
+                    if(tx.paymentType === "school fee") schoolPaid += tx.amount || 0;
+                    else if(tx.paymentType === "vehicle fee") vehiclePaid += tx.amount || 0;
+                    
+                    transBody.innerHTML += `
+                      <tr>
+                        <td>${txDate}</td>
+                        <td>₹${tx.amount || 0}</td>
+                        <td>${tx.mode || "-"}</td>
+                        <td>${tx.txnId || "-"}</td>
+                        <td><span class="badge ${tx.paymentType==='school fee'?'bg-primary':'bg-success'}">${tx.paymentType}</span></td>
+                      </tr>`;
+                  });
+                }
+                
+                // Load vehicle fee record
+                return db.collection("001-school").doc("vehicleTransactions").collection("records").doc(studentId).get()
+                  .then(vDoc => {
+                    let vehicleFeeTotal = 0;
+                    if (vDoc.exists && vDoc.data().eligible === "Yes") {
+                      const vd = vDoc.data().vehicleData;
+                      if(vd?.feeOption === "fixed") vehicleFeeTotal = vd.fixedAmount || 0;
+                      else if(vd?.feeOption === "months") vehicleFeeTotal = (vd.rent || 0) * (vd.months?.length || 0);
+                    }
+                    
+                    const totalFee = finalSchoolFee + vehicleFeeTotal;
+                    const schoolPending = Math.max(0, finalSchoolFee - schoolPaid);
+                    const vehiclePending = Math.max(0, vehicleFeeTotal - vehiclePaid);
+                    
+                    // Populate summary
+                    document.getElementById("detail-base-fee").textContent = "₹" + baseFee;
+                    document.getElementById("detail-discount").textContent = "₹" + discount;
+                    document.getElementById("detail-final-school").textContent = "₹" + finalSchoolFee;
+                    document.getElementById("detail-vehicle-fee").textContent = "₹" + vehicleFeeTotal;
+                    document.getElementById("detail-total-fee").textContent = "₹" + totalFee;
+                    document.getElementById("detail-school-paid").textContent = "₹" + schoolPaid;
+                    document.getElementById("detail-vehicle-paid").textContent = "₹" + vehiclePaid;
+                    document.getElementById("detail-school-pending").textContent = "₹" + schoolPending;
+                    document.getElementById("detail-vehicle-pending").textContent = "₹" + vehiclePending;
+                    
+                    // Universal chart
+                    document.getElementById("ufc-class").textContent = student.class || "-";
+                    document.getElementById("ufc-stream").textContent = student.stream || "-";
+                    document.getElementById("ufc-fee").textContent = baseFee;
+                    document.getElementById("ufc-vehicle-fee").textContent = vehicleFeeTotal ? "₹" + vehicleFeeTotal : "N/A";
+                    document.getElementById("ufc-discount").textContent = discount;
+                    
+                    new bootstrap.Modal(document.getElementById("detailsModal")).show();
+                  });
+              })
+              .catch(err => alert("Error loading payments: " + err.message));
+          })
+          .catch(err => alert("Error: " + err.message));
+      }
+
+      // Initialize
+      window.addEventListener("DOMContentLoaded", async function() {
+        await loadSystemSettings();
+        loadStudents();
+      });
+    </script>
+  </body>
+</html>
