@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fee Management - Transactions & Receipt Printing</title>
+  <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<style>
+  :root {
+    --primary-gradient: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    --nav-bg: #1e40af;
+    --text-white: #ffffff;
+    --bg-body: #f8fafc;
+    --border-color: #e2e8f0;
+    --transition: all 0.2s ease-in-out;
+  }
+
+  /* Gap and Margin Fix */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    overflow-x: hidden;
+    background-color: var(--bg-body);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ============ HEADER (Exact Match) ============ */
+  .navbar {
+    background: var(--primary-gradient) !important;
+    padding: 0.5rem 1.5rem !important;
+    border: none !important;
+  }
+  .navbar-brand {
+    font-weight: 700;
+    color: var(--text-white) !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 0.8rem !important;
+    transition: var(--transition);
+  }
+  /* Finance / Active State Highlight */
+  .nav-link.active {
+    background: rgba(255,255,255,0.2) !important;
+    border-radius: 10px;
+    color: #fff !important;
+  }
+  .header-logo-right {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 0.65rem; font-weight: bold; text-align: center;
+  }
+
+  /* ============ FOOTER (Exact Match) ============ */
+  .footer-section {
+    background: var(--primary-gradient) !important;
+    color: #fff;
+    padding: 3rem 0;
+    margin-top: 5rem;
+    width: 100%;
+  }
+  .footer-title { font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
+  .social-box {
+    display: flex; gap: 12px; margin-top: 1.5rem;
+  }
+  .social-icon {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; text-decoration: none; font-size: 1.2rem;
+  }
+  .quick-links-list { list-style: none; padding: 0; }
+  .quick-links-list li { margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; opacity: 0.9; }
+  .quick-links-list li i { font-size: 0.8rem; }
+  .btn-view-docs {
+    border: 1px solid rgba(255,255,255,0.5);
+    color: #fff;
+    border-radius: 50px;
+    padding: 8px 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+  }
+  .btn-view-docs:hover { background: #fff; color: #1e40af; }
+
+  /* Content Card */
+  .transaction-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../admin_dashboard.html">
+        <i class="bi bi-building-fill"></i> SchoolMS
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navRes">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-center" id="navRes">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="../admin_dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="../admission/admission.html"><i class="bi bi-people"></i> Students</a></li>
+          <li class="nav-item"><a class="nav-link active" href="fees_module.html"><i class="bi bi-wallet2"></i> Finance</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-building"></i> Institute</a></li>
+          <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-briefcase"></i> Staff</a></li>
+          <li class="nav-item"><a class="nav-link" href="../admin_panel/admin_panel.html"><i class="bi bi-gear"></i> Settings</a></li>
+        </ul>
+      </div>
+
+      <div class="header-logo-right">SV<br>Logo</div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="transaction-card">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold m-0 text-primary"><i class="bi bi-clock-history me-2"></i>Transaction History</h4>
+        <div class="small text-secondary">April 2026</div>
+      </div>
+
+      <div class="row g-3 mb-4 p-3 bg-light rounded-3">
+        <div class="col-md-3">
+          <input type="date" id="start-date" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <input type="date" id="end-date" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <select id="mode-filter" class="form-select">
+            <option value="">All Payment Modes</option>
+            <option value="Cash">Cash</option>
+            <option value="UPI">UPI</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary w-100 fw-bold" onclick="loadTransactions()">Apply Filters</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Roll No</th>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Txn ID</th>
+              <th>Amount</th>
+              <th>Mode</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="transactions-table">
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row align-items-start g-4">
+        <div class="col-lg-5 col-md-12 text-center text-md-start">
+          <h4 class="footer-title"><i class="bi bi-building-fill"></i> SchoolMS</h4>
+          <p class="opacity-75 mb-4">Empowering schools with intelligent management solutions.</p>
+          <div class="social-box justify-content-center justify-content-md-start">
+            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon"></a> <a href="#" class="social-icon"><i class="bi bi-discord"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5 class="fw-bold mb-4">Quick Links</h5>
+          <ul class="quick-links-list">
+            <li><i class="bi bi-chevron-right"></i> Documentation</li>
+            <li><i class="bi bi-chevron-right"></i> Support Center</li>
+            <li><i class="bi bi-chevron-right"></i> Privacy Policy</li>
+            <li><i class="bi bi-chevron-right"></i> Terms of Service</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-6 text-center text-lg-end">
+          <a href="#" class="btn-view-docs mb-4 d-inline-block">
+            <i class="bi bi-book me-2"></i> View Docs
+          </a>
+          <p class="small opacity-75 mt-3">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery, Popper.js, Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Firebase Initialization
+    const firebaseConfig = {
+      apiKey: "AIzaSyBV7Jg0BVzeCNQW9oiIiNItnejUsjj2DhA",
+      authDomain: "squadvertex2007.firebaseapp.com",
+      projectId: "squadvertex2007",
+      storageBucket: "squadvertex2007.appspot.com",
+      messagingSenderId: "168905083514",
+      appId: "1:168905083514:web:c8bbe2ce9f87800a0f09c3",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Global variables
+    let transactions = [];
+    const fixedAmount = 1000;
+    const fixedAmountWords = "One Thousand Rupees";
+    let schoolDetails = {
+      schoolName: "",
+      address: "",
+      contact: "",
+      email: ""
+    };
+
+    // Logo URL
+    const logoURL = "https://dl.dropboxusercontent.com/scl/fi/fkq02zrhmtjo8q0j66pj4/Screenshot_20240901-172502.png?rlkey=256r98hep0tclyuznt3yjqdj1&dl=0";
+    
+    // Fetch school settings from 001-school/systemSettings document
+    async function fetchSchoolSettings() {
+      try {
+        const settingsDoc = await db.doc('001-school/systemSettings').get();
+        if (settingsDoc.exists) {
+          const data = settingsDoc.data();
+          schoolDetails.schoolName = data.schoolName || "Default School Name";
+          schoolDetails.address = data.address || "";
+          schoolDetails.contact = data.phoneNumber || "Default Phone Number";
+          schoolDetails.email = data.contactEmail || "Default Email";
+        } else {
+          console.warn("System settings document not found.");
+        }
+      } catch (error) {
+        console.error("Error fetching school settings:", error);
+      }
+    }
+
+    // Load transactions from Firebase (UPDATED: Extract nested path params)
+    async function loadTransactions() {
+      const transactionsTable = document.getElementById('transactions-table');
+      transactionsTable.innerHTML = '<tr><td colspan="9">Loading... (Check console for details)</td></tr>';
+      try {
+        console.log("[DEBUG] Starting payments collection group query");
+        const paymentsQuery = await db.collectionGroup('payments').get();
+        console.log(`[DEBUG] Found ${paymentsQuery.size} payment documents`);
+
+        transactions = [];
+        let studentFetchErrors = 0;
+
+        for (const paymentDoc of paymentsQuery.docs) {
+          try {
+            console.groupCollapsed(`[DEBUG] Processing payment: ${paymentDoc.id}`);
+            const paymentData = paymentDoc.data();
+            
+            // Parse the nested path to extract required IDs
+            // Path format: {activeSchoolFolder}/transactions/{class_id}/{student_id}/payments/{txn_doc_id}
+            const pathParts = paymentDoc.ref.path.split('/');
+            // pathParts[0] = activeSchoolFolder (e.g., "001-school")
+            // pathParts[1] = "transactions"
+            const class_id = pathParts[2];      // e.g., "class10"
+            const student_id = pathParts[3];    // e.g., "student10293"
+            // pathParts[4] = "payments"
+            const txn_doc_id = paymentDoc.id;   // actual payment document ID
+            
+            console.log("Extracted IDs:", { class_id, student_id, txn_doc_id });
+
+            // Get student document for display data
+            const studentRef = db.doc(`001-school/students/list/${student_id}`);
+            const studentDoc = await studentRef.get();
+            if (!studentDoc.exists) {
+              console.warn("[ERROR] Student document not found!");
+              studentFetchErrors++;
+              continue;
+            }
+            const studentData = studentDoc.data();
+            console.log("Student data:", studentData);
+
+            let transactionDate;
+            if (paymentData.timestamp && paymentData.timestamp.toDate) {
+              transactionDate = paymentData.timestamp.toDate();
+            } else if (paymentData.date) {
+              transactionDate = new Date(paymentData.date);
+            } else {
+              transactionDate = new Date();
+            }
+
+            // Build transaction object WITH nested path params for redirect
+            transactions.push({
+              rollNo: studentData.srNumber || 'N/A',
+              studentName: studentData.studentName || 'Unknown',
+              class: class_id || 'N/A',
+              transactionId: paymentData.txnId || 'N/A',
+              amountPaid: paymentData.amount || 0,
+              mode: paymentData.mode || 'Cash',
+              dateTime: transactionDate.toLocaleString(),
+              notes: paymentData.notes || "Thank you for your payment. Please keep this receipt for your records.",
+              status: 'Success',
+              // === NEW: Store nested path params for receipt redirect ===
+              _pathParams: {
+                class_id: class_id,
+                student_id: student_id,
+                txn_doc_id: txn_doc_id
+              }
+            });
+            console.groupEnd();
+          } catch (error) {
+            console.error("[ERROR] Processing document:", error);
+          }
+        }
+        console.log(`[DEBUG] Processed ${transactions.length} valid transactions`);
+        console.log(`[DEBUG] ${studentFetchErrors} student documents not found`);
+        renderTransactions(transactions);
+      } catch (error) {
+        console.error("[CRITICAL ERROR] Main error:", error);
+        transactionsTable.innerHTML = '<tr><td colspan="9">Error loading transactions</td></tr>';
+      }
+    }
+
+    // Render transactions table with View Receipt button (UPDATED: Pass nested params)
+    function renderTransactions(transactionsArray) {
+      const transactionsTable = document.getElementById('transactions-table');
+      transactionsTable.innerHTML = '';
+
+      // Apply filters
+      const startDate = document.getElementById('start-date').value;
+      const endDate = document.getElementById('end-date').value;
+      const modeFilter = document.getElementById('mode-filter').value;
+
+      const filtered = transactionsArray.filter(txn => {
+        const txnDate = new Date(txn.dateTime);
+        const dateFilter = (!startDate || txnDate >= new Date(startDate)) && 
+                           (!endDate || txnDate <= new Date(endDate + 'T23:59:59'));
+        const modeFilterPass = !modeFilter || txn.mode === modeFilter;
+        return dateFilter && modeFilterPass;
+      });
+
+      if (filtered.length === 0) {
+        transactionsTable.innerHTML = '<tr><td colspan="9">No transactions found</td></tr>';
+        return;
+      }
+
+      filtered.forEach((txn, index) => {
+        const row = document.createElement('tr');
+        // CHANGED: Button now calls viewReceipt with nested path params
+        row.innerHTML = `
+          <td>${txn.rollNo}</td>
+          <td>${txn.studentName}</td>
+          <td>${txn.class}</td>
+          <td>${txn.transactionId}</td>
+          <td>₹${txn.amountPaid.toLocaleString()}</td>
+          <td>${txn.mode}</td>
+          <td>${txn.dateTime}</td>
+          <td><span class="badge badge-success">${txn.status}</span></td>
+          <td>
+            <button class="btn btn-primary btn-sm" onclick="viewReceipt('${txn._pathParams.class_id}', '${txn._pathParams.student_id}', '${txn._pathParams.txn_doc_id}')">
+              View Receipt
+            </button>
+          </td>
+        `;
+        transactionsTable.appendChild(row);
+      });
+    }
+
+    // NEW FUNCTION: Redirect to receipt_print.html with ALL required nested path params
+    function viewReceipt(class_id, student_id, txn_doc_id) {
+      // Build URL with all three required parameters
+      const receiptUrl = `/receipt_print.html?class_id=${encodeURIComponent(class_id)}&student_id=${encodeURIComponent(student_id)}&txn_doc_id=${encodeURIComponent(txn_doc_id)}`;
+      
+      console.log("Redirecting to:", receiptUrl);
+      window.location.href = receiptUrl;
+    }
+
+    // On page load, fetch school settings first then load transactions
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log("[INIT] Page loaded, fetching school settings...");
+      await fetchSchoolSettings();
+      loadTransactions();
+    });
+  </script>
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
