@@ -507,104 +507,99 @@
   </style>
 </head>
 <body>
+    <!-- ============ HEADER ============ -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        
+        <!-- LEFT: Brand -->
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-building-check"></i>
+          <span>SchoolMS</span>
+        </a>
+        
+        <!-- TOGGLER (Mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- CENTER: Nav Items -->
+        <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+          <ul class="navbar-nav">
+            
+            <!-- Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link" href="../admin_dashboard.html">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </li>
 
-  <!-- ============ REORGANIZED HEADER ============ -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      
-      <!-- LEFT: Brand -->
-      <a class="navbar-brand" href="#">
-        <i class="bi bi-building-check"></i>
-        <span>SchoolMS</span>
-      </a>
-      
-      <!-- TOGGLER (Mobile) -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <!-- CENTER: Nav Items -->
-      <div class="collapse navbar-collapse navbar-center" id="navbarContent">
-        <ul class="navbar-nav">
-          
-          <!-- Dashboard -->
-          <li class="nav-item">
-            <a class="nav-link" href="../admin_dashboard.html">
-              <i class="bi bi-speedometer2"></i> Dashboard
-            </a>
-          </li>
+            <!-- 👥 Students Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-people"></i> Students
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+                <li><a class="dropdown-item disabled" href="../attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="../students/student_profile.html"><i class="bi bi-person-badge"></i> Student Profile</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+              </ul>
+            </li>
 
-          <!-- 👥 Students Dropdown (Active: Admissions) -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-people"></i> Students
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item active" href="admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
-              <li><a class="dropdown-item" href="../attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Student Profile</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
-            </ul>
-          </li>
+            <!-- 💰 Finance Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-wallet2"></i> Finance
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+                <li><a class="dropdown-item" href="../exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+              </ul>
+            </li>
 
-          <!-- 💰 Finance & Academics Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-wallet2"></i> Finance
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../fees_module/fees_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
-              <li><a class="dropdown-item" href="../exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Fee Reports</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
-            </ul>
-          </li>
+            <!-- 🏫 Institute Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-building"></i> Institute
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../library/library.html"><i class="bi bi-book"></i> Library</a></li>
+                <li><a class="dropdown-item" href="../hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+              </ul>
+            </li>
 
-          <!-- 🏫 Institute Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-building"></i> Institute
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../library/library.html"><i class="bi bi-book"></i> Library</a></li>
-              <li><a class="dropdown-item" href="../hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
-              <li><a class="dropdown-item" href="../events/events.html"><i class="bi bi-calendar-event"></i> Events</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
-            </ul>
-          </li>
+            <!-- 👔 Staff -->
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                <i class="bi bi-briefcase"></i> Staff
+              </a>
+            </li>
 
-          <!-- 👔 Staff (Standalone) -->
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <i class="bi bi-briefcase"></i> Staff
-            </a>
-          </li>
+            <!-- ⚙️ Settings -->
+            <li class="nav-item">
+              <a class="nav-link" href="../admin_panel/admin_panel.html">
+                <i class="bi bi-gear"></i> Settings
+              </a>
+            </li>
 
-          <!-- ⚙️ Settings (Standalone) -->
-          <li class="nav-item">
-            <a class="nav-link" href="../admin_panel/admin_panel.html">
-              <i class="bi bi-gear"></i> Settings
-            </a>
-          </li>
-
-        </ul>
+          </ul>
+        </div>
+        
+        <div class="logo-placeholder" title="SquadVertex Logo">
+          <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
+        </div>
+        
       </div>
-      
-      <!-- RIGHT: Logo Placeholder (Circular) -->
-      <div class="logo-placeholder" title="SquadVertex Logo">
-        <!-- Uncomment below when logo is ready -->
-        <!-- <img src="path/to/squadvertex-logo.png" alt="SquadVertex"> -->
-        <span class="placeholder-text">SV<br>Logo</span>
-      </div>
-      
-    </div>
-  </nav>
+    </nav>
 
   <!-- Admission Form Section -->
   <div class="container form-section">
@@ -729,33 +724,6 @@
     </form>
   </div>
 
-  <!-- Recent Admission Requests Section -->
-  <div class="container form-section">
-    <h2 class="section-title">Recent Admission Requests</h2>
-    <!-- Skeleton placeholder -->
-    <div id="requests-loading">
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-    </div>
-    <!-- Requests Table -->
-    <div class="table-responsive d-none" id="requests-table-container">
-      <table class="table table-striped" id="requests-table">
-        <thead class="table-dark">
-          <tr>
-            <th>Request ID</th>
-            <th>Student Name</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Data populated from Firebase ("admission_requests" collection) -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-
   <!-- Recent Admissions Section with Quick Search -->
   <div class="container form-section">
     <h2 class="section-title">Recent Admissions</h2>
@@ -794,9 +762,6 @@
   <div class="container nav-btns mb-4">
     <button class="btn btn-secondary me-2" onclick="location.href='edit_student.html'">
       Edit Student Data
-    </button>
-    <button class="btn btn-info me-2" onclick="location.href='#'">
-      View All Recent Requests
     </button>
     <button class="btn btn-outline-dark" onclick="location.href='../admin_dashboard.html'">
       Home Dashboard
@@ -861,7 +826,17 @@
   <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp, setDoc, doc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+    import {
+      getFirestore,
+      collection,
+      setDoc,
+      doc,
+      getDocs,
+      query,
+      orderBy,
+      limit,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
     
     const firebaseConfig = {
@@ -878,35 +853,14 @@
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    // Load Recent Admission Requests
-    async function loadAdmissionRequests() {
-      try {
-        const q = query(collection(db, "admission_requests"), orderBy("timestamp", "desc"), limit(5));
-        const querySnapshot = await getDocs(q);
-        const requestsTableBody = document.querySelector("#requests-table tbody");
-        requestsTableBody.innerHTML = "";
-
-        querySnapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${docSnap.id}</td>
-                          <td>${data.studentName || ""}</td>
-                          <td>${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : ""}</td>
-                          <td>${data.status || "Pending"}</td>`;
-          requestsTableBody.appendChild(tr);
-        });
-
-        document.getElementById("requests-loading").classList.add("d-none");
-        document.getElementById("requests-table-container").classList.remove("d-none");
-      } catch (err) {
-        console.error("Error fetching admission requests: ", err);
-      }
-    }
-
     // Load Recent Admissions from "001-school/students/list"
     async function loadRecentAdmissions() {
       try {
-        const q = query(collection(db, "001-school", "students", "list"), orderBy("timestamp", "desc"), limit(5));
+        const q = query(
+          collection(db, "001-school", "students", "list"),
+          orderBy("timestamp", "desc"),
+          limit(5)
+        );
         const querySnapshot = await getDocs(q);
         const admissionsTableBody = document.querySelector("#admissions-table tbody");
         admissionsTableBody.innerHTML = "";
@@ -914,16 +868,18 @@
         querySnapshot.forEach((docSnap) => {
           const data = docSnap.data();
           const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${data.srNumber || ""}</td>
-                          <td>${data.studentName || ""}</td>
-                          <td>${data.gender || ""}</td>
-                          <td>${data.fatherName || ""}</td>
-                          <td>${data.guardianName || ""}</td>
-                          <td>${data.dob || ""}</td>
-                          <td>${data.class || ""}</td>
-                          <td>${data.stream || ""}</td>
-                          <td>${data.contact || ""}</td>
-                          <td>${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : ""}</td>`;
+          tr.innerHTML = `
+            <td>${data.srNumber || ""}</td>
+            <td>${data.studentName || ""}</td>
+            <td>${data.gender || ""}</td>
+            <td>${data.fatherName || ""}</td>
+            <td>${data.guardianName || ""}</td>
+            <td>${data.dob || ""}</td>
+            <td>${data.class || ""}</td>
+            <td>${data.stream || ""}</td>
+            <td>${data.contact || ""}</td>
+            <td>${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : ""}</td>
+          `;
           admissionsTableBody.appendChild(tr);
         });
 
@@ -959,7 +915,6 @@
 
     // Load data on DOMContentLoaded
     window.addEventListener("DOMContentLoaded", function () {
-      loadAdmissionRequests();
       loadRecentAdmissions();
     });
 
@@ -1000,10 +955,17 @@
       const docId = "student" + srNumber.toString().padStart(5, "0");
 
       const studentData = {
-        studentName, gender, fatherName, guardianName, dob,
-        class: sClass, subjects,
+        studentName,
+        gender,
+        fatherName,
+        guardianName,
+        dob,
+        class: sClass,
+        subjects,
         stream: document.getElementById("stream").value,
-        contact, remarks, srNumber,
+        contact,
+        remarks,
+        srNumber,
         admissionFeeStatus: "Done",
         timestamp: serverTimestamp()
       };
