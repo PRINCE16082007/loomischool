@@ -784,7 +784,7 @@
     // NEW FUNCTION: Redirect to print_receipt.html with ALL required nested path params
     function viewReceipt(class_id, student_id, txn_doc_id) {
       // Build URL with all three required parameters
-      const receiptUrl = `/payment_module/print_receipt.html?class_id=${encodeURIComponent(class_id)}&student_id=${encodeURIComponent(student_id)}&txn_doc_id=${encodeURIComponent(txn_doc_id)}`;
+      const receiptUrl = `/loomischool/payment_module/print_receipt.html?class_id=${encodeURIComponent(class_id)}&student_id=${encodeURIComponent(student_id)}&txn_doc_id=${encodeURIComponent(txn_doc_id)}`;
 
       console.log("Redirecting to:", receiptUrl);
       window.location.href = receiptUrl;
