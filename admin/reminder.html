@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fees Reminder - SchoolMS</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --transition: all 0.2s ease-in-out;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ============ NAVBAR (Same as Dashboard) ============ */
+    .navbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      box-shadow: var(--shadow-md);
+      padding: 0.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .navbar-brand i { font-size: 1.4rem; }
+
+    .navbar-center {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .navbar-center .navbar-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+
+    .navbar-nav .nav-link {
+      color: rgba(255,255,255,0.9) !important;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem !important;
+      border-radius: 8px;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+      color: #fff !important;
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+
+    .navbar-nav .nav-link.active {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .navbar-nav .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .navbar .dropdown-menu {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      padding: 0.5rem;
+      margin-top: 8px;
+      min-width: 220px;
+      animation: slideDown 0.2s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .navbar .dropdown-item {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .navbar .dropdown-item:hover {
+      background: rgba(30, 64, 175, 0.08);
+      color: var(--primary);
+      padding-left: 1.25rem;
+    }
+
+    .navbar .dropdown-item.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: var(--text-secondary);
+    }
+
+    .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
+    .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
+
+    .logo-placeholder {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; cursor: pointer; transition: var(--transition);
+      color: #fff; font-weight: 600; font-size: 0.75rem;
+      text-align: center; line-height: 1.2; padding: 4px;
+    }
+
+    .logo-placeholder:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .logo-placeholder img {
+      width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    }
+
+    .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
+
+    .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
+    .navbar-toggler:focus { box-shadow: none; }
+    .navbar-toggler-icon { filter: brightness(0) invert(1); }
+
+    @media (max-width: 991px) {
+      .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
+      .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
+      .navbar-collapse {
+        background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+        border-radius: 12px; padding: 0.75rem;
+      }
+      .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
+      .navbar .dropdown-menu {
+        background: rgba(255,255,255,0.1); border: none; box-shadow: none;
+        margin: 0; padding-left: 1.5rem; text-align: center;
+      }
+      .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
+      .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
+      .logo-placeholder { order: 2; margin-left: 0.5rem; }
+    }
+
+    /* ============ REMINDER PAGE STYLES ============ */
+    .reminder-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .reminder-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .reminder-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .reminder-header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reminder-header .badge {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    /* Search Bar */
+    .search-wrapper {
+      position: relative;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      z-index: 2;
+    }
+
+    .search-wrapper input {
+      padding-left: 2.5rem;
+      padding-right: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-body);
+      transition: var(--transition);
+    }
+
+    .search-wrapper input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      background: var(--bg-card);
+    }
+
+    /* Table Styles */
+    .reminder-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .reminder-table thead th {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 1rem 1.25rem;
+      border: none;
+    }
+
+    .reminder-table thead th:first-child { border-radius: 12px 0 0 0; }
+    .reminder-table thead th:last-child { border-radius: 0 12px 0 0; }
+
+    .reminder-table tbody td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    .reminder-table tbody tr {
+      transition: var(--transition);
+    }
+
+    .reminder-table tbody tr:hover {
+      background: rgba(30, 64, 175, 0.04);
+    }
+
+    .reminder-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Student Info Cell */
+    .student-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .student-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    .father-name {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* Class Cell */
+    .class-info {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    /* Pending Amount Cell */
+    .pending-amount {
+      font-weight: 700;
+      color: var(--danger);
+      font-size: 1.1rem;
+    }
+
+    .pending-breakdown {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Action Button */
+    .btn-reminder {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-reminder:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-reminder i { font-size: 0.9rem; }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--text-secondary);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .empty-state i.text-warning { color: var(--accent); }
+    .empty-state i.text-search { color: var(--primary-light); }
+
+    .empty-state h3 {
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* Loading State */
+    .loading-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+    }
+
+    .loading-state .spinner-border {
+      width: 2rem;
+      height: 2rem;
+      border-width: 0.2em;
+    }
+
+    /* Responsive Table */
+    @media (max-width: 768px) {
+      .reminder-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .search-wrapper {
+        max-width: 100%;
+      }
+      
+      .reminder-table thead {
+        display: none;
+      }
+      
+      .reminder-table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1rem;
+      }
+      
+      .reminder-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed var(--border-color);
+      }
+      
+      .reminder-table tbody td:last-child {
+        border-bottom: none;
+        justify-content: flex-end;
+      }
+      
+      .reminder-table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        margin-right: 1rem;
+      }
+    }
+
+    /* ============ FOOTER (Same as Dashboard) ============ */
+    .footer-section {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: rgba(255,255,255,0.9);
+      padding: 2rem 0 1.5rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-section h3 {
+      font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff;
+    }
+
+    .social-links a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.1); margin-right: 8px;
+      transition: var(--transition); border: 1px solid transparent;
+      color: #fff; text-decoration: none; font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
+
+    .footer-section .btn-outline-light {
+      border-color: rgba(255,255,255,0.4); color: #fff;
+      font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px;
+      transition: var(--transition);
+    }
+
+    .footer-section .btn-outline-light:hover {
+      background: #fff; color: var(--primary); border-color: #fff;
+      transform: translateY(-2px); box-shadow: var(--shadow-md);
+    }
+
+    .footer-links { list-style: none; padding: 0; margin: 0; }
+    .footer-links li { margin-bottom: 0.5rem; }
+    .footer-links a {
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 0.9rem; transition: var(--transition);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .footer-links a:hover { color: #fff; padding-left: 4px; }
+
+    @media (max-width: 991px) {
+      .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
+      .footer-section .text-end { text-align: center !important; }
+      .social-links { justify-content: center; display: flex; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============ HEADER ============ -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      
+      <!-- LEFT: Brand -->
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-building-check"></i>
+        <span>SchoolMS</span>
+      </a>
+      
+      <!-- TOGGLER (Mobile) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- CENTER: Nav Items -->
+      <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+        <ul class="navbar-nav">
+          
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="/admin_dashboard.html">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+
+          <!-- 👥 Students Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-people"></i> Students
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+              <li><a class="dropdown-item disabled" href="/attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/students/student_profile.html"><i class="bi bi-person-badge"></i> Student Profile</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+            </ul>
+          </li>
+
+          <!-- 💰 Finance Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-wallet2"></i> Finance
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+              <li><a class="dropdown-item disabled" href="/exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+            </ul>
+          </li>
+
+          <!-- 🏫 Institute Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-building"></i> Institute
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a></li>
+              <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+            </ul>
+          </li>
+
+          <!-- 👔 Staff -->
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+              <i class="bi bi-briefcase"></i> Staff
+            </a>
+          </li>
+
+          <!-- ⚙️ Settings -->
+          <li class="nav-item">
+            <a class="nav-link active" href="/admin_panel/admin_panel.html">
+              <i class="bi bi-gear"></i> Settings
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      
+      <div class="logo-placeholder" title="SquadVertex Logo">
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
+      </div>
+      
+    </div>
+  </nav>
+
+  <!-- ============ REMINDER CONTENT ============ -->
+  <div class="reminder-container">
+    
+    <div class="reminder-card">
+      
+      <!-- Header -->
+      <div class="reminder-header">
+        <h1><i class="bi bi-bell"></i> Pending Fees Reminder</h1>
+        <span class="badge bg-primary" id="countBadge">Loading...</span>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="mb-4">
+        <div class="search-wrapper">
+          <i class="bi bi-search"></i>
+          <input type="text" id="searchInput" class="form-control" placeholder="Search by student name or class...">
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="table-responsive" id="tableContainer">
+        <div class="loading-state">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Fetching pending dues...</p>
+        </div>
+      </div>
+
+    </div>
+    
+    <!-- Help Text -->
+    <p class="text-center mt-4" style="color: var(--text-secondary); font-size: 0.9rem;">
+      <i class="bi bi-question-circle me-1"></i>
+      Need help? Contact your system administrator or check the 
+      <a href="/documentation.html" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 500;">documentation</a>.
+    </p>
+    
+  </div>
+
+  <!-- ============ FOOTER (Same as Dashboard) ============ -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <!-- Social -->
+        <div class="col-lg-4 col-md-6">
+          <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
+          <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
+          <div class="social-links">
+            <a href="#" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
+            <a href="#" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="col-lg-4 col-md-6">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="/documentation.html" target="_blank"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+          </ul>
+        </div>
+        
+        <!-- Copyright + Docs -->
+        <div class="col-lg-4 col-md-12 text-lg-end">
+          <a href="/documentation.html" target="_blank"
+            class="btn btn-outline-light mb-3">
+            <i class="bi bi-book me-1"></i>View Docs
+          </a>
+          <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Firebase + Reminder Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getFirestore, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAXAs_j7Six8N3aW9yc3zUJcy_yodZgeJo",
+      authDomain: "loomischool-26.firebaseapp.com",
+      projectId: "loomischool-26",
+      storageBucket: "loomischool-26.firebasestorage.app",
+      messagingSenderId: "128038850008",
+      appId: "1:128038850008:web:9001fca7e1b7803837f6ad",
+      measurementId: "G-MWZSZFCZZE"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Store fetched students
+    let allStudents = [];
+
+    // DOM Elements
+    const tableContainer = document.getElementById('tableContainer');
+    const searchInput = document.getElementById('searchInput');
+    const countBadge = document.getElementById('countBadge');
+
+    // Fetch students with pending fees
+    async function fetchPendingStudents() {
+      try {
+        const studentsRef = collection(db, '001-school', 'students', 'list');
+        const q = query(
+          studentsRef,
+          where('totalPending', '>', 0),
+          orderBy('totalPending', 'desc')
+        );
+        
+        const querySnapshot = await getDocs(q);
+        allStudents = [];
+        
+        querySnapshot.forEach((doc) => {
+          allStudents.push({ id: doc.id, ...doc.data() });
+        });
+        
+        // Pass false = showing full DB results (not filtered)
+        renderTable(allStudents, false);
+        updateCount(allStudents.length);
+        
+      } catch (error) {
+        console.error('Error fetching students:', error);
+        tableContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            <h3>Error Loading Data</h3>
+            <p>Unable to fetch pending fees. Please check your connection.</p>
+          </div>
+        `;
+      }
+    }
+
+    // ✅ UPDATED: Render the table with dual empty-state logic
+    function renderTable(students, isFiltered = false) {
+      if (students.length === 0) {
+        if (isFiltered) {
+          // 🔍 Search yielded no results (but DB has data)
+          tableContainer.innerHTML = `
+            <div class="empty-state">
+              <i class="bi bi-search text-search"></i>
+              <h3>No students found matching your search. 🔍</h3>
+              <p>Try searching with different keywords or clear the search filter.</p>
+            </div>
+          `;
+        } else {
+          // 🏆 No pending dues in database at all
+          tableContainer.innerHTML = `
+            <div class="empty-state">
+              <i class="bi bi-trophy-fill text-warning"></i>
+              <h3>No pending dues. All students have cleared their fees! 🏆</h3>
+              <p>Excellent! Your fee collection is up to date.</p>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      let html = `
+        <table class="reminder-table">
+          <thead>
+            <tr>
+              <th>Student Info</th>
+              <th>Class</th>
+              <th>Pending Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      students.forEach(student => {
+        const formattedAmount = new Intl.NumberFormat('en-IN').format(student.totalPending);
+        const schoolPending = student.schoolPending || 0;
+        const vehiclePending = student.vehiclePending || 0;
+        
+        html += `
+          <tr>
+            <td data-label="Student Info">
+              <div class="student-info">
+                <span class="student-name">${escapeHtml(student.studentName)}</span>
+                <span class="father-name">Father: ${escapeHtml(student.fatherName)}</span>
+              </div>
+            </td>
+            <td data-label="Class">
+              <span class="class-info">${escapeHtml(student.class)} - ${escapeHtml(student.stream)}</span>
+            </td>
+            <td data-label="Pending Amount">
+              <div class="pending-amount">₹${formattedAmount}</div>
+              <div class="pending-breakdown">(S: ${schoolPending} | V: ${vehiclePending})</div>
+            </td>
+            <td data-label="Action">
+              <button class="btn-reminder" onclick="sendReminder('${student.contact}', '${escapeJs(student.studentName)}', '${escapeJs(student.class)}', ${student.totalPending})">
+                <i class="bi bi-whatsapp"></i> Send Reminder
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      tableContainer.innerHTML = html;
+    }
+
+    // Update count badge
+    function updateCount(count) {
+      countBadge.textContent = `${count} Pending`;
+      countBadge.className = `badge ${count > 0 ? 'bg-danger' : 'bg-success'}`;
+    }
+
+    // ✅ UPDATED: Search filter with isFiltered flag
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      if (!searchTerm) {
+        // Clear search → show full list (not filtered)
+        renderTable(allStudents, false);
+        updateCount(allStudents.length);
+        return;
+      }
+      
+      const filtered = allStudents.filter(student => {
+        const nameMatch = student.studentName?.toLowerCase().includes(searchTerm);
+        const classMatch = student.class?.toLowerCase().includes(searchTerm);
+        return nameMatch || classMatch;
+      });
+      
+      // Filtered results → pass true for isFiltered flag
+      renderTable(filtered, true);
+      updateCount(filtered.length);
+    });
+
+    // Send WhatsApp Reminder (Native Desktop Protocol)
+    window.sendReminder = function(contact, studentName, className, totalPending) {
+      // Format message as per template
+      const message = `Hello Parents,\n\nThis is a gentle reminder from School Admin. The total pending fee for your ward ${studentName} (Class ${className}) is ₹${totalPending}.\n\nKindly clear the dues at the earliest.\n\nThank you!`;
+      
+      // Encode message for URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Add 91 prefix for India
+      const phone = `91${contact}`;
+      
+      // WhatsApp native protocol URL
+      const whatsappUrl = `whatsapp://send?phone=${phone}&text=${encodedMessage}`;
+      
+      // Try to open WhatsApp
+      window.location.href = whatsappUrl;
+      
+      // Fallback: Show confirmation
+      setTimeout(() => {
+        console.log(`Reminder sent to ${contact}`);
+      }, 500);
+    };
+
+    // Helper: Escape HTML to prevent XSS
+    function escapeHtml(text) {
+      if (!text) return '';
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+
+    // Helper: Escape for JS string in onclick
+    function escapeJs(str) {
+      return String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '\\r');
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', fetchPendingStudents);
+  </script>
+</body>
+</html>
