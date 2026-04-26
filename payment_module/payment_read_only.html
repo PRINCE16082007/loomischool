@@ -3,322 +3,826 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fee Management - Students</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
-    />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Fee Management - Students | SchoolMS</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  
   <style>
-      /* Navbar override */
-      .navbar-brand {
-        font-weight: bold;
-        font-size: 1.5rem;
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --transition: all 0.2s ease-in-out;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ============ NAVBAR (Same as Dashboard) ============ */
+    .navbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      box-shadow: var(--shadow-md);
+      padding: 0.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .navbar-brand i { font-size: 1.4rem; }
+
+    .navbar-center {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .navbar-center .navbar-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+
+    .navbar-nav .nav-link {
+      color: rgba(255,255,255,0.9) !important;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem !important;
+      border-radius: 8px;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+      color: #fff !important;
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+
+    .navbar-nav .nav-link.active {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .navbar-nav .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .navbar .dropdown-menu {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      padding: 0.5rem;
+      margin-top: 8px;
+      min-width: 220px;
+      animation: slideDown 0.2s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .navbar .dropdown-item {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .navbar .dropdown-item:hover {
+      background: rgba(30, 64, 175, 0.08);
+      color: var(--primary);
+      padding-left: 1.25rem;
+    }
+
+    .navbar .dropdown-item.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: var(--text-secondary);
+    }
+
+    .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
+    .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
+
+    .logo-placeholder {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; cursor: pointer; transition: var(--transition);
+      color: #fff; font-weight: 600; font-size: 0.75rem;
+      text-align: center; line-height: 1.2; padding: 4px;
+    }
+
+    .logo-placeholder:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .logo-placeholder img {
+      width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    }
+
+    .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
+
+    .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
+    .navbar-toggler:focus { box-shadow: none; }
+    .navbar-toggler-icon { filter: brightness(0) invert(1); }
+
+    @media (max-width: 991px) {
+      .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
+      .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
+      .navbar-collapse {
+        background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+        border-radius: 12px; padding: 0.75rem;
       }
-      .navbar-nav .nav-link.active {
-        position: relative;
-        color: #fff;
-        background-color: #007bff;
-        border-radius: 5px;
-        box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+      .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
+      .navbar .dropdown-menu {
+        background: rgba(255,255,255,0.1); border: none; box-shadow: none;
+        margin: 0; padding-left: 1.5rem; text-align: center;
       }
-      .navbar-nav .nav-link.active::before {
-        content: '';
-        position: absolute;
-        top: -5px;
-        left: -5px;
-        right: -5px;
-        bottom: -5px;
-        border-radius: 5px;
-        border: 2px solid rgba(0, 123, 255, 0.6);
-        opacity: 0.7;
-        animation: glow 1.5s infinite alternate;
-      }
-      @keyframes glow {
-        from {
-          box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
-        }
-        to {
-          box-shadow: 0 0 16px rgba(0, 123, 255, 0.8);
-        }
-      }
-    .table-responsive { overflow-x: auto; }
-    .status-paid { background-color: #d4edda; }
-    .status-partial { background-color: #fff3cd; }
-    .status-pending { background-color: #f8d7da; }
-    body { overflow-x: hidden; }
-    th { cursor: pointer; }
-    th:hover { background-color: #f8f9fa; }
+      .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
+      .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
+      .logo-placeholder { order: 2; margin-left: 0.5rem; }
+    }
+
+    /* ============ PAGE CONTENT STYLES ============ */
+    .page-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .page-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .page-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-card h3 i { color: var(--primary); }
+
+    /* Filters */
+    .filters-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters-row .form-control,
+    .filters-row .form-select {
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .filters-row .form-control:focus,
+    .filters-row .form-select:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      outline: none;
+    }
+
+    /* Table */
+    .table-responsive {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .table {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .table thead th {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      padding: 1rem 0.75rem;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .table thead th:hover {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #172554 100%);
+    }
+
+    .table thead th::after {
+      content: ' ▼';
+      font-size: 0.7em;
+      opacity: 0.7;
+      margin-left: 4px;
+    }
+
+    .table thead th.sort-asc::after { content: ' ▲'; }
+    .table thead th.sort-desc::after { content: ' ▼'; }
+
+    .table tbody td {
+      padding: 0.85rem 0.75rem;
+      vertical-align: middle;
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .table tbody tr:hover {
+      background: rgba(30, 64, 175, 0.04);
+    }
+
+    .status-paid { background-color: rgba(16, 185, 129, 0.08) !important; }
+    .status-partial { background-color: rgba(245, 158, 11, 0.08) !important; }
+    .status-pending { background-color: rgba(239, 68, 68, 0.08) !important; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-paid .status-badge { background: rgba(16, 185, 129, 0.15); color: var(--secondary); }
+    .status-partial .status-badge { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+    .status-pending .status-badge { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+    /* Action Buttons */
+    .btn-view {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-view:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* QR Section */
+    .qr-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .qr-section h5 {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .qr-section p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .qr-section img {
+      max-width: 200px;
+      border-radius: 12px;
+      border: 3px solid var(--border-color);
+      transition: var(--transition);
+    }
+    .qr-section img:hover {
+      transform: scale(1.03);
+      border-color: var(--primary-light);
+    }
+
+    /* Modal */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-header {
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      border-radius: 20px 20px 0 0 !important;
+    }
+    .modal-header .modal-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+    .modal-body {
+      padding: 1.5rem;
+      color: var(--text-primary);
+    }
+    .modal-body hr {
+      border-color: var(--border-color);
+      margin: 1.25rem 0;
+    }
+    .modal-body p {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+    .modal-body strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .modal-body .fee-highlight {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .modal-body .transaction-table th {
+      background: var(--bg-body);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .modal-body .transaction-table td {
+      font-size: 0.9rem;
+      padding: 0.6rem 0.75rem;
+    }
+    .modal-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 1rem 1.5rem;
+      justify-content: flex-end;
+    }
+    .btn-secondary {
+      background: var(--bg-body);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .btn-secondary:hover {
+      background: var(--border-color);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+    }
+    .empty-state i {
+      font-size: 3rem;
+      color: var(--primary-light);
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+    }
+    .loading i {
+      animation: spin 1s linear infinite;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============ FOOTER (Same as Dashboard) ============ */
+    .footer-section {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: rgba(255,255,255,0.9);
+      padding: 2rem 0 1.5rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-section h3 {
+      font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff;
+    }
+
+    .social-links a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.1); margin-right: 8px;
+      transition: var(--transition); border: 1px solid transparent;
+      color: #fff; text-decoration: none; font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
+
+    .footer-section .btn-outline-light {
+      border-color: rgba(255,255,255,0.4); color: #fff;
+      font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px;
+      transition: var(--transition);
+    }
+
+    .footer-section .btn-outline-light:hover {
+      background: #fff; color: var(--primary); border-color: #fff;
+      transform: translateY(-2px); box-shadow: var(--shadow-md);
+    }
+
+    .footer-links { list-style: none; padding: 0; margin: 0; }
+    .footer-links li { margin-bottom: 0.5rem; }
+    .footer-links a {
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 0.9rem; transition: var(--transition);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .footer-links a:hover { color: #fff; padding-left: 4px; }
+
+    @media (max-width: 991px) {
+      .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
+      .footer-section .text-end { text-align: center !important; }
+      .social-links { justify-content: center; display: flex; }
+    }
   </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <!-- ============ HEADER ============ -->
+    <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">SchoolMS</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        
+        <!-- LEFT: Brand -->
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-building-check"></i>
+          <span>SchoolMS</span>
+        </a>
+        
+        <!-- TOGGLER (Mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarContent">
-          <ul class="navbar-nav me-auto">
+        
+        <!-- CENTER: Nav Items -->
+        <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+          <ul class="navbar-nav">
+            
+            <!-- Dashboard -->
             <li class="nav-item">
-              <a class="nav-link" href="../admin_dashboard.html">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../admission/admission.html">Admissions</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                Staff <span class="bi bi-lock"></span>
+              <a class="nav-link" href="/admin_dashboard.html">
+                <i class="bi bi-speedometer2"></i> Dashboard
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../attendance/attendance.html">Attendance</a>
+
+            <!-- 👥 Students Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-people"></i> Students
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+                <li><a class="dropdown-item disabled" href="/attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/students/student_profile.html"><i class="bi bi-person-badge"></i> Student Profile</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+              </ul>
             </li>
+
+            <!-- 💰 Finance Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-wallet2"></i> Finance
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+                <li><a class="dropdown-item disabled" href="/exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+              </ul>
+            </li>
+
+            <!-- 🏫 Institute Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-building"></i> Institute
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a></li>
+                <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+              </ul>
+            </li>
+
+            <!-- 👔 Staff -->
             <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                Classes <span class="bi bi-lock"></span>
+              <a class="nav-link disabled" href="#">
+                <i class="bi bi-briefcase"></i> Staff
               </a>
             </li>
+
+            <!-- ⚙️ Settings -->
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="fees_module.html">Payment Module</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../exam_module/exam_module.html">Exams</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../library/library.html">Library</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">
-                Transport <span class="bi bi-lock"></span>
+              <a class="nav-link" href="/admin_panel/admin_panel.html">
+                <i class="bi bi-gear"></i> Settings
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../hostel/hostel.html">Hostel</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                Communications <span class="bi bi-lock"></span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                Inventory <span class="bi bi-lock"></span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../events/events.html">Events</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../admin_panel/admin_panel.html">Admin &amp; Settings panel</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                Reports <span class="bi bi-lock"></span>
-              </a>
-            </li>
+
           </ul>
         </div>
+        
+        <div class="logo-placeholder" title="SquadVertex Logo">
+          <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
+        </div>
+        
       </div>
     </nav>
-
-  <div class="container mt-4">
-    <h3 class="mb-4">Students &amp; Fees Management</h3>
-    <div class="row mb-3">
-      <div class="col-md-3">
-        <input type="text" id="student-search" class="form-control" placeholder="Search by Name or No">
-      </div>
-      <div class="col-md-3">
-        <select id="class-filter" class="form-control">
-          <option value="">Select Class</option>
+    
+  <!-- ============ PAGE CONTENT ============ -->
+  <div class="page-container">
+    
+    <div class="page-card">
+      <h3><i class="bi bi-cash-coin"></i> Students &amp; Fees Management</h3>
+      
+      <!-- Filters -->
+      <div class="filters-row">
+        <input type="text" id="student-search" class="form-control" placeholder="🔍 Search Name or No">
+        <select id="class-filter" class="form-select">
+          <option value="">All Classes</option>
           <option value="10">Class 10</option>
           <option value="9">Class 9</option>
+          <option value="8">Class 8</option>
         </select>
-      </div>
-      <div class="col-md-3">
-        <select id="stream-filter" class="form-control">
-          <option value="">Select Stream</option>
+        <select id="stream-filter" class="form-select">
+          <option value="">All Streams</option>
           <option value="Science">Science</option>
           <option value="Commerce">Commerce</option>
           <option value="Arts">Arts</option>
         </select>
-      </div>
-      <div class="col-md-3">
-        <select id="vehicle-status-filter" class="form-control">
+        <select id="vehicle-status-filter" class="form-select">
           <option value="all">All Vehicles</option>
           <option value="eligible">Vehicle Eligible</option>
           <option value="not-eligible">Not Eligible</option>
         </select>
       </div>
-    </div>
 
-    <div class="table-responsive">
-      <table class="table table-bordered" id="students-table">
-        <thead class="thead-dark">
-          <tr>
-            <th data-sort="no">No ▼</th>
-            <th data-sort="name">Name ▼</th>
-            <th data-sort="father">Father's Name ▼</th>
-            <th data-sort="class">Class ▼</th>
-            <th data-sort="stream">Stream ▼</th>
-            <th data-sort="total">Total Fee ▼</th>
-            <th data-sort="discount">Discount ▼</th>
-            <th data-sort="final">Final School Fee ▼</th>
-            <th data-sort="paid">Paid ▼</th>
-            <th data-sort="pending">Pending ▼</th>
-            <th data-sort="vehicle">Vehicle Fee ▼</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Dynamic content -->
-        </tbody>
-      </table>
-    </div>
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-hover mb-0" id="students-table">
+          <thead>
+            <tr>
+              <th data-sort="no">No</th>
+              <th data-sort="name">Name</th>
+              <th data-sort="father">Father's Name</th>
+              <th data-sort="class">Class</th>
+              <th data-sort="stream">Stream</th>
+              <th data-sort="total">Total Fee</th>
+              <th data-sort="discount">Discount</th>
+              <th data-sort="final">Final Fee</th>
+              <th data-sort="paid">Paid</th>
+              <th data-sort="pending">Pending</th>
+              <th data-sort="vehicle">Vehicle</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="students-tbody">
+            <!-- Dynamic content loads here -->
+            <tr>
+              <td colspan="13" class="loading">
+                <i class="bi bi-arrow-repeat"></i> Loading students data...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div class="mt-4" style="max-width: 100%; width: fit-content; margin: auto; text-align: center; padding: 10px;">
-      <h5>Payment Info</h5>
-      <p>Scan the QR Code or use UPI ID: <strong>school@upi</strong></p>
-      <img src="https://dl.dropboxusercontent.com/scl/fi/fkq02zrhmtjo8q0j66pj4/Screenshot_20240901-172502.png?rlkey=256r98hep0tclyuznt3yjqdj1&dl=0" alt="UPI QR Code" style="max-width: 100%; height: auto;">
+      <!-- QR Payment Section -->
+      <div class="qr-section">
+        <h5><i class="bi bi-qr-code"></i> Quick Payment</h5>
+        <p>Scan QR or use UPI ID: <strong class="fee-highlight">school@upi</strong></p>
+        <img src="https://dl.dropboxusercontent.com/scl/fi/fkq02zrhmtjo8q0j66pj4/Screenshot_20240901-172502.png?rlkey=256r98hep0tclyuznt3yjqdj1&dl=0" alt="UPI QR Code">
+      </div>
+
     </div>
+    
   </div>
 
-  <!-- Details Modal -->
-  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+  <!-- ============ DETAILS MODAL (BS5 Compatible) ============ -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="detailsModalLabel">Student Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h5 class="modal-title"><i class="bi bi-person-badge"></i> Student Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          
+          <!-- Basic Info -->
           <div id="student-basic-info">
-            <p><strong>No:</strong> <span id="detail-no"></span></p>
-            <p><strong>Name:</strong> <span id="detail-name"></span></p>
+            <p><strong>Admission No:</strong> <span id="detail-no" class="fee-highlight"></span></p>
+            <p><strong>Student Name:</strong> <span id="detail-name"></span></p>
             <p><strong>Father's Name:</strong> <span id="detail-father-name"></span></p>
             <p>
-              <strong>Class:</strong> <span id="detail-class"></span> | 
+              <strong>Class:</strong> <span id="detail-class"></span> • 
               <strong>Stream:</strong> <span id="detail-stream"></span>
             </p>
+            <hr>
             <p>
-              <strong>Total Fee:</strong> <span id="detail-total-fee"></span> | 
-              <strong>Discount:</strong> <span id="detail-discount"></span> | 
-              <strong>Final School Fee:</strong> <span id="detail-final-total"></span> | 
-              <strong>Vehicle Fee:</strong> <span id="detail-vehicle-fee"></span>
+              <strong>Total Fee:</strong> ₹<span id="detail-total-fee" class="fee-highlight"></span> • 
+              <strong>Discount:</strong> ₹<span id="detail-discount"></span><br>
+              <strong>Final School Fee:</strong> ₹<span id="detail-final-total" class="fee-highlight"></span> • 
+              <strong>Vehicle Fee:</strong> ₹<span id="detail-vehicle-fee"></span>
             </p>
             <p>
-              <strong>Total Paid:</strong> <span id="detail-paid"></span> | 
-              <strong>Total Pending:</strong> <span id="detail-pending"></span>
+              <strong>Total Paid:</strong> ₹<span id="detail-paid" class="fee-highlight"></span> • 
+              <strong>Total Pending:</strong> ₹<span id="detail-pending"></span>
             </p>
-            <p>
-              <strong>Vehicle Status:</strong> <span id="detail-vehicle-status"></span>
-            </p>
+            <p><strong>Vehicle Status:</strong> <span id="detail-vehicle-status"></span></p>
           </div>
+
+          <!-- Universal Fee Chart -->
           <hr>
           <div id="universal-fee-chart">
-            <h5>Universal Fee Chart</h5>
+            <h5><i class="bi bi-card-list"></i> Universal Fee Chart</h5>
             <p>For <strong>Class <span id="ufc-class"></span> - <span id="ufc-stream"></span></strong></p>
-            <ul>
-              <li><strong>Base Fee:</strong> <span id="ufc-fee"></span></li>
-            </ul>
+            <div class="alert alert-info mb-0" style="font-size:0.9rem;">
+              <i class="bi bi-info-circle me-1"></i>
+              <strong>Base Fee:</strong> ₹<span id="ufc-fee" class="fee-highlight"></span>
+            </div>
           </div>
+
+          <!-- Transaction History -->
           <hr>
-          <h5>Transaction History</h5>
+          <h5><i class="bi bi-clock-history"></i> Transaction History</h5>
           <div class="table-responsive">
-            <table class="table table-sm table-bordered">
+            <table class="table table-sm table-bordered transaction-table">
               <thead>
                 <tr>
                   <th>Date</th>
                   <th>Amount</th>
                   <th>Mode</th>
                   <th>Transaction ID</th>
+                  <th>Type</th>
                 </tr>
               </thead>
               <tbody id="student-transactions">
-                <!-- Transactions -->
+                <!-- Transactions load here -->
               </tbody>
             </table>
           </div>
+          
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-<footer class="footer-section" style="background-color: #f8f9fa; padding: 20px 0; border-top: 1px solid #ccc; margin-top: 40px;">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- Social Links -->
-      <div class="col-md-4">
-        <h3 style="margin-bottom: 15px;">Connect with Us</h3>
-        <div class="social-links">
-          <a href="https://www.instagram.com/squadvertex/?igsh=YzljYTk1ODg3Zg%3D%3D#" target="_blank" title="Instagram" style="margin-right: 10px;">
-            <img src="https://img.icons8.com/color/48/instagram-new.png" alt="Instagram" style="width:32px; height:32px;">
-          </a>
-          <a href="https://x.com/SquadVertex_?t=iw82z-AjSDlmZxTzNid9sw&s=09" target="_blank" title="Twitter" style="margin-right: 10px;">
-            <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter" style="width:32px; height:32px;">
-          </a>
-          <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord" style="margin-right: 10px;">
-            <img src="https://img.icons8.com/color/48/discord-logo.png" alt="Discord" style="width:32px; height:32px;">
-          </a>
-          <a href="https://youtube.com/@prince_squadvertex?si=djSrTHGczq73iFOi" target="_blank" title="YouTube">
-            <img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube" style="width:32px; height:32px;">
-          </a>
-        </div>
-      </div>
-      <!-- Copyright -->
-      <div class="col-md-4 text-center">
-        <p style="margin: 0;">&copy; 2025 SquadVertex. All rights reserved.</p>
-      </div>
-      <!-- Docs Redirect Button -->
-      <div class="col-md-4 text-end">
-        <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-primary" style="border-radius: 20px; padding: 6px 20px;">
-          Docs
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
-  <!-- Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <!-- App Script -->
-  <script>
-    // Firebase configuration
+  <!-- ============ FOOTER (Exact Copy) ============ -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <!-- Social -->
+        <div class="col-lg-4 col-md-6">
+          <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
+          <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
+          <div class="social-links">
+            <a href="#" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
+            <a href="#" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="col-lg-4 col-md-6">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="/documentation.html" target="_blank"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+          </ul>
+        </div>
+        
+        <!-- Copyright + Docs -->
+        <div class="col-lg-4 col-md-12 text-lg-end">
+          <a href="/documentation.html" target="_blank"
+            class="btn btn-outline-light mb-3">
+            <i class="bi bi-book me-1"></i>View Docs
+          </a>
+          <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Firebase SDK (Modular) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+
+    // ✅ Fixed API Key (was missing 'Ii')
     const firebaseConfig = {
-      apiKey: "AIzaSyBV7Jg0BVzeCNQW9oiNItnejUsjj2DhA",
-      authDomain: "squadvertex2007.firebaseapp.com",
-      projectId: "squadvertex2007",
-      storageBucket: "squadvertex2007.appspot.com",
-      messagingSenderId: "168905083514",
-      appId: "1:168905083514:web:c8bbe2ce9f87800a0f09c3"
+      apiKey: "AIzaSyAXAs_j7Six8N3aW9yc3zUJcy_yodZgeJo",
+      authDomain: "loomischool-26.firebaseapp.com",
+      projectId: "loomischool-26",
+      storageBucket: "loomischool-26.firebasestorage.app",
+      messagingSenderId: "128038850008",
+      appId: "1:128038850008:web:9001fca7e1b7803837f6ad",
+      measurementId: "G-MWZSZFCZZE"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
+    // Global State
     let systemSettings = {};
     let studentsData = [];
     let sortState = { column: 'no', direction: 'asc' };
 
-    // Updated calculation function – now checks for fixed vehicle fee option
+    // 💰 Enhanced Fee Calculation
     function calculateFees(student) {
       const ufc = systemSettings.universalFeesChart?.find(f => 
         f.class === student.class && f.stream === student.stream
@@ -326,43 +830,42 @@
       const baseFee = ufc.baseFee || 0;
       const discount = student.discount || 0;
       const finalSchoolFee = baseFee - discount;
+      
       let vehicleFee = 0;
       let vehicleStatus = 'Not Eligible';
+      
       if(student.vehicle?.eligible === 'Yes') {
         vehicleStatus = 'Eligible';
         if(student.vehicle.vehicleData) {
           const { feeOption, rent = 0, months = [], fixedAmount } = student.vehicle.vehicleData;
           if(feeOption === "fixed"){
             vehicleFee = fixedAmount || 0;
-            vehicleStatus = `Fixed Amount (₹${fixedAmount})`;
+            vehicleStatus = `Fixed: ₹${fixedAmount}`;
           } else if(feeOption === "months"){
-            vehicleFee = rent * months.length;
-            vehicleStatus = `${months.length} months (₹${rent}/month)`;
+            vehicleFee = rent * (months?.length || 0);
+            vehicleStatus = `${months?.length || 0} mo × ₹${rent}`;
           }
         }
       }
-      // Separate payments by type
-      const schoolPaid = student.payments.reduce((sum, p) => p.paymentType === "school fee" ? sum + (p.amount || 0) : sum, 0);
-      const vehiclePaid = student.payments.reduce((sum, p) => p.paymentType === "vehicle fee" ? sum + (p.amount || 0) : sum, 0);
+      
+      // Separate payment types
+      const schoolPaid = (student.payments || []).reduce((sum, p) => 
+        p.paymentType === "school fee" ? sum + (p.amount || 0) : sum, 0);
+      const vehiclePaid = (student.payments || []).reduce((sum, p) => 
+        p.paymentType === "vehicle fee" ? sum + (p.amount || 0) : sum, 0);
       const overallPaid = schoolPaid + vehiclePaid;
       const overallTotal = finalSchoolFee + vehicleFee;
-      const pending = overallTotal - overallPaid;
+      const pending = Math.max(0, overallTotal - overallPaid);
 
       return {
-        baseFee,
-        discount,
-        finalSchoolFee,
-        vehicleFee,
-        schoolPaid,
-        vehiclePaid,
-        overallPaid,
-        overallTotal,
-        pending,
+        baseFee, discount, finalSchoolFee, vehicleFee,
+        schoolPaid, vehiclePaid, overallPaid, overallTotal, pending,
         status: pending <= 0 ? 'Paid' : overallPaid > 0 ? 'Partial' : 'Pending',
         vehicleStatus
       };
     }
 
+    // 🔍 Filter + Sort Logic
     function applyFiltersAndSort() {
       const search = document.getElementById('student-search').value.toLowerCase();
       const classFilter = document.getElementById('class-filter').value;
@@ -384,54 +887,75 @@
       filtered.sort((a, b) => {
         const aVal = getSortValue(a, sortState.column);
         const bVal = getSortValue(b, sortState.column);
-        return sortState.direction === 'asc' ? compare(aVal, bVal) : compare(bVal, aVal);
+        const cmp = typeof aVal === 'string' ? aVal.localeCompare(bVal) : (aVal || 0) - (bVal || 0);
+        return sortState.direction === 'asc' ? cmp : -cmp;
       });
 
       renderStudents(filtered);
+      updateSortIndicators();
     }
 
     function getSortValue(student, column) {
       const fees = calculateFees(student);
-      switch(column) {
-        case 'no': return student.srNumber;
-        case 'name': return student.studentName.toLowerCase();
-        case 'class': return parseInt(student.class);
-        case 'total': return fees.baseFee;
-        case 'discount': return fees.discount;
-        case 'final': return fees.finalSchoolFee;
-        case 'paid': return fees.overallPaid;
-        case 'pending': return fees.pending;
-        case 'vehicle': return fees.vehicleFee;
-        default: return 0;
-      }
+      const map = {
+        'no': student.srNumber,
+        'name': student.studentName?.toLowerCase(),
+        'father': student.fatherName?.toLowerCase(),
+        'class': parseInt(student.class) || 0,
+        'stream': student.stream,
+        'total': fees.baseFee,
+        'discount': fees.discount,
+        'final': fees.finalSchoolFee,
+        'paid': fees.overallPaid,
+        'pending': fees.pending,
+        'vehicle': fees.vehicleFee
+      };
+      return map[column] ?? 0;
     }
 
-    function compare(a, b) {
-      if(typeof a === 'string' && typeof b === 'string') return a.localeCompare(b);
-      return (a || 0) - (b || 0);
+    function updateSortIndicators() {
+      document.querySelectorAll('#students-table th[data-sort]').forEach(th => {
+        th.classList.remove('sort-asc', 'sort-desc');
+        if(th.dataset.sort === sortState.column) {
+          th.classList.add(sortState.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+        }
+      });
     }
 
+    // 🎨 Render Table
     function renderStudents(students) {
-      const tbody = document.querySelector("#students-table tbody");
+      const tbody = document.getElementById('students-tbody');
+      
+      if(students.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="13" class="empty-state">
+              <i class="bi bi-inbox"></i>
+              <p>No students match your filters.</p>
+            </td>
+          </tr>`;
+        return;
+      }
+
       tbody.innerHTML = students.map(student => {
         const fees = calculateFees(student);
         return `
           <tr class="status-${fees.status.toLowerCase()}">
-            <td>${student.srNumber}</td>
-            <td>${student.studentName}</td>
-            <td>${student.fatherName}</td>
-            <td>${student.class}</td>
-            <td>${student.stream}</td>
-            <td>₹${fees.baseFee}</td>
-            <td>₹${fees.discount}</td>
-            <td>₹${fees.finalSchoolFee}</td>
-            <td>₹${fees.overallPaid}</td>
-            <td>₹${fees.pending}</td>
-            <td>₹${fees.vehicleFee}</td>
-            <td>${fees.status}</td>
+            <td>${student.srNumber || '-'}</td>
+            <td><strong>${student.studentName || 'N/A'}</strong></td>
+            <td>${student.fatherName || '-'}</td>
+            <td>${student.class || '-'}</td>
+            <td>${student.stream || '-'}</td>
+            <td>₹${fees.baseFee.toLocaleString()}</td>
+            <td>₹${fees.discount.toLocaleString()}</td>
+            <td><strong>₹${fees.finalSchoolFee.toLocaleString()}</strong></td>
+            <td>₹${fees.overallPaid.toLocaleString()}</td>
+            <td>${fees.pending > 0 ? `<span style="color:var(--danger);font-weight:600">₹${fees.pending.toLocaleString()}</span>` : '₹0'}</td>
+            <td>₹${fees.vehicleFee.toLocaleString()}</td>
+            <td><span class="status-badge">${fees.status}</span></td>
             <td>
-              <button class="btn btn-sm btn-info" onclick="showDetails('${student.id}')">
-                View Details
+              <button class="btn-view" onclick="window.showDetails('${student.id}')">
+                <i class="bi bi-eye"></i> View
               </button>
             </td>
           </tr>
@@ -439,7 +963,8 @@
       }).join('');
     }
 
-    function showDetails(studentId) {
+    // 👁️ Show Details Modal (BS5 Vanilla JS)
+    window.showDetails = function(studentId) {
       const student = studentsData.find(s => s.id === studentId);
       if(!student) return;
 
@@ -448,37 +973,51 @@
         f.class === student.class && f.stream === student.stream
       ) || {};
 
-      document.getElementById('detail-no').textContent = student.srNumber;
-      document.getElementById('detail-name').textContent = student.studentName;
-      document.getElementById('detail-father-name').textContent = student.fatherName;
-      document.getElementById('detail-class').textContent = student.class;
-      document.getElementById('detail-stream').textContent = student.stream;
-      document.getElementById('detail-total-fee').textContent = `₹${fees.baseFee}`;
-      document.getElementById('detail-discount').textContent = `₹${fees.discount}`;
-      document.getElementById('detail-final-total').textContent = `₹${fees.finalSchoolFee}`;
-      document.getElementById('detail-vehicle-fee').textContent = `₹${fees.vehicleFee}`;
-      document.getElementById('detail-paid').textContent = `₹${fees.overallPaid}`;
-      document.getElementById('detail-pending').textContent = `₹${fees.pending}`;
+      // Populate Basic Info
+      document.getElementById('detail-no').textContent = student.srNumber || '-';
+      document.getElementById('detail-name').textContent = student.studentName || 'N/A';
+      document.getElementById('detail-father-name').textContent = student.fatherName || '-';
+      document.getElementById('detail-class').textContent = student.class || '-';
+      document.getElementById('detail-stream').textContent = student.stream || '-';
+      document.getElementById('detail-total-fee').textContent = fees.baseFee.toLocaleString();
+      document.getElementById('detail-discount').textContent = fees.discount.toLocaleString();
+      document.getElementById('detail-final-total').textContent = fees.finalSchoolFee.toLocaleString();
+      document.getElementById('detail-vehicle-fee').textContent = fees.vehicleFee.toLocaleString();
+      document.getElementById('detail-paid').textContent = fees.overallPaid.toLocaleString();
+      document.getElementById('detail-pending').textContent = fees.pending.toLocaleString();
       document.getElementById('detail-vehicle-status').textContent = fees.vehicleStatus;
 
-      document.getElementById('ufc-class').textContent = student.class;
-      document.getElementById('ufc-stream').textContent = student.stream;
-      document.getElementById('ufc-fee').textContent = `₹${ufc.baseFee || 0}`;
+      // Universal Fee Chart
+      document.getElementById('ufc-class').textContent = student.class || '-';
+      document.getElementById('ufc-stream').textContent = student.stream || '-';
+      document.getElementById('ufc-fee').textContent = (ufc.baseFee || 0).toLocaleString();
 
+      // Transaction History
       const tbody = document.getElementById('student-transactions');
-      tbody.innerHTML = student.payments.map(p => `
-        <tr>
-          <td>${new Date(p.timestamp?.toDate() || p.date).toLocaleDateString()}</td>
-          <td>₹${p.amount}</td>
-          <td>${p.mode}</td>
-          <td>${p.txnId || ''}</td>
-        </tr>
-      `).join('');
+      const payments = student.payments || [];
+      if(payments.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-3">No transactions yet</td></tr>`;
+      } else {
+        tbody.innerHTML = payments.map(p => `
+          <tr>
+            <td>${p.timestamp ? new Date(p.timestamp.toDate()).toLocaleDateString() : p.date || '-'}</td>
+            <td><strong>₹${(p.amount || 0).toLocaleString()}</strong></td>
+            <td>${p.mode || '-'}</td>
+            <td>${p.txnId || '-'}</td>
+            <td><small class="text-muted">${p.paymentType || 'fee'}</small></td>
+          </tr>
+        `).join('');
+      }
 
-      $('#detailsModal').modal('show');
-    }
+      // Show Modal using BS5 Vanilla JS
+      const modalEl = document.getElementById('detailsModal');
+      const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      modal.show();
+    };
 
+    // 🎛️ Event Listeners
     function setupEventListeners() {
+      // Sorting
       document.querySelectorAll('#students-table th[data-sort]').forEach(header => {
         header.addEventListener('click', () => {
           const column = header.dataset.sort;
@@ -490,56 +1029,72 @@
         });
       });
 
+      // Filters
       ['student-search', 'class-filter', 'stream-filter', 'vehicle-status-filter'].forEach(id => {
-        document.getElementById(id).addEventListener('input', applyFiltersAndSort);
-        document.getElementById(id).addEventListener('change', applyFiltersAndSort);
+        const el = document.getElementById(id);
+        el?.addEventListener('input', applyFiltersAndSort);
+        el?.addEventListener('change', applyFiltersAndSort);
       });
     }
 
-    // Initialization
-    window.addEventListener('DOMContentLoaded', async () => {
+    // 🚀 Initialization
+    async function init() {
+      setupEventListeners();
       await loadSystemSettings();
       await loadStudents();
-      setupEventListeners();
-    });
+    }
 
+    // 📥 Load System Settings
     async function loadSystemSettings() {
       try {
-        const doc = await db.collection("001-school").doc("systemSettings").get();
-        systemSettings = doc.exists ? doc.data() : {};
+        const docRef = doc(db, "001-school", "systemSettings");
+        const docSnap = await getDoc(docRef);
+        systemSettings = docSnap.exists() ? docSnap.data() : {};
       } catch (error) {
-        console.error("Error loading settings:", error);
+        console.error("⚠️ Settings load error:", error);
       }
     }
 
+    // 📥 Load Students Data
     async function loadStudents() {
+      const tbody = document.getElementById('students-tbody');
       try {
-        const snapshot = await db.collection("001-school").doc("students").collection("list").get();
-        studentsData = await Promise.all(snapshot.docs.map(async doc => {
-          const student = doc.data();
-          const studentId = doc.id;
+        const studentsRef = collection(db, "001-school", "students", "list");
+        const snapshot = await getDocs(studentsRef);
+        
+        studentsData = await Promise.all(snapshot.docs.map(async docSnap => {
+          const student = docSnap.data();
+          const studentId = docSnap.id;
 
-          const [payments, vehicle] = await Promise.all([
-            db.collection("001-school").doc("transactions")
-              .collection(`class${student.class}`).doc(studentId).collection("payments").get(),
-            db.collection("001-school").doc("vehicleTransactions")
-              .collection("records").doc(studentId).get()
+          // Fetch payments & vehicle data in parallel
+          const [paymentsSnap, vehicleSnap] = await Promise.all([
+            getDocs(collection(db, "001-school", "transactions", `class${student.class}`, studentId, "payments")),
+            getDoc(doc(db, "001-school", "vehicleTransactions", "records", studentId))
           ]);
 
           return {
             ...student,
             id: studentId,
-            payments: payments.docs.map(d => d.data()),
-            vehicle: vehicle.exists ? vehicle.data() : null
+            payments: paymentsSnap.docs.map(d => d.data()),
+            vehicle: vehicleSnap.exists() ? vehicleSnap.data() : null
           };
         }));
+        
         applyFiltersAndSort();
       } catch (error) {
-        console.error("Error loading students:", error);
+        console.error("⚠️ Students load error:", error);
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="13" class="empty-state">
+              <i class="bi bi-exclamation-triangle" style="color:var(--danger)"></i>
+              <p>Failed to load data. Please check console.</p>
+            </td>
+          </tr>`;
       }
     }
+
+    // Start App
+    document.addEventListener('DOMContentLoaded', init);
   </script>
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
