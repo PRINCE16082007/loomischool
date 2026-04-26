@@ -1,376 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fee Management - Transactions & Receipt Printing</title>
   <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
-    />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"/>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-      
-  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+
   <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<style>
-  :root {
-    --primary-gradient: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-    --nav-bg: #1e40af;
-    --text-white: #ffffff;
-    --bg-body: #f8fafc;
-    --border-color: #e2e8f0;
-    --transition: all 0.2s ease-in-out;
-        --primary: #1e40af;
-        --primary-dark: #1e3a8a;
-        --primary-light: #3b82f6;
-        --secondary: #10b981;
-        --accent: #f59e0b;
-        --danger: #ef4444;
-        --bg-body: #f8fafc;
-        --bg-card: #ffffff;
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        --border-color: #e2e8f0;
-        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-        --transition: all 0.2s ease-in-out;
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+      --nav-bg: #1e40af;
+      --text-white: #ffffff;
+      --bg-body: #f8fafc;
+      --border-color: #e2e8f0;
+      --transition: all 0.2s ease-in-out;
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.2s ease-in-out;
 
-  }
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-      
-  /* Gap and Margin Fix */
-  body {
-        background-color: var(--bg-body);
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        color: var(--text-primary);
-        line-height: 1.6;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Gap and Margin Fix */
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ============ NAVBAR (Same as Dashboard) ============ */
+    .navbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      box-shadow: var(--shadow-md);
+      padding: 0.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .navbar-brand i {
+      font-size: 1.4rem;
+    }
+
+    .navbar-center {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .navbar-center .navbar-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+
+    .navbar-nav .nav-link {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem !important;
+      border-radius: 8px;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+      color: #fff !important;
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .navbar-nav .nav-link.active {
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    .navbar-nav .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .navbar-nav .nav-link.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .navbar .dropdown-menu {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      padding: 0.5rem;
+      margin-top: 8px;
+      min-width: 220px;
+      animation: slideDown 0.2s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
       }
 
-      /* ============ NAVBAR (Same as Dashboard) ============ */
-      .navbar {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        box-shadow: var(--shadow-md);
-        padding: 0.5rem 1rem;
-        position: sticky;
-        top: 0;
-        z-index: 1030;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      .navbar-brand {
-        font-weight: 700;
-        font-size: 1.3rem;
-        color: #fff !important;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-shrink: 0;
-      }
+    .navbar .dropdown-item {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
 
-      .navbar-brand i { font-size: 1.4rem; }
+    .navbar .dropdown-item:hover {
+      background: rgba(30, 64, 175, 0.08);
+      color: var(--primary);
+      padding-left: 1.25rem;
+    }
 
+    .navbar .dropdown-item.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: var(--text-secondary);
+    }
+
+    .navbar .dropdown-divider {
+      margin: 0.4rem 0;
+      border-color: var(--border-color);
+    }
+
+    .dropdown-toggle::after {
+      margin-left: 4px;
+      font-size: 0.75rem;
+      vertical-align: middle;
+    }
+
+    .logo-placeholder {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: var(--transition);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-align: center;
+      line-height: 1.2;
+      padding: 4px;
+    }
+
+    .logo-placeholder:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .logo-placeholder img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo-placeholder .placeholder-text {
+      font-size: 0.65rem;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar-toggler {
+      border: none;
+      padding: 0.4rem;
+      margin-left: auto;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+
+    .navbar-toggler-icon {
+      filter: brightness(0) invert(1);
+    }
+
+    @media (max-width: 991px) {
       .navbar-center {
-        display: flex;
-        justify-content: center;
-        flex-grow: 1;
+        width: 100%;
+        order: 3;
+        margin-top: 1rem;
       }
 
       .navbar-center .navbar-nav {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 2px;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .navbar-collapse {
+        background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+        border-radius: 12px;
+        padding: 0.75rem;
       }
 
       .navbar-nav .nav-link {
-        color: rgba(255,255,255,0.9) !important;
-        font-weight: 500;
-        padding: 0.5rem 0.75rem !important;
-        border-radius: 8px;
-        transition: var(--transition);
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        white-space: nowrap;
+        padding: 0.6rem 1rem !important;
+        margin: 4px 0;
+        justify-content: center;
       }
-
-      .navbar-nav .nav-link:hover,
-      .navbar-nav .nav-link:focus {
-        color: #fff !important;
-        background: rgba(255,255,255,0.15);
-        transform: translateY(-1px);
-      }
-
-      .navbar-nav .nav-link.active {
-        background: rgba(255,255,255,0.25);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        position: relative;
-      }
-
-      .navbar-nav .nav-link.active::after {
-        content: '';
-        position: absolute;
-        bottom: -3px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 24px;
-        height: 3px;
-        background: var(--accent);
-        border-radius: 2px;
-      }
-
-      .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
 
       .navbar .dropdown-menu {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        box-shadow: var(--shadow-lg);
-        padding: 0.5rem;
-        margin-top: 8px;
-        min-width: 220px;
-        animation: slideDown 0.2s ease;
-      }
-
-      @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding-left: 1.5rem;
+        text-align: center;
       }
 
       .navbar .dropdown-item {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        color: var(--text-primary);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: var(--transition);
+        color: rgba(255, 255, 255, 0.9);
+        justify-content: center;
       }
 
       .navbar .dropdown-item:hover {
-        background: rgba(30, 64, 175, 0.08);
-        color: var(--primary);
-        padding-left: 1.25rem;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        padding-left: 1rem;
       }
-
-      .navbar .dropdown-item.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        color: var(--text-secondary);
-      }
-
-      .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
-      .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
 
       .logo-placeholder {
-        width: 42px; height: 42px; border-radius: 50%;
-        background: rgba(255,255,255,0.15);
-        border: 2px solid rgba(255,255,255,0.3);
-        display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0; cursor: pointer; transition: var(--transition);
-        color: #fff; font-weight: 600; font-size: 0.75rem;
-        text-align: center; line-height: 1.2; padding: 4px;
+        order: 2;
+        margin-left: 0.5rem;
+      }
+    }
+
+    /* ============ FOOTER (Same as Dashboard) ============ */
+    .footer-section {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: rgba(255, 255, 255, 0.9);
+      padding: 2rem 0 1.5rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-section h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-right: 8px;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-section .copyright {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin: 0;
+    }
+
+    .footer-section .btn-outline-light {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #fff;
+      font-weight: 500;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+
+    .footer-section .btn-outline-light:hover {
+      background: #fff;
+      color: var(--primary);
+      border-color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+      padding-left: 4px;
+    }
+
+    @media (max-width: 991px) {
+      .footer-section .row>div {
+        text-align: center !important;
+        margin-bottom: 1.5rem;
       }
 
-      .logo-placeholder:hover {
-        background: rgba(255,255,255,0.25);
-        border-color: var(--accent);
-        transform: scale(1.05);
+      .footer-section .text-end {
+        text-align: center !important;
       }
 
-      .logo-placeholder img {
-        width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+      .social-links {
+        justify-content: center;
+        display: flex;
       }
-
-      .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
-
-      .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
-      .navbar-toggler:focus { box-shadow: none; }
-      .navbar-toggler-icon { filter: brightness(0) invert(1); }
-
-      @media (max-width: 991px) {
-        .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
-        .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
-        .navbar-collapse {
-          background: linear-gradient(180deg, var(--primary-dark), var(--primary));
-          border-radius: 12px; padding: 0.75rem;
-        }
-        .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
-        .navbar .dropdown-menu {
-          background: rgba(255,255,255,0.1); border: none; box-shadow: none;
-          margin: 0; padding-left: 1.5rem; text-align: center;
-        }
-        .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
-        .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
-        .logo-placeholder { order: 2; margin-left: 0.5rem; }
-      }
-
-      /* ============ FOOTER (Same as Dashboard) ============ */
-      .footer-section {
-        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        color: rgba(255,255,255,0.9);
-        padding: 2rem 0 1.5rem;
-        margin-top: 3rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
-      }
-
-      .footer-section h3 {
-        font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff;
-      }
-
-      .social-links a {
-        display: inline-flex; align-items: center; justify-content: center;
-        width: 40px; height: 40px; border-radius: 10px;
-        background: rgba(255,255,255,0.1); margin-right: 8px;
-        transition: var(--transition); border: 1px solid transparent;
-        color: #fff; text-decoration: none; font-size: 1.1rem;
-      }
-
-      .social-links a:hover {
-        background: rgba(255,255,255,0.2);
-        transform: translateY(-3px);
-        border-color: rgba(255,255,255,0.3);
-      }
-
-      .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
-
-      .footer-section .btn-outline-light {
-        border-color: rgba(255,255,255,0.4); color: #fff;
-        font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px;
-        transition: var(--transition);
-      }
-
-      .footer-section .btn-outline-light:hover {
-        background: #fff; color: var(--primary); border-color: #fff;
-        transform: translateY(-2px); box-shadow: var(--shadow-md);
-      }
-
-      .footer-links { list-style: none; padding: 0; margin: 0; }
-      .footer-links li { margin-bottom: 0.5rem; }
-      .footer-links a {
-        color: rgba(255,255,255,0.8); text-decoration: none;
-        font-size: 0.9rem; transition: var(--transition);
-        display: flex; align-items: center; gap: 6px;
-      }
-      .footer-links a:hover { color: #fff; padding-left: 4px; }
-
-      @media (max-width: 991px) {
-        .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
-        .footer-section .text-end { text-align: center !important; }
-        .social-links { justify-content: center; display: flex; }
-      }
-</style>
+    }
+  </style>
 </head>
+
 <body>
-    <!-- ============ HEADER ============ -->
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        
-        <!-- LEFT: Brand -->
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-building-check"></i>
-          <span>SchoolMS</span>
-        </a>
-        
-        <!-- TOGGLER (Mobile) -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <!-- CENTER: Nav Items -->
-        <div class="collapse navbar-collapse navbar-center" id="navbarContent">
-          <ul class="navbar-nav">
-            
-            <!-- Dashboard -->
-            <li class="nav-item">
-              <a class="nav-link" href="admin_dashboard.html">
-                <i class="bi bi-speedometer2"></i> Dashboard
-              </a>
-            </li>
+  <!-- ============ HEADER ============ -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
 
-            <!-- 👥 Students Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-people"></i> Students
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
-                <li><a class="dropdown-item" href="attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Student Profile</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
-              </ul>
-            </li>
+      <!-- LEFT: Brand -->
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-building-check"></i>
+        <span>SchoolMS</span>
+      </a>
 
-            <!-- 💰 Finance Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-wallet2"></i> Finance
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="fees_module/fees_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
-                <li><a class="dropdown-item" href="exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Fee Reports</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
-              </ul>
-            </li>
+      <!-- TOGGLER (Mobile) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <!-- 🏫 Institute Dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-building"></i> Institute
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="library/library.html"><i class="bi bi-book"></i> Library</a></li>
-                <li><a class="dropdown-item" href="hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
-                <li><a class="dropdown-item" href="events/events.html"><i class="bi bi-calendar-event"></i> Events</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
-              </ul>
-            </li>
+      <!-- CENTER: Nav Items -->
+      <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+        <ul class="navbar-nav">
 
-            <!-- 👔 Staff -->
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                <i class="bi bi-briefcase"></i> Staff
-              </a>
-            </li>
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="../admin_dashboard.html">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
 
-            <!-- ⚙️ Settings -->
-            <li class="nav-item">
-              <a class="nav-link" href="admin_panel/admin_panel.html">
-                <i class="bi bi-gear"></i> Settings
-              </a>
-            </li>
+          <!-- 👥 Students Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-people"></i> Students
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../admission/admission.html"><i class="bi bi-person-plus"></i>
+                  Admission</a></li>
+              <li><a class="dropdown-item disabled" href="../attendance/attendance.html"><i
+                    class="bi bi-calendar-check"></i> Attendance</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="../students/student_profile.html"><i class="bi bi-person-badge"></i>
+                  Student Profile</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+            </ul>
+          </li>
 
-          </ul>
-        </div>
-        
-        <!-- RIGHT: Logo Placeholder -->
-        <div class="logo-placeholder" title="SquadVertex Logo">
-          <!-- Uncomment when logo is ready -->
-          <!-- <img src="path/to/squadvertex-logo.png" alt="SquadVertex"> -->
-          <span class="placeholder-text">SV<br>Logo</span>
-        </div>
-        
+          <!-- 💰 Finance Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-wallet2"></i> Finance
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../payment_module/payment_module.html"><i
+                    class="bi bi-currency-dollar"></i> Payment Module</a></li>
+              <li><a class="dropdown-item" href="../exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i>
+                  Exam Module</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+            </ul>
+          </li>
+
+          <!-- 🏫 Institute Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-building"></i> Institute
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../library/library.html"><i class="bi bi-book"></i> Library</a></li>
+              <li><a class="dropdown-item" href="../hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+            </ul>
+          </li>
+
+          <!-- 👔 Staff -->
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+              <i class="bi bi-briefcase"></i> Staff
+            </a>
+          </li>
+
+          <!-- ⚙️ Settings -->
+          <li class="nav-item">
+            <a class="nav-link" href="../admin_panel/admin_panel.html">
+              <i class="bi bi-gear"></i> Settings
+            </a>
+          </li>
+
+        </ul>
       </div>
-    </nav>
+
+      <div class="logo-placeholder" title="SquadVertex Logo">
+        <img
+          src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0"
+          alt="SquadVertex Logo" class="sv-logo">
+      </div>
+
+    </div>
+  </nav>
 
   <div class="container">
     <div class="transaction-card">
@@ -415,49 +556,53 @@
             </tr>
           </thead>
           <tbody id="transactions-table">
-            </tbody>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
 
-    <!-- ============ FOOTER (Same as Dashboard) ============ -->
-    <footer class="footer-section">
-      <div class="container">
-        <div class="row align-items-center g-4">
-          <!-- Social -->
-          <div class="col-lg-4 col-md-6">
-            <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
-            <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
-              <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
-              <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
-              <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
-            </div>
-          </div>
-          
-          <!-- Quick Links -->
-          <div class="col-lg-4 col-md-6">
-            <h3>Quick Links</h3>
-            <ul class="footer-links">
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Documentation</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
-            </ul>
-          </div>
-          
-          <!-- Copyright + Docs -->
-          <div class="col-lg-4 col-md-12 text-lg-end">
-            <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-light mb-3">
-              <i class="bi bi-book me-1"></i>View Docs
-            </a>
-            <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+  <!-- ============ FOOTER (Same as Dashboard) ============ -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <!-- Social -->
+        <div class="col-lg-4 col-md-6">
+          <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
+          <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management
+            solutions.</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i
+                class="bi bi-instagram"></i></a>
+            <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
+            <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i
+                class="bi bi-youtube"></i></a>
           </div>
         </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-4 col-md-6">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <!-- Copyright + Docs -->
+        <div class="col-lg-4 col-md-12 text-lg-end">
+          <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank"
+            class="btn btn-outline-light mb-3">
+            <i class="bi bi-book me-1"></i>View Docs
+          </a>
+          <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+        </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
   <!-- jQuery, Popper.js, Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -467,12 +612,13 @@
   <script>
     // Firebase Initialization
     const firebaseConfig = {
-      apiKey: "AIzaSyBV7Jg0BVzeCNQW9oiIiNItnejUsjj2DhA",
-      authDomain: "squadvertex2007.firebaseapp.com",
-      projectId: "squadvertex2007",
-      storageBucket: "squadvertex2007.appspot.com",
-      messagingSenderId: "168905083514",
-      appId: "1:168905083514:web:c8bbe2ce9f87800a0f09c3",
+      apiKey: "AIzaSyAXAs_j7Six8N3aW9yc3zUJcy_yodZgeJo",
+      authDomain: "loomischool-26.firebaseapp.com",
+      projectId: "loomischool-26",
+      storageBucket: "loomischool-26.firebasestorage.app",
+      messagingSenderId: "128038850008",
+      appId: "1:128038850008:web:9001fca7e1b7803837f6ad",
+      measurementId: "G-MWZSZFCZZE",
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
@@ -490,7 +636,7 @@
 
     // Logo URL
     const logoURL = "https://dl.dropboxusercontent.com/scl/fi/fkq02zrhmtjo8q0j66pj4/Screenshot_20240901-172502.png?rlkey=256r98hep0tclyuznt3yjqdj1&dl=0";
-    
+
     // Fetch school settings from 001-school/systemSettings document
     async function fetchSchoolSettings() {
       try {
@@ -525,7 +671,7 @@
           try {
             console.groupCollapsed(`[DEBUG] Processing payment: ${paymentDoc.id}`);
             const paymentData = paymentDoc.data();
-            
+
             // Parse the nested path to extract required IDs
             // Path format: {activeSchoolFolder}/transactions/{class_id}/{student_id}/payments/{txn_doc_id}
             const pathParts = paymentDoc.ref.path.split('/');
@@ -535,7 +681,7 @@
             const student_id = pathParts[3];    // e.g., "student10293"
             // pathParts[4] = "payments"
             const txn_doc_id = paymentDoc.id;   // actual payment document ID
-            
+
             console.log("Extracted IDs:", { class_id, student_id, txn_doc_id });
 
             // Get student document for display data
@@ -602,8 +748,8 @@
 
       const filtered = transactionsArray.filter(txn => {
         const txnDate = new Date(txn.dateTime);
-        const dateFilter = (!startDate || txnDate >= new Date(startDate)) && 
-                           (!endDate || txnDate <= new Date(endDate + 'T23:59:59'));
+        const dateFilter = (!startDate || txnDate >= new Date(startDate)) &&
+          (!endDate || txnDate <= new Date(endDate + 'T23:59:59'));
         const modeFilterPass = !modeFilter || txn.mode === modeFilter;
         return dateFilter && modeFilterPass;
       });
@@ -635,11 +781,11 @@
       });
     }
 
-    // NEW FUNCTION: Redirect to receipt_print.html with ALL required nested path params
+    // NEW FUNCTION: Redirect to print_receipt.html with ALL required nested path params
     function viewReceipt(class_id, student_id, txn_doc_id) {
       // Build URL with all three required parameters
-      const receiptUrl = `/receipt_print.html?class_id=${encodeURIComponent(class_id)}&student_id=${encodeURIComponent(student_id)}&txn_doc_id=${encodeURIComponent(txn_doc_id)}`;
-      
+      const receiptUrl = `/print_receipt.html?class_id=${encodeURIComponent(class_id)}&student_id=${encodeURIComponent(student_id)}&txn_doc_id=${encodeURIComponent(txn_doc_id)}`;
+
       console.log("Redirecting to:", receiptUrl);
       window.location.href = receiptUrl;
     }
@@ -651,7 +797,8 @@
       loadTransactions();
     });
   </script>
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
