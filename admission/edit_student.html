@@ -460,103 +460,99 @@
   </style>
 </head>
 <body>
+    <!-- ============ HEADER ============ -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        
+        <!-- LEFT: Brand -->
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-building-check"></i>
+          <span>SchoolMS</span>
+        </a>
+        
+        <!-- TOGGLER (Mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- CENTER: Nav Items -->
+        <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+          <ul class="navbar-nav">
+            
+            <!-- Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_dashboard.html">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </li>
 
-  <!-- ============ REORGANIZED HEADER ============ -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      
-      <!-- LEFT: Brand -->
-      <a class="navbar-brand" href="#">
-        <i class="bi bi-building-check"></i>
-        <span>SchoolMS</span>
-      </a>
-      
-      <!-- TOGGLER (Mobile) -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <!-- CENTER: Nav Items -->
-      <div class="collapse navbar-collapse navbar-center" id="navbarContent">
-        <ul class="navbar-nav">
-          
-          <!-- Dashboard -->
-          <li class="nav-item">
-            <a class="nav-link" href="../admin_dashboard.html">
-              <i class="bi bi-speedometer2"></i> Dashboard
-            </a>
-          </li>
+            <!-- 👥 Students Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-people"></i> Students
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+                <li><a class="dropdown-item disabled" href="/attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/students/student_profile.html"><i class="bi bi-person-badge"></i> Student Profile</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+              </ul>
+            </li>
 
-          <!-- 👥 Students Dropdown (ACTIVE) -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-people"></i> Students
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item active" href="admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
-              <li><a class="dropdown-item" href="../attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Student Profile</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
-            </ul>
-          </li>
+            <!-- 💰 Finance Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-wallet2"></i> Finance
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+                <li><a class="dropdown-item disabled" href="/exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+              </ul>
+            </li>
 
-          <!-- 💰 Finance Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-wallet2"></i> Finance
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../fees_module/fees_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
-              <li><a class="dropdown-item" href="../exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Fee Reports</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
-            </ul>
-          </li>
+            <!-- 🏫 Institute Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-building"></i> Institute
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a></li>
+                <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+              </ul>
+            </li>
 
-          <!-- 🏫 Institute Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-building"></i> Institute
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../library/library.html"><i class="bi bi-book"></i> Library</a></li>
-              <li><a class="dropdown-item" href="../hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
-              <li><a class="dropdown-item" href="../events/events.html"><i class="bi bi-calendar-event"></i> Events</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
-            </ul>
-          </li>
+            <!-- 👔 Staff -->
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                <i class="bi bi-briefcase"></i> Staff
+              </a>
+            </li>
 
-          <!-- 👔 Staff (Standalone) -->
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <i class="bi bi-briefcase"></i> Staff
-            </a>
-          </li>
+            <!-- ⚙️ Settings -->
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_panel/admin_panel.html">
+                <i class="bi bi-gear"></i> Settings
+              </a>
+            </li>
 
-          <!-- ⚙️ Settings (Standalone) -->
-          <li class="nav-item">
-            <a class="nav-link" href="../admin_panel/admin_panel.html">
-              <i class="bi bi-gear"></i> Settings
-            </a>
-          </li>
-
-        </ul>
+          </ul>
+        </div>
+        
+        <div class="logo-placeholder" title="SquadVertex Logo">
+          <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
+        </div>
+        
       </div>
-      
-      <!-- RIGHT: Logo Placeholder (Circular) -->
-      <div class="logo-placeholder" title="SquadVertex Logo">
-        <!-- <img src="path/to/squadvertex-logo.png" alt="SquadVertex"> -->
-        <span class="placeholder-text">SV<br>Logo</span>
-      </div>
-      
-    </div>
-  </nav>
+    </nav>
 
   <!-- ============ MAIN CONTENT ============ -->
   <div class="container">
@@ -689,10 +685,10 @@
           <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
           <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
           <div class="social-links">
-            <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
             <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
-            <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
-            <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
+            <a href="#" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
         
@@ -700,7 +696,7 @@
         <div class="col-lg-4 col-md-6">
           <h3>Quick Links</h3>
           <ul class="footer-links">
-            <li><a href="#"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+            <li><a href="/documentation.html" target="_blank"><i class="bi bi-chevron-right"></i> Documentation</a></li>
             <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
             <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
             <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
@@ -709,7 +705,8 @@
         
         <!-- Copyright + Docs -->
         <div class="col-lg-4 col-md-12 text-lg-end">
-          <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-light mb-3">
+          <a href="/documentation.html" target="_blank"
+            class="btn btn-outline-light mb-3">
             <i class="bi bi-book me-1"></i>View Docs
           </a>
           <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
@@ -726,12 +723,13 @@
   <script>
     // Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyBV7Jg0BVzeCNQW9oiIiNItnejUsjj2DhA",
-      authDomain: "squadvertex2007.firebaseapp.com",
-      projectId: "squadvertex2007",
-      storageBucket: "squadvertex2007.appspot.com",
-      messagingSenderId: "168905083514",
-      appId: "1:168905083514:web:c8bbe2ce9f87800a0f09c3"
+      apiKey: "AIzaSyAXAs_j7Six8N3aW9yc3zUJcy_yodZgeJo",
+      authDomain: "loomischool-26.firebaseapp.com",
+      projectId: "loomischool-26",
+      storageBucket: "loomischool-26.firebasestorage.app",
+      messagingSenderId: "128038850008",
+      appId: "1:128038850008:web:9001fca7e1b7803837f6ad",
+      measurementId: "G-MWZSZFCZZE"
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
