@@ -14,152 +14,80 @@
     
     <style>
       :root {
-        --primary: #1e40af;
-        --primary-dark: #1e3a8a;
-        --primary-light: #3b82f6;
-        --secondary: #10b981;
-        --accent: #f59e0b;
-        --danger: #ef4444;
-        --warning: #f59e0b;
-        --info: #3b82f6;
-        --bg-body: #f8fafc;
-        --bg-card: #ffffff;
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        --border-color: #e2e8f0;
-        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+        --primary: #1e40af; --primary-dark: #1e3a8a; --primary-light: #3b82f6;
+        --secondary: #10b981; --accent: #f59e0b; --danger: #ef4444;
+        --warning: #f59e0b; --info: #3b82f6; --bg-body: #f8fafc;
+        --bg-card: #ffffff; --text-primary: #1e293b; --text-secondary: #64748b;
+        --border-color: #e2e8f0; --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
         --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
         --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
         --transition: all 0.2s ease-in-out;
       }
-
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      
       body {
         background-color: var(--bg-body);
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        color: var(--text-primary);
-        line-height: 1.6;
-        overflow-x: hidden;
+        color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
       }
-
       /* ============ NAVBAR ============ */
       .navbar {
         background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        box-shadow: var(--shadow-md);
-        padding: 0.5rem 1rem;
-        position: sticky;
-        top: 0;
-        z-index: 1030;
+        box-shadow: var(--shadow-md); padding: 0.5rem 1rem;
+        position: sticky; top: 0; z-index: 1030;
       }
-
       .navbar-brand {
-        font-weight: 700;
-        font-size: 1.3rem;
-        color: #fff !important;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-shrink: 0;
+        font-weight: 700; font-size: 1.3rem; color: #fff !important;
+        display: flex; align-items: center; gap: 6px; flex-shrink: 0;
       }
-
       .navbar-brand i { font-size: 1.4rem; }
-
-      .navbar-center {
-        display: flex;
-        justify-content: center;
-        flex-grow: 1;
-      }
-
+      .navbar-center { display: flex; justify-content: center; flex-grow: 1; }
       .navbar-center .navbar-nav {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 2px;
+        display: flex; justify-content: center; flex-wrap: wrap; gap: 2px;
       }
-
       .navbar-nav .nav-link {
-        color: rgba(255,255,255,0.9) !important;
-        font-weight: 500;
-        padding: 0.5rem 0.75rem !important;
-        border-radius: 8px;
-        transition: var(--transition);
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        white-space: nowrap;
+        color: rgba(255,255,255,0.9) !important; font-weight: 500;
+        padding: 0.5rem 0.75rem !important; border-radius: 8px;
+        transition: var(--transition); font-size: 0.9rem;
+        display: flex; align-items: center; gap: 4px; white-space: nowrap;
       }
-
-      .navbar-nav .nav-link:hover,
-      .navbar-nav .nav-link:focus {
-        color: #fff !important;
-        background: rgba(255,255,255,0.15);
+      .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+        color: #fff !important; background: rgba(255,255,255,0.15);
         transform: translateY(-1px);
       }
-
       .navbar-nav .nav-link.active {
         background: rgba(255,255,255,0.25);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        position: relative;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;
       }
-
       .navbar-nav .nav-link.active::after {
-        content: '';
-        position: absolute;
-        bottom: -3px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 24px;
-        height: 3px;
-        background: var(--accent);
-        border-radius: 2px;
+        content: ''; position: absolute; bottom: -3px; left: 50%;
+        transform: translateX(-50%); width: 24px; height: 3px;
+        background: var(--accent); border-radius: 2px;
       }
-
       .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
-
       .navbar .dropdown-menu {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        box-shadow: var(--shadow-lg);
-        padding: 0.5rem;
-        margin-top: 8px;
-        min-width: 220px;
+        background: var(--bg-card); border: 1px solid var(--border-color);
+        border-radius: 12px; box-shadow: var(--shadow-lg);
+        padding: 0.5rem; margin-top: 8px; min-width: 220px;
         animation: slideDown 0.2s ease;
       }
-
       @keyframes slideDown {
         from { opacity: 0; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
       }
-
       .navbar .dropdown-item {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        color: var(--text-primary);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: var(--transition);
+        font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 8px;
+        color: var(--text-primary); display: flex; align-items: center;
+        gap: 8px; transition: var(--transition);
       }
-
       .navbar .dropdown-item:hover {
-        background: rgba(30, 64, 175, 0.08);
-        color: var(--primary);
+        background: rgba(30, 64, 175, 0.08); color: var(--primary);
         padding-left: 1.25rem;
       }
-
       .navbar .dropdown-item.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        color: var(--text-secondary);
+        opacity: 0.5; cursor: not-allowed; color: var(--text-secondary);
       }
-
       .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
       .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
-
       .logo-placeholder {
         width: 42px; height: 42px; border-radius: 50%;
         background: rgba(255,255,255,0.15);
@@ -169,23 +97,17 @@
         color: #fff; font-weight: 600; font-size: 0.75rem;
         text-align: center; line-height: 1.2; padding: 4px;
       }
-
       .logo-placeholder:hover {
-        background: rgba(255,255,255,0.25);
-        border-color: var(--accent);
+        background: rgba(255,255,255,0.25); border-color: var(--accent);
         transform: scale(1.05);
       }
-
       .logo-placeholder img {
         width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
       }
-
       .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
-
       .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
       .navbar-toggler:focus { box-shadow: none; }
       .navbar-toggler-icon { filter: brightness(0) invert(1); }
-
       @media (max-width: 991px) {
         .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
         .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
@@ -202,368 +124,159 @@
         .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
         .logo-placeholder { order: 2; margin-left: 0.5rem; }
       }
-
-      /* ============ PAGE CONTENT STYLES ============ */
+      /* ============ PAGE CONTENT ============ */
       .page-header {
-        background: var(--bg-card);
-        border-radius: 16px;
-        padding: 1.5rem;
-        margin: 1.5rem 0 1rem;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--border-color);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1rem;
+        background: var(--bg-card); border-radius: 16px; padding: 1.5rem;
+        margin: 1.5rem 0 1rem; box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color); display: flex;
+        align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
       }
-
       .page-header h3 {
-        margin: 0;
-        font-weight: 700;
-        color: var(--primary);
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        margin: 0; font-weight: 700; color: var(--primary);
+        display: flex; align-items: center; gap: 10px;
       }
-
       .page-header h3 i { font-size: 1.4rem; }
-
-      .page-breadcrumb {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-      }
-
+      .page-breadcrumb { font-size: 0.9rem; color: var(--text-secondary); }
       .page-breadcrumb a { color: var(--primary); text-decoration: none; }
-
-      /* Filter Bar */
       .filter-bar {
-        background: var(--bg-card);
-        border-radius: 12px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 1rem;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--border-color);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        align-items: center;
+        background: var(--bg-card); border-radius: 12px; padding: 1rem 1.25rem;
+        margin-bottom: 1rem; box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color); display: flex;
+        flex-wrap: wrap; gap: 0.75rem; align-items: center;
       }
-
-      .filter-bar .form-control,
-      .filter-bar .form-select {
-        border-radius: 10px;
-        border-color: var(--border-color);
-        padding: 0.5rem 0.85rem;
-        font-size: 0.9rem;
+      .filter-bar .form-control, .filter-bar .form-select {
+        border-radius: 10px; border-color: var(--border-color);
+        padding: 0.5rem 0.85rem; font-size: 0.9rem;
       }
-
-      .filter-bar .form-control:focus,
-      .filter-bar .form-select:focus {
+      .filter-bar .form-control:focus, .filter-bar .form-select:focus {
         border-color: var(--primary-light);
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
       }
-
       .filter-bar .form-control::placeholder { color: var(--text-secondary); }
-
-      /* Table Styles */
       .table-container {
-        background: var(--bg-card);
-        border-radius: 16px;
-        padding: 1rem;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--border-color);
+        background: var(--bg-card); border-radius: 16px; padding: 1rem;
+        box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);
         overflow: hidden;
       }
-
       .table thead th {
-        background: var(--primary);
-        color: #fff;
-        font-weight: 600;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border: none;
-        padding: 0.85rem 1rem;
+        background: var(--primary); color: #fff; font-weight: 600;
+        font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
+        border: none; padding: 0.85rem 1rem;
       }
-
       .table tbody td {
-        padding: 0.85rem 1rem;
-        vertical-align: middle;
-        border-color: var(--border-color);
-        font-size: 0.95rem;
+        padding: 0.85rem 1rem; vertical-align: middle;
+        border-color: var(--border-color); font-size: 0.95rem;
       }
-
-      .table tbody tr:hover {
-        background: rgba(30, 64, 175, 0.03);
-      }
-
+      .table tbody tr:hover { background: rgba(30, 64, 175, 0.03); }
       .vehicle-eligible-icon {
-        font-size: 1.1rem;
-        margin-left: 6px;
-        vertical-align: middle;
-        cursor: help;
+        font-size: 1.1rem; margin-left: 6px; vertical-align: middle; cursor: help;
       }
-
-      /* Action Buttons */
       .btn-action {
-        padding: 0.35rem 0.75rem;
-        font-size: 0.8rem;
-        font-weight: 500;
-        border-radius: 8px;
-        margin: 2px;
-        transition: var(--transition);
+        padding: 0.35rem 0.75rem; font-size: 0.8rem; font-weight: 500;
+        border-radius: 8px; margin: 2px; transition: var(--transition);
       }
-
-      .btn-action.btn-primary {
-        background: var(--primary);
-        border-color: var(--primary);
-      }
-
-      .btn-action.btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-      }
-
+      .btn-action.btn-primary { background: var(--primary); border-color: var(--primary); }
+      .btn-action.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
       .btn-action.btn-info {
-        background: var(--bg-body);
-        color: var(--primary);
+        background: var(--bg-body); color: var(--primary);
         border: 1px solid var(--primary-light);
       }
-
       .btn-action.btn-info:hover {
-        background: var(--primary);
-        color: #fff;
-        transform: translateY(-1px);
+        background: var(--primary); color: #fff; transform: translateY(-1px);
       }
-
       .btn-action.btn-warning {
-        background: rgba(245, 158, 11, 0.15);
-        color: var(--accent);
+        background: rgba(245, 158, 11, 0.15); color: var(--accent);
         border: 1px solid var(--accent);
       }
-
       .btn-action.btn-warning:hover {
-        background: var(--accent);
-        color: #fff;
-        transform: translateY(-1px);
+        background: var(--accent); color: #fff; transform: translateY(-1px);
       }
-
       .btn-action.btn-success {
-        background: rgba(16, 185, 129, 0.15);
-        color: var(--secondary);
+        background: rgba(16, 185, 129, 0.15); color: var(--secondary);
         border: 1px solid var(--secondary);
       }
-
       .btn-action.btn-success:hover {
-        background: var(--secondary);
-        color: #fff;
-        transform: translateY(-1px);
+        background: var(--secondary); color: #fff; transform: translateY(-1px);
       }
-
-      /* ============ MODAL STYLES ============ */
-      .modal-content {
-        border: none;
-        border-radius: 16px;
-        box-shadow: var(--shadow-lg);
-      }
-
+      /* ============ MODALS ============ */
+      .modal-content { border: none; border-radius: 16px; box-shadow: var(--shadow-lg); }
       .modal-header {
         background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        color: #fff;
-        border-radius: 16px 16px 0 0;
-        padding: 1rem 1.5rem;
-        border: none;
+        color: #fff; border-radius: 16px 16px 0 0; padding: 1rem 1.5rem; border: none;
       }
-
       .modal-header .modal-title {
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        font-weight: 600; display: flex; align-items: center; gap: 8px;
       }
-
-      .modal-header .btn-close {
-        filter: brightness(0) invert(1);
-      }
-
-      .modal-body {
-        padding: 1.25rem 1.5rem;
-      }
-
+      .modal-header .btn-close { filter: brightness(0) invert(1); }
+      .modal-body { padding: 1.25rem 1.5rem; }
       .modal-footer {
-        border-top: 1px solid var(--border-color);
-        padding: 1rem 1.5rem;
-        background: var(--bg-body);
-        border-radius: 0 0 16px 16px;
+        border-top: 1px solid var(--border-color); padding: 1rem 1.5rem;
+        background: var(--bg-body); border-radius: 0 0 16px 16px;
       }
-
       .modal .form-label {
-        font-weight: 500;
-        font-size: 0.9rem;
-        color: var(--text-primary);
+        font-weight: 500; font-size: 0.9rem; color: var(--text-primary);
         margin-bottom: 0.4rem;
       }
-
-      .modal .form-control,
-      .modal .form-select {
-        border-radius: 10px;
-        border-color: var(--border-color);
-        padding: 0.5rem 0.85rem;
-        font-size: 0.95rem;
+      .modal .form-control, .modal .form-select {
+        border-radius: 10px; border-color: var(--border-color);
+        padding: 0.5rem 0.85rem; font-size: 0.95rem;
       }
-
-      .modal .form-control:focus,
-      .modal .form-select:focus {
+      .modal .form-control:focus, .modal .form-select:focus {
         border-color: var(--primary-light);
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
       }
-
-      .modal .form-text {
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-      }
-
-      .modal .alert {
-        border-radius: 10px;
-        font-size: 0.9rem;
-        padding: 0.75rem 1rem;
-      }
-
+      .modal .form-text { font-size: 0.85rem; color: var(--text-secondary); }
+      .modal .alert { border-radius: 10px; font-size: 0.9rem; padding: 0.75rem 1rem; }
       .modal .alert-danger {
         background: rgba(239, 68, 68, 0.1);
-        border: 1px solid rgba(239, 68, 68, 0.3);
-        color: var(--danger);
+        border: 1px solid rgba(239, 68, 68, 0.3); color: var(--danger);
       }
-
-      /* Vehicle Fee Modal Specific */
       .vehicle-section {
-        background: rgba(30, 64, 175, 0.04);
-        border-radius: 12px;
-        padding: 1rem;
-        margin: 1rem 0;
-        border-left: 4px solid var(--primary);
+        background: rgba(30, 64, 175, 0.04); border-radius: 12px;
+        padding: 1rem; margin: 1rem 0; border-left: 4px solid var(--primary);
       }
-
       .month-checkboxes {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-        margin-top: 0.5rem;
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem; margin-top: 0.5rem;
       }
-
-      @media (max-width: 576px) {
-        .month-checkboxes { grid-template-columns: repeat(2, 1fr); }
-      }
-
-      .month-checkboxes .form-check {
-        margin: 0;
-      }
-
-      .month-checkboxes .form-check-label {
-        font-size: 0.85rem;
-        cursor: pointer;
-      }
-
-      /* Details Modal - Info Cards */
+      @media (max-width: 576px) { .month-checkboxes { grid-template-columns: repeat(2, 1fr); } }
+      .month-checkboxes .form-check { margin: 0; }
+      .month-checkboxes .form-check-label { font-size: 0.85rem; cursor: pointer; }
       .info-card {
-        background: var(--bg-body);
-        border-radius: 12px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border: 1px solid var(--border-color);
+        background: var(--bg-body); border-radius: 12px; padding: 1rem;
+        margin-bottom: 1rem; border: 1px solid var(--border-color);
       }
-
       .info-card h6 {
-        color: var(--primary);
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        color: var(--primary); font-weight: 600; margin-bottom: 0.75rem;
+        display: flex; align-items: center; gap: 6px;
       }
-
-      .info-card p {
-        margin: 0.25rem 0;
-        font-size: 0.95rem;
-      }
-
+      .info-card p { margin: 0.25rem 0; font-size: 0.95rem; }
       .info-card p strong {
-        color: var(--text-primary);
-        min-width: 140px;
-        display: inline-block;
+        color: var(--text-primary); min-width: 140px; display: inline-block;
       }
-
-      .fee-summary {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-        margin-top: 1rem;
-      }
-
+      .fee-summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 1rem; }
       .fee-item {
-        background: var(--bg-card);
-        padding: 0.75rem;
-        border-radius: 10px;
-        border: 1px solid var(--border-color);
-        text-align: center;
+        background: var(--bg-card); padding: 0.75rem; border-radius: 10px;
+        border: 1px solid var(--border-color); text-align: center;
       }
-
-      .fee-item .label {
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        margin-bottom: 4px;
-      }
-
-      .fee-item .value {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: var(--primary);
-      }
-
+      .fee-item .label { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px; }
+      .fee-item .value { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
       .fee-item .value.pending { color: var(--danger); }
       .fee-item .value.paid { color: var(--secondary); }
-
       .transaction-table th {
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: var(--text-secondary);
-        background: var(--bg-body);
+        font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+        color: var(--text-secondary); background: var(--bg-body);
       }
-
-      .transaction-table td {
-        font-size: 0.9rem;
-        padding: 0.6rem 0.75rem;
-      }
-
-      /* Empty State */
-      .empty-state {
-        text-align: center;
-        padding: 3rem 1rem;
-        color: var(--text-secondary);
-      }
-
-      .empty-state i {
-        font-size: 3rem;
-        color: var(--border-color);
-        margin-bottom: 1rem;
-        display: block;
-      }
-
+      .transaction-table td { font-size: 0.9rem; padding: 0.6rem 0.75rem; }
+      .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); }
+      .empty-state i { font-size: 3rem; color: var(--border-color); margin-bottom: 1rem; display: block; }
       /* ============ FOOTER ============ */
       .footer-section {
         background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        color: rgba(255,255,255,0.9);
-        padding: 2rem 0 1.5rem;
-        margin-top: 3rem;
+        color: rgba(255,255,255,0.9); padding: 2rem 0 1.5rem; margin-top: 3rem;
         border-top: 1px solid rgba(255,255,255,0.1);
       }
-
-      .footer-section h3 {
-        font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff;
-      }
-
+      .footer-section h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff; }
       .social-links a {
         display: inline-flex; align-items: center; justify-content: center;
         width: 40px; height: 40px; border-radius: 10px;
@@ -571,26 +284,20 @@
         transition: var(--transition); border: 1px solid transparent;
         color: #fff; text-decoration: none; font-size: 1.1rem;
       }
-
       .social-links a:hover {
-        background: rgba(255,255,255,0.2);
-        transform: translateY(-3px);
+        background: rgba(255,255,255,0.2); transform: translateY(-3px);
         border-color: rgba(255,255,255,0.3);
       }
-
       .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
-
       .footer-section .btn-outline-light {
         border-color: rgba(255,255,255,0.4); color: #fff;
         font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px;
         transition: var(--transition);
       }
-
       .footer-section .btn-outline-light:hover {
         background: #fff; color: var(--primary); border-color: #fff;
         transform: translateY(-2px); box-shadow: var(--shadow-md);
       }
-
       .footer-links { list-style: none; padding: 0; margin: 0; }
       .footer-links li { margin-bottom: 0.5rem; }
       .footer-links a {
@@ -599,7 +306,6 @@
         display: flex; align-items: center; gap: 6px;
       }
       .footer-links a:hover { color: #fff; padding-left: 4px; }
-
       @media (max-width: 991px) {
         .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
         .footer-section .text-end { text-align: center !important; }
@@ -610,467 +316,243 @@
       }
     </style>
   </head>
-  
   <body>
     <!-- ============ HEADER ============ -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-building-check"></i>
-          <span>SchoolMS</span>
-        </a>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#"><i class="bi bi-building-check"></i><span>SchoolMS</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
           <span class="navbar-toggler-icon"></span>
         </button>
-        
         <div class="collapse navbar-collapse navbar-center" id="navbarContent">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="../admin_dashboard.html">
-                <i class="bi bi-speedometer2"></i> Dashboard
-              </a>
-            </li>
-
+            <li class="nav-item"><a class="nav-link" href="/admin_dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-people"></i> Students
-              </a>
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-people"></i> Students</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="../admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
-                <li><a class="dropdown-item disabled" href="../attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+                <li><a class="dropdown-item" href="/admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+                <li><a class="dropdown-item disabled" href="/attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
                 <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="../students/student_profile.html"><i class="bi bi-person-badge"></i> Student Profile</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+                <li><a class="dropdown-item" href="/students/student_profile.html"><i class="bi bi-person-badge"></i> Student Profile</a></li>
               </ul>
             </li>
-
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-wallet2"></i> Finance
-              </a>
+              <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown"><i class="bi bi-wallet2"></i> Finance</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="../payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
-                <li><a class="dropdown-item" href="../exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+                <li><a class="dropdown-item" href="/payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+                <li><a class="dropdown-item disabled" href="/exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
               </ul>
             </li>
-
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-building"></i> Institute
-              </a>
+              <a class="nav-link dropdown-toggle disabled" href="#" data-bs-toggle="dropdown"><i class="bi bi-building"></i> Institute</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="../library/library.html"><i class="bi bi-book"></i> Library</a></li>
-                <li><a class="dropdown-item" href="../hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
-                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+                <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a></li>
+                <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
               </ul>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                <i class="bi bi-briefcase"></i> Staff
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="../admin_panel/admin_panel.html">
-                <i class="bi bi-gear"></i> Settings
-              </a>
-            </li>
+            <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-briefcase"></i> Staff</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin_panel/admin_panel.html"><i class="bi bi-gear"></i> Settings</a></li>
           </ul>
         </div>
-        
         <div class="logo-placeholder" title="SquadVertex Logo">
-          <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
+          <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo">
         </div>
       </div>
     </nav>
 
     <!-- ============ MAIN CONTENT ============ -->
     <div class="container" style="max-width: 1400px;">
-      
-      <!-- Page Header -->
       <div class="page-header">
         <h3><i class="bi bi-currency-dollar"></i> Fee Management</h3>
         <nav class="page-breadcrumb">
-          <a href="../admin_dashboard.html">Dashboard</a>
-          <span class="mx-2">/</span>
-          <a href="payment_module.html">Finance</a>
-          <span class="mx-2">/</span>
+          <a href="../admin_dashboard.html">Dashboard</a> <span class="mx-2">/</span>
+          <a href="payment_module.html">Finance</a> <span class="mx-2">/</span>
           <span class="text-primary">Payments</span>
         </nav>
       </div>
-
-      <!-- Filter Bar -->
       <div class="filter-bar">
-        <div class="col-md-4 col-12">
-          <input type="text" id="student-search" class="form-control" placeholder="🔍 Search by Name or SR Number">
-        </div>
-        <div class="col-md-3 col-6">
-          <select id="class-filter" class="form-select">
-            <option value="">All Classes</option>
-            <option value="9">Class 9</option>
-            <option value="10">Class 10</option>
-            <option value="11">Class 11</option>
-            <option value="12">Class 12</option>
-          </select>
-        </div>
-        <div class="col-md-3 col-6">
-          <select id="stream-filter" class="form-select">
-            <option value="">All Streams</option>
-            <option value="Science">Science</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Arts">Arts</option>
-            <option value="Agriculture">Agriculture</option>
-          </select>
-        </div>
-        <div class="col-md-2 col-12 text-end">
-          <button class="btn btn-outline-primary btn-sm" onclick="loadStudents()">
-            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
-          </button>
-        </div>
+        <div class="col-md-4 col-12"><input type="text" id="student-search" class="form-control" placeholder="🔍 Search by Name or SR Number"></div>
+        <div class="col-md-3 col-6"><select id="class-filter" class="form-select"><option value="">All Classes</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select></div>
+        <div class="col-md-3 col-6"><select id="stream-filter" class="form-select"><option value="">All Streams</option><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts</option><option value="Agriculture">Agriculture</option></select></div>
+        <div class="col-md-2 col-12 text-end"><button class="btn btn-outline-primary btn-sm" onclick="loadStudents()"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button></div>
       </div>
-
-      <!-- Students Table -->
       <div class="table-container">
         <div class="table-responsive">
           <table class="table table-hover mb-0" id="students-table">
-            <thead>
-              <tr>
-                <th>SR Number</th>
-                <th>Student Name</th>
-                <th>Father's Name</th>
-                <th class="text-end">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="students-tbody">
-              <tr>
-                <td colspan="4" class="text-center py-5">
-                  <div class="empty-state">
-                    <i class="bi bi-hourglass-split"></i>
-                    <p>Loading students...</p>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+            <thead><tr><th>SR Number</th><th>Student Name</th><th>Father's Name</th><th class="text-end">Actions</th></tr></thead>
+            <tbody id="students-tbody"><tr><td colspan="4" class="text-center py-5"><div class="empty-state"><i class="bi bi-hourglass-split"></i><p>Loading students...</p></div></td></tr></tbody>
           </table>
         </div>
       </div>
-
-      <!-- Quick Stats -->
       <div class="row g-3 mt-3">
-        <div class="col-6 col-md-3">
-          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
-            <div style="font-size:1.5rem;font-weight:700;color:var(--primary);" id="stat-total">-</div>
-            <div style="font-size:0.8rem;color:var(--text-secondary);">Total Students</div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
-            <div style="font-size:1.5rem;font-weight:700;color:var(--secondary);" id="stat-collected">-</div>
-            <div style="font-size:0.8rem;color:var(--text-secondary);">Fees Collected</div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
-            <div style="font-size:1.5rem;font-weight:700;color:var(--accent);" id="stat-pending">-</div>
-            <div style="font-size:0.8rem;color:var(--text-secondary);">Pending</div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;">
-            <div style="font-size:1.5rem;font-weight:700;color:var(--danger);" id="stat-vehicles">-</div>
-            <div style="font-size:0.8rem;color:var(--text-secondary);">Vehicle Users</div>
-          </div>
-        </div>
+        <div class="col-6 col-md-3"><div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:1.5rem;font-weight:700;color:var(--primary);" id="stat-total">-</div><div style="font-size:0.8rem;color:var(--text-secondary);">Total Students</div></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:1.5rem;font-weight:700;color:var(--secondary);" id="stat-collected">-</div><div style="font-size:0.8rem;color:var(--text-secondary);">Fees Collected</div></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:1.5rem;font-weight:700;color:var(--accent);" id="stat-pending">-</div><div style="font-size:0.8rem;color:var(--text-secondary);">Pending</div></div></div>
+        <div class="col-6 col-md-3"><div class="metrics-card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:1.5rem;font-weight:700;color:var(--danger);" id="stat-vehicles">-</div><div style="font-size:0.8rem;color:var(--text-secondary);">Vehicle Users</div></div></div>
       </div>
-
     </div>
 
     <!-- ============ MODALS ============ -->
-
     <!-- Add Payment Modal -->
-    <div class="modal fade" id="addPaymentModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <form id="payment-form">
-            <div class="modal-header">
-              <h5 class="modal-title"><i class="bi bi-plus-circle"></i> Add Payment</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" id="payment-student-id">
-              <div class="mb-3">
-                <label for="payment-amount" class="form-label">Amount Paid (₹)</label>
-                <input type="number" class="form-control" id="payment-amount" required min="0" step="0.01" placeholder="Enter amount">
-              </div>
-              <div class="mb-3">
-                <label for="payment-type" class="form-label">Payment For</label>
-                <select class="form-select" id="payment-type">
-                  <option value="school fee" selected>School Fee</option>
-                  <option value="vehicle fee">Vehicle Fee</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="payment-mode" class="form-label">Payment Mode</label>
-                <select class="form-select" id="payment-mode">
-                  <option value="Cash">Cash</option>
-                  <option value="UPI">UPI</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="Cheque">Cheque</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="transaction-id" class="form-label">Transaction ID <small class="text-muted">(optional)</small></label>
-                <input type="text" class="form-control" id="transaction-id" placeholder="UPI ref / Cheque no.">
-              </div>
-              <div class="mb-3">
-                <label for="payment-remarks" class="form-label">Remarks</label>
-                <textarea class="form-control" id="payment-remarks" rows="2" placeholder="Any notes..."></textarea>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save Payment</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="modal fade" id="addPaymentModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <form id="payment-form">
+          <div class="modal-header"><h5 class="modal-title"><i class="bi bi-plus-circle"></i> Add Payment</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body">
+            <input type="hidden" id="payment-student-id">
+            <div class="mb-3"><label class="form-label">Amount Paid (₹)</label><input type="number" class="form-control" id="payment-amount" required min="0" step="0.01"></div>
+            <div class="mb-3"><label class="form-label">Payment For</label><select class="form-select" id="payment-type"><option value="school fee" selected>School Fee</option><option value="vehicle fee">Vehicle Fee</option></select></div>
+            <div class="mb-3"><label class="form-label">Payment Mode</label><select class="form-select" id="payment-mode"><option value="Cash">Cash</option><option value="UPI">UPI</option><option value="Bank Transfer">Bank Transfer</option><option value="Cheque">Cheque</option></select></div>
+            <div class="mb-3"><label class="form-label">Transaction ID <small class="text-muted">(optional)</small></label><input type="text" class="form-control" id="transaction-id"></div>
+            <div class="mb-3"><label class="form-label">Remarks</label><textarea class="form-control" id="payment-remarks" rows="2"></textarea></div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save Payment</button></div>
+        </form>
+      </div></div>
     </div>
 
     <!-- Give Discount Modal -->
-    <div class="modal fade" id="giveDiscountModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <form id="discount-form">
-            <div class="modal-header">
-              <h5 class="modal-title"><i class="bi bi-tag"></i> Apply Discount</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="alert alert-danger">
-                <i class="bi bi-shield-lock me-2"></i>
-                <strong>Admin Only:</strong> This action requires admin password.
-              </div>
-              <input type="hidden" id="discount-student-id">
-              <div class="mb-3">
-                <label for="discount-amount" class="form-label">Discount Amount (₹)</label>
-                <input type="number" class="form-control" id="discount-amount" required min="0" step="0.01">
-              </div>
-              <div class="mb-3">
-                <label for="admin-password" class="form-label">Admin Password</label>
-                <input type="password" class="form-control" id="admin-password" required placeholder="Enter master password">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-warning"><i class="bi bi-check-lg me-1"></i>Apply Discount</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="modal fade" id="giveDiscountModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <form id="discount-form">
+          <div class="modal-header"><h5 class="modal-title"><i class="bi bi-tag"></i> Apply Discount</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body">
+            <div class="alert alert-danger"><i class="bi bi-shield-lock me-2"></i><strong>Admin Only:</strong> This action requires admin password.</div>
+            <input type="hidden" id="discount-student-id">
+            <div class="mb-3"><label class="form-label">Discount Amount (₹)</label><input type="number" class="form-control" id="discount-amount" required min="0" step="0.01"></div>
+            <div class="mb-3"><label class="form-label">Admin Password</label><input type="password" class="form-control" id="admin-password" required></div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button type="submit" class="btn btn-warning"><i class="bi bi-check-lg me-1"></i>Apply Discount</button></div>
+        </form>
+      </div></div>
     </div>
 
     <!-- View Details Modal -->
-    <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title"><i class="bi bi-person-lines-fill"></i> Student Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="detailsModal" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable"><div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title"><i class="bi bi-person-lines-fill"></i> Student Details</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <div class="info-card"><h6><i class="bi bi-person-badge"></i> Basic Information</h6>
+            <p><strong>SR Number:</strong> <span id="detail-sr">-</span></p>
+            <p><strong>Student Name:</strong> <span id="detail-name">-</span></p>
+            <p><strong>Father's Name:</strong> <span id="detail-father">-</span></p>
+            <p><strong>Class:</strong> <span id="detail-class">-</span> | <strong>Stream:</strong> <span id="detail-stream">-</span></p>
           </div>
-          <div class="modal-body">
-            <div class="info-card">
-              <h6><i class="bi bi-person-badge"></i> Basic Information</h6>
-              <p><strong>SR Number:</strong> <span id="detail-sr">-</span></p>
-              <p><strong>Student Name:</strong> <span id="detail-name">-</span></p>
-              <p><strong>Father's Name:</strong> <span id="detail-father">-</span></p>
-              <p><strong>Class:</strong> <span id="detail-class">-</span> | <strong>Stream:</strong> <span id="detail-stream">-</span></p>
-            </div>
-
-            <div class="info-card">
-              <h6><i class="bi bi-calculator"></i> Fee Summary</h6>
-              <div class="fee-summary">
-                <div class="fee-item"><div class="label">Base School Fee</div><div class="value" id="detail-base-fee">₹0</div></div>
-                <div class="fee-item"><div class="label">Discount Applied</div><div class="value" id="detail-discount">₹0</div></div>
-                <div class="fee-item"><div class="label">Final School Fee</div><div class="value" id="detail-final-school">₹0</div></div>
-                <div class="fee-item"><div class="label">Vehicle Fee</div><div class="value" id="detail-vehicle-fee">₹0</div></div>
-                <div class="fee-item"><div class="label">Total Fee</div><div class="value" id="detail-total-fee">₹0</div></div>
-                <div class="fee-item"><div class="label">School Paid</div><div class="value paid" id="detail-school-paid">₹0</div></div>
-                <div class="fee-item"><div class="label">Vehicle Paid</div><div class="value paid" id="detail-vehicle-paid">₹0</div></div>
-                <div class="fee-item"><div class="label">School Pending</div><div class="value pending" id="detail-school-pending">₹0</div></div>
-                <div class="fee-item"><div class="label">Vehicle Pending</div><div class="value pending" id="detail-vehicle-pending">₹0</div></div>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <h6><i class="bi bi-card-list"></i> Universal Fee Chart</h6>
-              <p>For <strong>Class <span id="ufc-class">-</span> - <span id="ufc-stream">-</span></strong>:</p>
-              <ul class="mb-0">
-                <li><strong>Base Fee:</strong> ₹<span id="ufc-fee">0</span></li>
-                <li><strong>Vehicle Rent:</strong> <span id="ufc-vehicle-fee">N/A</span></li>
-                <li><strong>Discount:</strong> ₹<span id="ufc-discount">0</span></li>
-              </ul>
-            </div>
-
-            <h6 class="mt-4 mb-3"><i class="bi bi-clock-history"></i> Transaction History</h6>
-            <div class="table-responsive">
-              <table class="table table-sm transaction-table mb-0">
-                <thead>
-                  <tr><th>Date</th><th>Amount</th><th>Mode</th><th>Txn ID</th><th>Type</th></tr>
-                </thead>
-                <tbody id="student-transactions">
-                  <tr><td colspan="5" class="text-center text-muted py-3">No transactions yet</td></tr>
-                </tbody>
-              </table>
+          <div class="info-card"><h6><i class="bi bi-calculator"></i> Fee Summary</h6>
+            <div class="fee-summary">
+              <div class="fee-item"><div class="label">Base School Fee</div><div class="value" id="detail-base-fee">₹0</div></div>
+              <div class="fee-item"><div class="label">Discount Applied</div><div class="value" id="detail-discount">₹0</div></div>
+              <div class="fee-item"><div class="label">Final School Fee</div><div class="value" id="detail-final-school">₹0</div></div>
+              <div class="fee-item"><div class="label">Vehicle Fee</div><div class="value" id="detail-vehicle-fee">₹0</div></div>
+              <div class="fee-item"><div class="label">Total Fee</div><div class="value" id="detail-total-fee">₹0</div></div>
+              <div class="fee-item"><div class="label">School Paid</div><div class="value paid" id="detail-school-paid">₹0</div></div>
+              <div class="fee-item"><div class="label">Vehicle Paid</div><div class="value paid" id="detail-vehicle-paid">₹0</div></div>
+              <div class="fee-item"><div class="label">School Pending</div><div class="value pending" id="detail-school-pending">₹0</div></div>
+              <div class="fee-item"><div class="label">Vehicle Pending</div><div class="value pending" id="detail-vehicle-pending">₹0</div></div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <div class="info-card"><h6><i class="bi bi-card-list"></i> Universal Fee Chart</h6>
+            <p>For <strong>Class <span id="ufc-class">-</span> - <span id="ufc-stream">-</span></strong>:</p>
+            <ul class="mb-0"><li><strong>Base Fee:</strong> ₹<span id="ufc-fee">0</span></li><li><strong>Vehicle Rent:</strong> <span id="ufc-vehicle-fee">N/A</span></li><li><strong>Discount:</strong> ₹<span id="ufc-discount">0</span></li></ul>
           </div>
+          <h6 class="mt-4 mb-3"><i class="bi bi-clock-history"></i> Transaction History</h6>
+          <div class="table-responsive"><table class="table table-sm transaction-table mb-0">
+            <thead><tr><th>Date</th><th>Amount</th><th>Mode</th><th>Txn ID</th><th>Type</th></tr></thead>
+            <tbody id="student-transactions"><tr><td colspan="5" class="text-center text-muted py-3">No transactions yet</td></tr></tbody>
+          </table></div>
         </div>
-      </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+      </div></div>
     </div>
 
     <!-- Vehicle Fee Modal -->
-    <div class="modal fade" id="vehicleFeeModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <form id="vehicle-fee-form">
-            <div class="modal-header">
-              <h5 class="modal-title"><i class="bi bi-truck"></i> Vehicle Fee Management</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="vehicleFeeModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content">
+        <form id="vehicle-fee-form">
+          <div class="modal-header"><h5 class="modal-title"><i class="bi bi-truck"></i> Vehicle Fee Management</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body">
+            <input type="hidden" id="vehicle-student-id">
+            <div class="form-check form-switch mb-3">
+              <input type="checkbox" class="form-check-input" id="vehicle-eligible-checkbox" role="switch">
+              <label class="form-check-label" for="vehicle-eligible-checkbox"><strong>🚗 Eligible for Vehicle Fee</strong></label>
             </div>
-            <div class="modal-body">
-              <input type="hidden" id="vehicle-student-id">
-              <div class="form-check form-switch mb-3">
-                <input type="checkbox" class="form-check-input" id="vehicle-eligible-checkbox" role="switch">
-                <label class="form-check-label" for="vehicle-eligible-checkbox"><strong>🚗 Eligible for Vehicle Fee</strong></label>
+            <div id="vehicle-details-section" class="vehicle-section" style="display:none;">
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label">Select Vehicle</label><select class="form-select" id="vehicle-select"><option value="">Select Vehicle</option></select></div>
+                <div class="col-md-6"><label class="form-label">Select Location</label><select class="form-select" id="vehicle-location"><option value="">Select Location</option></select></div>
               </div>
-
-              <div id="vehicle-details-section" class="vehicle-section" style="display:none;">
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label for="vehicle-select" class="form-label">Select Vehicle</label>
-                    <select class="form-select" id="vehicle-select">
-                      <option value="">Select Vehicle</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="vehicle-location" class="form-label">Select Location</label>
-                    <select class="form-select" id="vehicle-location">
-                      <option value="">Select Location</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Rent Amount (per month)</label>
-                  <input type="text" class="form-control" id="vehicle-rent" readonly placeholder="Select vehicle & location">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Fee Calculation Option</label>
-                  <div class="d-flex gap-3">
-                    <div class="form-check">
-                      <input type="radio" name="vehicle-fee-option" id="fee-option-fixed" value="fixed" class="form-check-input" checked>
-                      <label class="form-check-label" for="fee-option-fixed">Fixed Amount</label>
-                    </div>
-                    <div class="form-check">
-                      <input type="radio" name="vehicle-fee-option" id="fee-option-months" value="months" class="form-check-input">
-                      <label class="form-check-label" for="fee-option-months">By Months</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3" id="fixed-amount-section">
-                  <label for="vehicle-fixed-amount" class="form-label">Fixed Amount (₹)</label>
-                  <input type="number" class="form-control" id="vehicle-fixed-amount" placeholder="Enter custom fixed amount" min="0" step="0.01">
-                </div>
-                <div class="mb-3" id="months-checkboxes" style="display:none;">
-                  <label class="form-label">Select Months</label>
-                  <div class="month-checkboxes">
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="January" id="month-January"><label class="form-check-label" for="month-January">January</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="February" id="month-February"><label class="form-check-label" for="month-February">February</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="March" id="month-March"><label class="form-check-label" for="month-March">March</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="April" id="month-April"><label class="form-check-label" for="month-April">April</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="May" id="month-May"><label class="form-check-label" for="month-May">May</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="June" id="month-June"><label class="form-check-label" for="month-June">June</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="July" id="month-July"><label class="form-check-label" for="month-July">July</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="August" id="month-August"><label class="form-check-label" for="month-August">August</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="September" id="month-September"><label class="form-check-label" for="month-September">September</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="October" id="month-October"><label class="form-check-label" for="month-October">October</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="November" id="month-November"><label class="form-check-label" for="month-November">November</label></div>
-                    <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="December" id="month-December"><label class="form-check-label" for="month-December">December</label></div>
-                  </div>
-                </div>
-                <div class="mb-0">
-                  <label class="form-label">Last Updated</label>
-                  <input type="text" class="form-control" id="vehicle-last-update" readonly placeholder="Not set">
+              <div class="mb-3"><label class="form-label">Rent Amount (per month)</label><input type="text" class="form-control" id="vehicle-rent" readonly></div>
+              <div class="mb-3"><label class="form-label">Fee Calculation Option</label>
+                <div class="d-flex gap-3">
+                  <div class="form-check"><input type="radio" name="vehicle-fee-option" id="fee-option-fixed" value="fixed" class="form-check-input" checked><label class="form-check-label" for="fee-option-fixed">Fixed Amount</label></div>
+                  <div class="form-check"><input type="radio" name="vehicle-fee-option" id="fee-option-months" value="months" class="form-check-input"><label class="form-check-label" for="fee-option-months">By Months</label></div>
                 </div>
               </div>
-
-              <div class="mt-3 p-3 rounded-3" style="background:var(--bg-body);font-size:0.9rem;color:var(--text-secondary);">
-                <i class="bi bi-info-circle me-2"></i>
-                <strong>Tip:</strong> If eligible, select vehicle & location to auto-fill rent. Choose fixed amount or calculate by selected months.
+              <div class="mb-3" id="fixed-amount-section"><label class="form-label">Fixed Amount (₹)</label><input type="number" class="form-control" id="vehicle-fixed-amount" min="0" step="0.01"></div>
+              <div class="mb-3" id="months-checkboxes" style="display:none;">
+                <label class="form-label">Select Months</label>
+                <div class="month-checkboxes">
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="January" id="month-January"><label class="form-check-label" for="month-January">January</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="February" id="month-February"><label class="form-check-label" for="month-February">February</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="March" id="month-March"><label class="form-check-label" for="month-March">March</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="April" id="month-April"><label class="form-check-label" for="month-April">April</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="May" id="month-May"><label class="form-check-label" for="month-May">May</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="June" id="month-June"><label class="form-check-label" for="month-June">June</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="July" id="month-July"><label class="form-check-label" for="month-July">July</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="August" id="month-August"><label class="form-check-label" for="month-August">August</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="September" id="month-September"><label class="form-check-label" for="month-September">September</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="October" id="month-October"><label class="form-check-label" for="month-October">October</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="November" id="month-November"><label class="form-check-label" for="month-November">November</label></div>
+                  <div class="form-check"><input type="checkbox" class="form-check-input month-checkbox" value="December" id="month-December"><label class="form-check-label" for="month-December">December</label></div>
+                </div>
               </div>
+              <div class="mb-0"><label class="form-label">Last Updated</label><input type="text" class="form-control" id="vehicle-last-update" readonly></div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success"><i class="bi bi-check-lg me-1"></i>Save Vehicle Fee</button>
-            </div>
-          </form>
-        </div>
-      </div>
+            <div class="mt-3 p-3 rounded-3" style="background:var(--bg-body);font-size:0.9rem;color:var(--text-secondary);"><i class="bi bi-info-circle me-2"></i><strong>Tip:</strong> If eligible, select vehicle & location to auto-fill rent.</div>
+          </div>
+          <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button type="submit" class="btn btn-success"><i class="bi bi-check-lg me-1"></i>Save Vehicle Fee</button></div>
+        </form>
+      </div></div>
     </div>
 
     <!-- ============ FOOTER ============ -->
     <footer class="footer-section">
-      <div class="container">
-        <div class="row align-items-center g-4">
-          <div class="col-lg-4 col-md-6">
-            <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
-            <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
-              <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
-              <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
-              <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <h3>Quick Links</h3>
-            <ul class="footer-links">
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Documentation</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
-              <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-4 col-md-12 text-lg-end">
-            <a href="https://www.squadvertex.great-site.net/001-school/001-school_docs.html" target="_blank" class="btn btn-outline-light mb-3">
-              <i class="bi bi-book me-1"></i>View Docs
-            </a>
-            <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+      <div class="container"><div class="row align-items-center g-4">
+        <div class="col-lg-4 col-md-6">
+          <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
+          <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/squadvertex/" target="_blank"><i class="bi bi-instagram"></i></a>
+            <a href="https://x.com/SquadVertex_" target="_blank"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://discord.gg/dyWSDFREWZ" target="_blank"><i class="bi bi-discord"></i></a>
+            <a href="https://youtube.com/@prince_squadvertex" target="_blank"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
-      </div>
+        <div class="col-lg-4 col-md-6">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="/documentation.html" target="_blank"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-12 text-lg-end">
+          <a href="/documentation.html" target="_blank" class="btn btn-outline-light mb-3"><i class="bi bi-book me-1"></i>View Docs</a>
+          <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+        </div>
+      </div></div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Firebase (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-      // Firebase configuration
+      // Firebase config
       const firebaseConfig = {
         apiKey: "AIzaSyAXAs_j7Six8N3aW9yc3zUJcy_yodZgeJo",
         authDomain: "loomischool-26.firebaseapp.com",
@@ -1082,38 +564,101 @@
       };
       firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
-
       let systemSettings = {};
 
-      // ✅ HELPER: Get base fee from universalFeesChart (handles Array, Object, nested Map)
+      // ✅ HELPER: Get base fee from universalFeesChart
       function getBaseFeeFromClassStream(studentClass, studentStream) {
         if (!systemSettings.universalFeesChart) return 0;
         const chart = systemSettings.universalFeesChart;
         let baseFee = 0;
-
         if (Array.isArray(chart)) {
-          const match = chart.find(f => 
-            String(f.class) === String(studentClass) && 
-            String(f.stream) === String(studentStream)
-          );
+          const match = chart.find(f => String(f.class) === String(studentClass) && String(f.stream) === String(studentStream));
           if (match) baseFee = Number(match.baseFee) || 0;
         } else if (typeof chart === 'object') {
           const key1 = `${studentClass}_${studentStream}`;
-          if (chart[key1]) {
-            baseFee = Number(chart[key1].baseFee) || 0;
-          } else if (chart[studentClass] && chart[studentClass][studentStream]) {
-            baseFee = Number(chart[studentClass][studentStream].baseFee) || 0;
-          } else {
+          if (chart[key1]) baseFee = Number(chart[key1].baseFee) || 0;
+          else if (chart[studentClass] && chart[studentClass][studentStream]) baseFee = Number(chart[studentClass][studentStream].baseFee) || 0;
+          else {
             for (const key in chart) {
               const entry = chart[key];
               if (entry && entry.class === studentClass && entry.stream === studentStream) {
-                baseFee = Number(entry.baseFee) || 0;
-                break;
+                baseFee = Number(entry.baseFee) || 0; break;
               }
             }
           }
         }
         return baseFee;
+      }
+
+      // ✅ CORE: Calculate & Save fee fields to student document
+      async function updateStudentFeeFields(studentId) {
+        try {
+          const studentDoc = await db.collection("001-school").doc("students").collection("list").doc(studentId).get();
+          if (!studentDoc.exists) return null;
+          const student = studentDoc.data();
+          const studentClass = student.class;
+
+          // 1. Get base fee & discount
+          const baseFee = getBaseFeeFromClassStream(studentClass, student.stream);
+          const discount = Number(student.discount) || 0;
+          const finalSchoolFee = Math.max(0, baseFee - discount);
+
+          // 2. Get vehicle fee total
+          const vDoc = await db.collection("001-school").doc("vehicleTransactions").collection("records").doc(studentId).get();
+          let vehicleFeeTotal = 0;
+          if (vDoc.exists && vDoc.data().eligible === "Yes") {
+            const vd = vDoc.data().vehicleData;
+            if (vd?.feeOption === "fixed") vehicleFeeTotal = Number(vd.fixedAmount) || 0;
+            else if (vd?.feeOption === "months") vehicleFeeTotal = (Number(vd.rent) || 0) * (vd.months?.length || 0);
+          }
+
+          // 3. Calculate totals
+          const totalFeeDue = finalSchoolFee + vehicleFeeTotal;
+
+          // 4. Fetch & sum payments
+          const paymentsSnap = await db.collection("001-school").doc("transactions")
+            .collection("class" + studentClass).doc(studentId).collection("payments").get();
+          let schoolPaid = 0, vehiclePaid = 0;
+          paymentsSnap.forEach(pDoc => {
+            const tx = pDoc.data();
+            if (tx.paymentType === "school fee") schoolPaid += Number(tx.amount) || 0;
+            else if (tx.paymentType === "vehicle fee") vehiclePaid += Number(tx.amount) || 0;
+          });
+          const totalPaid = schoolPaid + vehiclePaid;
+
+          // 5. Calculate pending amounts
+          const schoolPending = Math.max(0, finalSchoolFee - schoolPaid);
+          const vehiclePending = Math.max(0, vehicleFeeTotal - vehiclePaid);
+          const totalPending = schoolPending + vehiclePending;
+
+          // 6. Prepare update object
+          const feeFields = {
+            // Structure
+            baseFee: baseFee,
+            discount: discount,
+            finalSchoolFee: finalSchoolFee,
+            vehicleFeeTotal: vehicleFeeTotal,
+            // Totals
+            totalFeeDue: totalFeeDue,
+            // Paid
+            schoolPaid: schoolPaid,
+            vehiclePaid: vehiclePaid,
+            totalPaid: totalPaid,
+            // Pending ⭐
+            schoolPending: schoolPending,
+            vehiclePending: vehiclePending,
+            totalPending: totalPending,
+            // Meta
+            feeLastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+          };
+
+          // 7. Save to student document
+          await db.collection("001-school").doc("students").collection("list").doc(studentId).update(feeFields);
+          return feeFields;
+        } catch (err) {
+          console.error("Error updating student fee fields:", err);
+          return null;
+        }
       }
 
       // Load system settings
@@ -1126,106 +671,86 @@
               const vehicleSelect = document.getElementById("vehicle-select");
               vehicleSelect.innerHTML = '<option value="">Select Vehicle</option>';
               const uniqueVehicles = {};
-              systemSettings.vehicleFeesChart.forEach(item => {
-                uniqueVehicles[item.vehicleName.trim()] = item;
-              });
+              systemSettings.vehicleFeesChart.forEach(item => { uniqueVehicles[item.vehicleName.trim()] = item; });
               for (const vehicle in uniqueVehicles) {
                 const option = document.createElement("option");
-                option.value = vehicle;
-                option.textContent = vehicle;
+                option.value = vehicle; option.textContent = vehicle;
                 vehicleSelect.appendChild(option);
               }
             }
             return true;
           }
-          console.error("System settings not found!");
           return false;
-        } catch (err) {
-          console.error("Error loading system settings:", err);
-          return false;
-        }
+        } catch (err) { console.error("Error loading system settings:", err); return false; }
       }
 
-      // Load all vehicle fee records
+      // Load vehicle records
       async function loadAllVehicleRecords() {
         try {
           const snapshot = await db.collection("001-school").doc("vehicleTransactions").collection("records").get();
           const vehicleMap = {};
           snapshot.forEach(doc => { vehicleMap[doc.id] = doc.data(); });
           return vehicleMap;
-        } catch (err) {
-          console.error("Error loading vehicle records:", err);
-          return {};
-        }
+        } catch (err) { console.error("Error loading vehicle records:", err); return {}; }
       }
 
-      // ✅ UPDATED: Calculate accurate stats for main page
+      // Update main page stats
       async function updateAccurateStats() {
         try {
           let totalStudents = 0, totalCollected = 0, totalPending = 0, vehicleUsers = 0;
           const vehicleMap = await loadAllVehicleRecords();
           const studentsSnap = await db.collection("001-school").doc("students").collection("list").get();
-          
           for (const doc of studentsSnap.docs) {
             const student = doc.data();
             const studentId = doc.id;
             const studentClass = student.class;
             totalStudents++;
-            
             if (vehicleMap[studentId]?.eligible === "Yes") vehicleUsers++;
-            
             const baseFee = getBaseFeeFromClassStream(studentClass, student.stream);
             const discount = Number(student.discount) || 0;
             const finalSchoolFee = Math.max(0, baseFee - discount);
-            
             let vehicleFeeTotal = 0;
             if (vehicleMap[studentId]?.eligible === "Yes") {
               const vd = vehicleMap[studentId].vehicleData;
               if (vd?.feeOption === "fixed") vehicleFeeTotal = Number(vd.fixedAmount) || 0;
               else if (vd?.feeOption === "months") vehicleFeeTotal = (Number(vd.rent) || 0) * (vd.months?.length || 0);
             }
-            
             const totalFeeDue = finalSchoolFee + vehicleFeeTotal;
-            const paymentsSnap = await db.collection("001-school").doc("transactions")
-              .collection("class" + studentClass).doc(studentId).collection("payments").get();
-            
-            let schoolPaid = 0, vehiclePaid = 0;
-            paymentsSnap.forEach(pDoc => {
-              const tx = pDoc.data();
-              if (tx.paymentType === "school fee") schoolPaid += Number(tx.amount) || 0;
-              else if (tx.paymentType === "vehicle fee") vehiclePaid += Number(tx.amount) || 0;
-            });
-            
+            // Use cached fields if available, else calculate
+            let schoolPaid = student.schoolPaid || 0, vehiclePaid = student.vehiclePaid || 0;
+            // Fallback: recalculate if cached fields missing
+            if (schoolPaid === 0 && vehiclePaid === 0) {
+              const paymentsSnap = await db.collection("001-school").doc("transactions")
+                .collection("class" + studentClass).doc(studentId).collection("payments").get();
+              paymentsSnap.forEach(pDoc => {
+                const tx = pDoc.data();
+                if (tx.paymentType === "school fee") schoolPaid += Number(tx.amount) || 0;
+                else if (tx.paymentType === "vehicle fee") vehiclePaid += Number(tx.amount) || 0;
+              });
+            }
             totalCollected += schoolPaid + vehiclePaid;
-            totalPending += Math.max(0, totalFeeDue - (schoolPaid + vehiclePaid));
+            totalPending += (student.totalPending !== undefined) ? student.totalPending : Math.max(0, totalFeeDue - (schoolPaid + vehiclePaid));
           }
-          
           document.getElementById("stat-total").textContent = totalStudents.toLocaleString();
           document.getElementById("stat-collected").textContent = "₹" + (totalCollected/1000).toFixed(1) + "K";
           document.getElementById("stat-pending").textContent = "₹" + (totalPending/1000).toFixed(1) + "K";
           document.getElementById("stat-vehicles").textContent = vehicleUsers;
-        } catch (err) {
-          console.error("Error calculating stats:", err);
-        }
+        } catch (err) { console.error("Error calculating stats:", err); }
       }
 
-      // Load students and populate table
+      // Load students table
       async function loadStudents() {
         const tbody = document.getElementById("students-tbody");
         tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div><p class="mb-0 mt-2">Loading students...</p></td></tr>`;
-        
         try {
           const vehicleMap = await loadAllVehicleRecords();
           const querySnapshot = await db.collection("001-school").doc("students").collection("list").get();
           tbody.innerHTML = "";
           let totalStudents = 0, vehicleCount = 0;
-          
           if (querySnapshot.empty) {
             tbody.innerHTML = `<tr><td colspan="4" class="text-center py-5 text-muted">No students found</td></tr>`;
-            updateStats(0, 0, 0, 0);
-            return;
+            updateStats(0, 0, 0, 0); return;
           }
-          
           querySnapshot.forEach(doc => {
             const student = doc.data();
             const studentId = doc.id;
@@ -1233,18 +758,18 @@
             const name = student.studentName || "Unknown";
             const fatherName = student.fatherName || "-";
             totalStudents++;
-            
             let vehicleIcon = "";
             if (vehicleMap[studentId] && vehicleMap[studentId].eligible === "Yes") {
               vehicleIcon = ' <span class="vehicle-eligible-icon text-warning" title="Vehicle Eligible">🚗</span>';
               vehicleCount++;
             }
-            
+            // Show pending badge if exists
+            const pendingBadge = student.totalPending > 0 ? `<span class="badge bg-danger ms-1">₹${student.totalPending}</span>` : '';
             const row = document.createElement("tr");
             row.setAttribute("data-class", student.class || "");
             row.setAttribute("data-stream", student.stream || "");
             row.innerHTML = `
-              <td><strong>${srNumber}</strong>${vehicleIcon}</td>
+              <td><strong>${srNumber}</strong>${vehicleIcon}${pendingBadge}</td>
               <td>${name}</td>
               <td>${fatherName}</td>
               <td class="text-end">
@@ -1252,18 +777,15 @@
                 <button class="btn-action btn-info" onclick="viewDetails('${studentId}')"><i class="bi bi-eye"></i> View</button>
                 <button class="btn-action btn-warning" onclick="openDiscountModal('${studentId}')"><i class="bi bi-tag"></i> Discount</button>
                 <button class="btn-action btn-success" onclick="openVehicleFeeModal('${studentId}')"><i class="bi bi-truck"></i> Vehicle</button>
-              </td>
-            `;
+              </td>`;
             tbody.appendChild(row);
           });
-          // Note: Main stats are updated separately via updateAccurateStats()
         } catch (err) {
           console.error("Error loading students:", err);
-          tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-danger">Error loading students: ${err.message}</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-danger">Error: ${err.message}</td></tr>`;
         }
       }
 
-      // Update stats display (fallback/simplified)
       function updateStats(total, collected, pending, vehicles) {
         document.getElementById("stat-total").textContent = total.toLocaleString();
         document.getElementById("stat-collected").textContent = "₹" + (collected/1000).toFixed(1) + "K";
@@ -1287,18 +809,14 @@
               (classFilter === "" || studentClass === classFilter) &&
               (streamFilter === "" || studentStream === streamFilter)) {
             row.style.display = "";
-          } else {
-            row.style.display = "none";
-          }
+          } else { row.style.display = "none"; }
         });
       }
-
       document.getElementById("student-search")?.addEventListener("input", applyFilters);
       document.getElementById("class-filter")?.addEventListener("change", applyFilters);
       document.getElementById("stream-filter")?.addEventListener("change", applyFilters);
 
       // ============ MODAL FUNCTIONS ============
-
       function openPaymentModal(studentId) {
         document.getElementById("payment-student-id").value = studentId;
         document.getElementById("payment-form").reset();
@@ -1313,7 +831,6 @@
         const mode = document.getElementById("payment-mode").value;
         const txnId = document.getElementById("transaction-id").value;
         const remarks = document.getElementById("payment-remarks").value;
-
         try {
           const doc = await db.collection("001-school").doc("students").collection("list").doc(studentId).get();
           if (doc.exists) {
@@ -1321,25 +838,17 @@
             const studentClass = student.class;
             await db.collection("001-school").doc("transactions")
               .collection("class" + studentClass).doc(studentId).collection("payments").add({
-                installment: 0,
-                date: new Date().toLocaleDateString(),
-                amount: amount,
-                paymentType: paymentType,
-                mode: mode,
-                txnId: txnId,
-                remarks: remarks,
+                installment: 0, date: new Date().toLocaleDateString(), amount: amount,
+                paymentType: paymentType, mode: mode, txnId: txnId, remarks: remarks,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
               });
+            // ✅ Update student fee fields after payment
+            await updateStudentFeeFields(studentId);
             alert("✅ Payment added successfully!");
             bootstrap.Modal.getInstance(document.getElementById("addPaymentModal")).hide();
-            loadStudents();
-            updateAccurateStats();
-          } else {
-            alert("Student record not found!");
-          }
-        } catch (err) {
-          alert("❌ Error: " + err.message);
-        }
+            loadStudents(); updateAccurateStats();
+          } else { alert("Student record not found!"); }
+        } catch (err) { alert("❌ Error: " + err.message); }
       });
 
       function openDiscountModal(studentId) {
@@ -1353,20 +862,17 @@
         const studentId = document.getElementById("discount-student-id").value;
         const discountAmount = parseFloat(document.getElementById("discount-amount").value);
         const adminPassword = document.getElementById("admin-password").value;
-        
         if (systemSettings.masterPassword && adminPassword === systemSettings.masterPassword) {
           try {
             await db.collection("001-school").doc("students").collection("list").doc(studentId)
               .update({ discount: firebase.firestore.FieldValue.increment(discountAmount) });
+            // ✅ Update student fee fields after discount
+            await updateStudentFeeFields(studentId);
             alert("✅ Discount applied!");
             bootstrap.Modal.getInstance(document.getElementById("giveDiscountModal")).hide();
             updateAccurateStats();
-          } catch (err) {
-            alert("❌ Error: " + err.message);
-          }
-        } else {
-          alert("❌ Incorrect admin password!");
-        }
+          } catch (err) { alert("❌ Error: " + err.message); }
+        } else { alert("❌ Incorrect admin password!"); }
       });
 
       async function openVehicleFeeModal(studentId) {
@@ -1375,7 +881,6 @@
         form.reset();
         document.getElementById("vehicle-details-section").style.display = "none";
         document.getElementById("vehicle-last-update").value = "";
-        
         try {
           const doc = await db.collection("001-school").doc("vehicleTransactions").collection("records").doc(studentId).get();
           if(doc.exists){
@@ -1400,8 +905,7 @@
                   document.getElementById("fixed-amount-section").style.display = "none";
                   document.getElementById("months-checkboxes").style.display = "block";
                   (data.vehicleData.months || []).forEach(m => {
-                    const cb = document.getElementById("month-"+m);
-                    if(cb) cb.checked = true;
+                    const cb = document.getElementById("month-"+m); if(cb) cb.checked = true;
                   });
                 }
               }
@@ -1418,7 +922,6 @@
       document.getElementById("vehicle-eligible-checkbox")?.addEventListener("change", function() {
         document.getElementById("vehicle-details-section").style.display = this.checked ? "block" : "none";
       });
-
       document.getElementById("vehicle-select")?.addEventListener("change", function() {
         const selectedVehicle = this.value;
         const locationSelect = document.getElementById("vehicle-location");
@@ -1427,37 +930,25 @@
           const matches = systemSettings.vehicleFeesChart.filter(item => item.vehicleName.trim() === selectedVehicle);
           matches.forEach(item => {
             const opt = document.createElement("option");
-            opt.value = item.destination;
-            opt.textContent = item.destination;
+            opt.value = item.destination; opt.textContent = item.destination;
             locationSelect.appendChild(opt);
           });
-          if(matches.length === 1) {
-            document.getElementById("vehicle-rent").value = "₹" + matches[0].amount;
-          }
+          if(matches.length === 1) document.getElementById("vehicle-rent").value = "₹" + matches[0].amount;
         }
       });
-
       document.getElementById("vehicle-location")?.addEventListener("change", function() {
         const vehicle = document.getElementById("vehicle-select").value;
         const location = this.value;
         if(systemSettings.vehicleFeesChart) {
-          const match = systemSettings.vehicleFeesChart.find(item => 
-            item.vehicleName.trim() === vehicle && item.destination === location);
+          const match = systemSettings.vehicleFeesChart.find(item => item.vehicleName.trim() === vehicle && item.destination === location);
           if(match) document.getElementById("vehicle-rent").value = "₹" + match.amount;
         }
       });
-
       document.getElementById("fee-option-fixed")?.addEventListener("change", function(){
-        if(this.checked){
-          document.getElementById("fixed-amount-section").style.display = "block";
-          document.getElementById("months-checkboxes").style.display = "none";
-        }
+        if(this.checked){ document.getElementById("fixed-amount-section").style.display = "block"; document.getElementById("months-checkboxes").style.display = "none"; }
       });
       document.getElementById("fee-option-months")?.addEventListener("change", function(){
-        if(this.checked){
-          document.getElementById("fixed-amount-section").style.display = "none";
-          document.getElementById("months-checkboxes").style.display = "block";
-        }
+        if(this.checked){ document.getElementById("fixed-amount-section").style.display = "none"; document.getElementById("months-checkboxes").style.display = "block"; }
       });
 
       document.getElementById("vehicle-fee-form")?.addEventListener("submit", async function(e) {
@@ -1465,100 +956,77 @@
         const studentId = document.getElementById("vehicle-student-id").value;
         const eligible = document.getElementById("vehicle-eligible-checkbox").checked ? "Yes" : "No";
         let vehicleData = {};
-        
         if (eligible === "Yes") {
           const vehicle = document.getElementById("vehicle-select").value;
           const location = document.getElementById("vehicle-location").value;
           const rent = document.getElementById("vehicle-rent").value.replace("₹", "");
           const feeOption = document.querySelector('input[name="vehicle-fee-option"]:checked').value;
           vehicleData = { vehicle, location, feeOption };
-          if(feeOption === "fixed"){
-            vehicleData.fixedAmount = parseFloat(document.getElementById("vehicle-fixed-amount").value) || 0;
-          } else if(feeOption === "months"){
+          if(feeOption === "fixed"){ vehicleData.fixedAmount = parseFloat(document.getElementById("vehicle-fixed-amount").value) || 0; }
+          else if(feeOption === "months"){
             const months = [];
             document.querySelectorAll(".month-checkbox:checked").forEach(cb => months.push(cb.value));
-            vehicleData.months = months;
-            vehicleData.rent = parseFloat(rent) || 0;
+            vehicleData.months = months; vehicleData.rent = parseFloat(rent) || 0;
           }
         }
-        
-        const record = {
-          eligible,
-          vehicleData,
-          lastUpdated: new Date().toLocaleString(),
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        };
-        
+        const record = { eligible, vehicleData, lastUpdated: new Date().toLocaleString(), timestamp: firebase.firestore.FieldValue.serverTimestamp() };
         try {
-          await db.collection("001-school").doc("vehicleTransactions")
-            .collection("records").doc(studentId).set(record, { merge: true });
+          await db.collection("001-school").doc("vehicleTransactions").collection("records").doc(studentId).set(record, { merge: true });
+          // ✅ Update student fee fields after vehicle fee change
+          await updateStudentFeeFields(studentId);
           alert("✅ Vehicle fee saved!");
-          loadStudents();
-          updateAccurateStats();
+          loadStudents(); updateAccurateStats();
           bootstrap.Modal.getInstance(document.getElementById("vehicleFeeModal")).hide();
-        } catch (err) {
-          alert("❌ Error: " + err.message);
-        }
+        } catch (err) { alert("❌ Error: " + err.message); }
       });
 
-      // ✅ UPDATED: View Details with accurate calculations
+      // View Details Modal
       async function viewDetails(studentId) {
         try {
           const doc = await db.collection("001-school").doc("students").collection("list").doc(studentId).get();
           if (!doc.exists) { alert("Student not found"); return; }
           const student = doc.data();
-          
           document.getElementById("detail-sr").textContent = student.srNumber || "-";
           document.getElementById("detail-name").textContent = student.studentName || "-";
           document.getElementById("detail-father").textContent = student.fatherName || "-";
           document.getElementById("detail-class").textContent = student.class || "-";
           document.getElementById("detail-stream").textContent = student.stream || "-";
           
-          const baseFee = getBaseFeeFromClassStream(student.class, student.stream);
-          const discount = Number(student.discount) || 0;
-          const finalSchoolFee = Math.max(0, baseFee - discount);
+          // Use cached fields if available, else calculate
+          let baseFee = student.baseFee !== undefined ? student.baseFee : getBaseFeeFromClassStream(student.class, student.stream);
+          let discount = student.discount !== undefined ? student.discount : (Number(student.discount) || 0);
+          let finalSchoolFee = student.finalSchoolFee !== undefined ? student.finalSchoolFee : Math.max(0, baseFee - discount);
+          let vehicleFeeTotal = student.vehicleFeeTotal !== undefined ? student.vehicleFeeTotal : 0;
+          let schoolPaid = student.schoolPaid !== undefined ? student.schoolPaid : 0;
+          let vehiclePaid = student.vehiclePaid !== undefined ? student.vehiclePaid : 0;
+          let schoolPending = student.schoolPending !== undefined ? student.schoolPending : 0;
+          let vehiclePending = student.vehiclePending !== undefined ? student.vehiclePending : 0;
+          let totalPending = student.totalPending !== undefined ? student.totalPending : 0;
           
-          const paymentSnap = await db.collection("001-school").doc("transactions")
-            .collection("class" + student.class).doc(studentId).collection("payments")
-            .orderBy("timestamp", "asc").get();
-          
-          let schoolPaid = 0, vehiclePaid = 0;
-          const transBody = document.getElementById("student-transactions");
-          transBody.innerHTML = "";
-          
-          if (paymentSnap.empty) {
-            transBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-3">No transactions yet</td></tr>`;
-          } else {
+          // Fallback: recalculate if cached fields missing
+          if (student.baseFee === undefined) {
+            const paymentSnap = await db.collection("001-school").doc("transactions")
+              .collection("class" + student.class).doc(studentId).collection("payments").orderBy("timestamp", "asc").get();
+            schoolPaid = 0; vehiclePaid = 0;
             paymentSnap.forEach(pDoc => {
               const tx = pDoc.data();
-              const txDate = tx.timestamp?.toDate?.()?.toLocaleDateString() || tx.date || "-";
               if(tx.paymentType === "school fee") schoolPaid += Number(tx.amount) || 0;
               else if(tx.paymentType === "vehicle fee") vehiclePaid += Number(tx.amount) || 0;
-              transBody.innerHTML += `
-                <tr>
-                  <td>${txDate}</td>
-                  <td>₹${Number(tx.amount)||0}</td>
-                  <td>${tx.mode || "-"}</td>
-                  <td>${tx.txnId || "-"}</td>
-                  <td><span class="badge ${tx.paymentType==='school fee'?'bg-primary':'bg-success'}">${tx.paymentType}</span></td>
-                </tr>`;
             });
-          }
-          
-          const vDoc = await db.collection("001-school").doc("vehicleTransactions")
-            .collection("records").doc(studentId).get();
-          
-          let vehicleFeeTotal = 0;
-          if (vDoc.exists && vDoc.data().eligible === "Yes") {
-            const vd = vDoc.data().vehicleData;
-            if(vd?.feeOption === "fixed") vehicleFeeTotal = Number(vd.fixedAmount) || 0;
-            else if(vd?.feeOption === "months") vehicleFeeTotal = (Number(vd.rent) || 0) * (vd.months?.length || 0);
+            const vDoc = await db.collection("001-school").doc("vehicleTransactions").collection("records").doc(studentId).get();
+            if (vDoc.exists && vDoc.data().eligible === "Yes") {
+              const vd = vDoc.data().vehicleData;
+              if(vd?.feeOption === "fixed") vehicleFeeTotal = Number(vd.fixedAmount) || 0;
+              else if(vd?.feeOption === "months") vehicleFeeTotal = (Number(vd.rent) || 0) * (vd.months?.length || 0);
+            }
+            schoolPending = Math.max(0, finalSchoolFee - schoolPaid);
+            vehiclePending = Math.max(0, vehicleFeeTotal - vehiclePaid);
+            totalPending = schoolPending + vehiclePending;
           }
           
           const totalFee = finalSchoolFee + vehicleFeeTotal;
-          const schoolPending = Math.max(0, finalSchoolFee - schoolPaid);
-          const vehiclePending = Math.max(0, vehicleFeeTotal - vehiclePaid);
           
+          // Populate modal
           document.getElementById("detail-base-fee").textContent = "₹" + baseFee;
           document.getElementById("detail-discount").textContent = "₹" + discount;
           document.getElementById("detail-final-school").textContent = "₹" + finalSchoolFee;
@@ -1568,29 +1036,35 @@
           document.getElementById("detail-vehicle-paid").textContent = "₹" + vehiclePaid;
           document.getElementById("detail-school-pending").textContent = "₹" + schoolPending;
           document.getElementById("detail-vehicle-pending").textContent = "₹" + vehiclePending;
-          
           document.getElementById("ufc-class").textContent = student.class || "-";
           document.getElementById("ufc-stream").textContent = student.stream || "-";
           document.getElementById("ufc-fee").textContent = baseFee;
           document.getElementById("ufc-vehicle-fee").textContent = vehicleFeeTotal ? "₹" + vehicleFeeTotal : "N/A";
           document.getElementById("ufc-discount").textContent = discount;
           
+          // Transaction history
+          const transBody = document.getElementById("student-transactions");
+          transBody.innerHTML = "";
+          const paymentSnap = await db.collection("001-school").doc("transactions")
+            .collection("class" + student.class).doc(studentId).collection("payments").orderBy("timestamp", "asc").get();
+          if (paymentSnap.empty) {
+            transBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-3">No transactions yet</td></tr>`;
+          } else {
+            paymentSnap.forEach(pDoc => {
+              const tx = pDoc.data();
+              const txDate = tx.timestamp?.toDate?.()?.toLocaleDateString() || tx.date || "-";
+              transBody.innerHTML += `<tr><td>${txDate}</td><td>₹${Number(tx.amount)||0}</td><td>${tx.mode || "-"}</td><td>${tx.txnId || "-"}</td><td><span class="badge ${tx.paymentType==='school fee'?'bg-primary':'bg-success'}">${tx.paymentType}</span></td></tr>`;
+            });
+          }
           new bootstrap.Modal(document.getElementById("detailsModal")).show();
-        } catch (err) {
-          console.error("Error in viewDetails:", err);
-          alert("Error loading details: " + err.message);
-        }
+        } catch (err) { console.error("Error in viewDetails:", err); alert("Error: " + err.message); }
       }
 
-      // ✅ UPDATED: Initialize with accurate stats
+      // Initialize
       window.addEventListener("DOMContentLoaded", async function() {
         const settingsLoaded = await loadSystemSettings();
-        if (settingsLoaded) {
-          await updateAccurateStats();
-          loadStudents();
-        } else {
-          loadStudents();
-        }
+        if (settingsLoaded) { await updateAccurateStats(); loadStudents(); }
+        else { loadStudents(); }
       });
     </script>
   </body>
