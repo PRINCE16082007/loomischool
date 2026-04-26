@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SchoolMS - Admin & Settings</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    
+    <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --transition: all 0.2s ease-in-out;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ============ NAVBAR (Same as Dashboard) ============ */
+    .navbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      box-shadow: var(--shadow-md);
+      padding: 0.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .navbar-brand i { font-size: 1.4rem; }
+
+    .navbar-center {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .navbar-center .navbar-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+
+    .navbar-nav .nav-link {
+      color: rgba(255,255,255,0.9) !important;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem !important;
+      border-radius: 8px;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+      color: #fff !important;
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+
+    .navbar-nav .nav-link.active {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .navbar-nav .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .navbar .dropdown-menu {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      padding: 0.5rem;
+      margin-top: 8px;
+      min-width: 220px;
+      animation: slideDown 0.2s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .navbar .dropdown-item {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .navbar .dropdown-item:hover {
+      background: rgba(30, 64, 175, 0.08);
+      color: var(--primary);
+      padding-left: 1.25rem;
+    }
+
+    .navbar .dropdown-item.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: var(--text-secondary);
+    }
+
+    .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
+    .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
+
+    .logo-placeholder {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; cursor: pointer; transition: var(--transition);
+      color: #fff; font-weight: 600; font-size: 0.75rem;
+      text-align: center; line-height: 1.2; padding: 4px;
+    }
+
+    .logo-placeholder:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .logo-placeholder img {
+      width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    }
+
+    .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
+
+    .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
+    .navbar-toggler:focus { box-shadow: none; }
+    .navbar-toggler-icon { filter: brightness(0) invert(1); }
+
+    @media (max-width: 991px) {
+      .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
+      .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
+      .navbar-collapse {
+        background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+        border-radius: 12px; padding: 0.75rem;
+      }
+      .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
+      .navbar .dropdown-menu {
+        background: rgba(255,255,255,0.1); border: none; box-shadow: none;
+        margin: 0; padding-left: 1.5rem; text-align: center;
+      }
+      .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
+      .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
+      .logo-placeholder { order: 2; margin-left: 0.5rem; }
+    }
+
+      /* ============ ADMIN PANEL STYLES ============ */
+      .admin-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      .section-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+      }
+
+      .section-card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .section-title i { color: var(--primary); }
+
+      /* Form Styles */
+      .form-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        margin-bottom: 0.4rem;
+      }
+
+      .form-control, .form-select {
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+        transition: var(--transition);
+      }
+
+      .form-control:focus, .form-select:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.5rem;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .status-message {
+        margin-top: 1rem;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .status-message.success {
+        background: rgba(16, 185, 129, 0.15);
+        color: var(--secondary);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        display: block;
+      }
+
+      .status-message.error {
+        background: rgba(239, 68, 68, 0.15);
+        color: var(--danger);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        display: block;
+      }
+
+      /* Module Shortcuts Grid */
+      .shortcuts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+
+      .shortcut-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: var(--transition);
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--text-primary);
+      }
+
+      .shortcut-card:hover:not(.disabled) {
+        border-color: var(--primary-light);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .shortcut-card.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        position: relative;
+      }
+
+      .shortcut-card.disabled::after {
+        content: '🔒 Coming Soon';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(239, 68, 68, 0.95);
+        color: #fff;
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 5;
+        white-space: nowrap;
+      }
+
+      .shortcut-card.disabled::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(255,255,255,0.7);
+        border-radius: 14px;
+        z-index: 4;
+      }
+
+      .shortcut-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(30, 64, 175, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        color: var(--primary);
+        flex-shrink: 0;
+      }
+
+      .shortcut-card.disabled .shortcut-icon {
+        background: rgba(239, 68, 68, 0.15);
+        color: var(--danger);
+      }
+
+      .shortcut-info h5 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .shortcut-info p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      .shortcut-card.disabled .shortcut-info h5,
+      .shortcut-card.disabled .shortcut-info p {
+        color: var(--text-secondary);
+      }
+
+      /* Module Controls */
+      .module-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        background: var(--bg-body);
+        border-radius: 10px;
+        margin-bottom: 0.75rem;
+        border: 1px solid var(--border-color);
+      }
+
+      .module-toggle label {
+        font-weight: 500;
+        font-size: 0.95rem;
+        margin: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .module-toggle label i { color: var(--secondary); }
+
+      .form-switch .form-check-input {
+        width: 48px;
+        height: 26px;
+        cursor: pointer;
+      }
+
+      .form-switch .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      /* Connect Section */
+      .connect-section {
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .social-icons a {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-body);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .social-icons a:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-light);
+      }
+
+      .social-icons img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      /* ============ FOOTER ============ */
+      .footer-section {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        color: rgba(255,255,255,0.9);
+        padding: 2rem 0 1.5rem;
+        margin-top: 3rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .footer-section h3 {
+        font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff;
+      }
+
+      .social-links a {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 40px; height: 40px; border-radius: 10px;
+        background: rgba(255,255,255,0.1); margin-right: 8px;
+        transition: var(--transition); border: 1px solid transparent;
+        color: #fff; text-decoration: none; font-size: 1.1rem;
+      }
+
+      .social-links a:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-3px);
+        border-color: rgba(255,255,255,0.3);
+      }
+
+      .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
+
+      .footer-section .btn-outline-light {
+        border-color: rgba(255,255,255,0.4); color: #fff;
+        font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .footer-section .btn-outline-light:hover {
+        background: #fff; color: var(--primary); border-color: #fff;
+        transform: translateY(-2px); box-shadow: var(--shadow-md);
+      }
+
+      .footer-links { list-style: none; padding: 0; margin: 0; }
+      .footer-links li { margin-bottom: 0.5rem; }
+      .footer-links a {
+        color: rgba(255,255,255,0.8); text-decoration: none;
+        font-size: 0.9rem; transition: var(--transition);
+        display: flex; align-items: center; gap: 6px;
+      }
+      .footer-links a:hover { color: #fff; padding-left: 4px; }
+
+      @media (max-width: 991px) {
+        .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
+        .footer-section .text-end { text-align: center !important; }
+        .social-links { justify-content: center; display: flex; }
+      }
+    </style>
+  </head>
+  
+  <body>
+  <!-- ============ HEADER ============ -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      
+      <!-- LEFT: Brand -->
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-building-check"></i>
+        <span>SchoolMS</span>
+      </a>
+      
+      <!-- TOGGLER (Mobile) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- CENTER: Nav Items -->
+      <div class="collapse navbar-collapse navbar-center" id="navbarContent">
+        <ul class="navbar-nav">
+          
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="/admin_dashboard.html">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+
+          <!-- 👥 Students Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-people"></i> Students
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
+              <li><a class="dropdown-item disabled" href="/attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Classes</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/students/student_profile.html"><i class="bi bi-person-badge"></i> Student Profile</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
+            </ul>
+          </li>
+
+          <!-- 💰 Finance Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-wallet2"></i> Finance
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
+              <li><a class="dropdown-item disabled" href="/exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
+            </ul>
+          </li>
+
+          <!-- 🏫 Institute Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-building"></i> Institute
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a></li>
+              <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Inventory</a></li>
+              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
+            </ul>
+          </li>
+
+          <!-- 👔 Staff -->
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+              <i class="bi bi-briefcase"></i> Staff
+            </a>
+          </li>
+
+          <!-- ⚙️ Settings -->
+          <li class="nav-item">
+            <a class="nav-link active" href="/admin_panel/admin_panel.html">
+              <i class="bi bi-gear"></i> Settings
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      
+      <div class="logo-placeholder" title="SquadVertex Logo">
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
+      </div>
+      
+    </div>
+  </nav>
+
+    <!-- ============ ADMIN PANEL CONTENT ============ -->
+    <div class="admin-container">
+      
+      <!-- School Basic Details -->
+      <div class="section-card">
+        <h2 class="section-title"><i class="bi bi-building-gear"></i> School Basic Details</h2>
+        <form id="settings-form">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="school-name">School Name</label>
+              <input type="text" class="form-control" id="school-name" placeholder="Enter school name" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="academic-year">Academic Year</label>
+              <select class="form-select" id="academic-year" required>
+                <option value="">Select Year</option>
+                <option value="2024-25">2024-25</option>
+                <option value="2025-26">2025-26</option>
+                <option value="2026-27">2026-27</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="contact-email">Contact Email</label>
+              <input type="email" class="form-control" id="contact-email" placeholder="admin@school.com" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="phone-number">Phone Number</label>
+              <input type="tel" class="form-control" id="phone-number" placeholder="+91 98765 43210" pattern="[0-9+\-\s()]{7,20}" required>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary mt-2">
+                <i class="bi bi-save me-1"></i> Save Settings
+              </button>
+              <div id="settings-status" class="status-message"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Module Shortcuts -->
+      <div class="section-card">
+        <h2 class="section-title"><i class="bi bi-grid-3x3-gap"></i> Module Shortcuts</h2>
+        <div class="shortcuts-grid">
+          
+          <!-- 🔒 Schedule Planner (Disabled/Locked) -->
+          <div class="shortcut-card disabled" tabindex="-1" aria-disabled="true">
+            <div class="shortcut-icon">
+              <i class="bi bi-calendar-week"></i>
+            </div>
+            <div class="shortcut-info">
+              <h5>Schedule Planner</h5>
+              <p>Plan and manage your school schedules efficiently.</p>
+            </div>
+          </div>
+
+          <!-- ✅ Universal Fees Chart (Working) -->
+          <a href="/admin/universal_chart.html" class="shortcut-card">
+            <div class="shortcut-icon">
+              <i class="bi bi-currency-dollar"></i>
+            </div>
+            <div class="shortcut-info">
+              <h5>Universal Fees & Vehicle Rent Chart</h5>
+              <p>View and update fee charts for academics and transport.</p>
+            </div>
+          </a>
+
+          <!-- 🔒 Extra Button 1 (Disabled/Locked) -->
+          <div class="shortcut-card disabled" tabindex="-1" aria-disabled="true">
+            <div class="shortcut-icon">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <div class="shortcut-info">
+              <h5>Analytics Dashboard</h5>
+              <p>Advanced reports and insights (Coming Soon).</p>
+            </div>
+          </div>
+
+          <!-- 🔒 Extra Button 2 (Disabled/Locked) -->
+          <div class="shortcut-card disabled" tabindex="-1" aria-disabled="true">
+            <div class="shortcut-icon">
+              <i class="bi bi-robot"></i>
+            </div>
+            <div class="shortcut-info">
+              <h5>AI Assistant</h5>
+              <p>Smart recommendations and automation (Coming Soon).</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Module Controls -->
+      <div class="section-card">
+        <h2 class="section-title"><i class="bi bi-toggle-on"></i> Module Controls</h2>
+        <form id="module-control-form">
+          <div class="module-toggle">
+            <label for="control-attendance">
+              <i class="bi bi-calendar-check"></i> Enable Attendance Module
+            </label>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="control-attendance">
+            </div>
+          </div>
+          <div class="module-toggle">
+            <label for="control-admission">
+              <i class="bi bi-person-plus"></i> Enable Admission Module
+            </label>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="control-admission">
+            </div>
+          </div>
+          <div class="module-toggle">
+            <label for="control-fees">
+              <i class="bi bi-currency-dollar"></i> Enable Fees Module
+            </label>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="control-fees">
+            </div>
+          </div>
+          <div class="module-toggle">
+            <label for="control-exams">
+              <i class="bi bi-clipboard2-check"></i> Enable Exams Module
+            </label>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="control-exams">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">
+            <i class="bi bi-save me-1"></i> Save Module Settings
+          </button>
+          <div id="module-status" class="status-message"></div>
+        </form>
+      </div>
+
+      <!-- Connect with Us -->
+      <div class="section-card connect-section">
+        <h2 class="section-title" style="justify-content: center;"><i class="bi bi-share"></i> Connect with Us</h2>
+        <p class="text-muted mb-2">https://www.squadvertex.great-site.net</p>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram">
+            <img src="https://img.icons8.com/color/48/instagram-new.png" alt="Instagram">
+          </a>
+          <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X">
+            <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter">
+          </a>
+          <a href="https://discord.gg/dyWSDFREWZ" target="_blank" title="Discord">
+            <img src="https://img.icons8.com/color/48/discord-logo.png" alt="Discord">
+          </a>
+          <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube">
+            <img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube">
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ FOOTER (Same as Reference) ============ -->
+    <footer class="footer-section">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <!-- Social -->
+          <div class="col-lg-4 col-md-6">
+            <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
+            <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
+            <div class="social-links">
+              <a href="#" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+              <a href="#" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
+              <a href="#" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+          
+          <!-- Quick Links -->
+          <div class="col-lg-4 col-md-6">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/documentation.html" target="_blank"><i class="bi bi-chevron-right"></i> Documentation</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Support Center</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Privacy Policy</a></li>
+              <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
+            </ul>
+          </div>
+          
+          <!-- Copyright + Docs -->
+          <div class="col-lg-4 col-md-12 text-lg-end">
+            <a href="/documentation.html" target="_blank" class="btn btn-outline-light mb-3">
+              <i class="bi bi-book me-1"></i>View Docs
+            </a>
+            <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Firebase SDK (Compat version for consistency) -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore-compat.js"></script>
+    <!-- Bootstrap 5 JS Bundle (Required for dropdowns, collapse, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firestore Integration Script -->
+    <script>
+      // Initialize Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyAXAs_j7Six8N3aW9yc3zUJcy_yodZgeJo",
+        authDomain: "loomischool-26.firebaseapp.com",
+        projectId: "loomischool-26",
+        storageBucket: "loomischool-26.firebasestorage.app",
+        messagingSenderId: "128038850008",
+        appId: "1:128038850008:web:9001fca7e1b7803837f6ad",
+        measurementId: "G-MWZSZFCZZE"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // Load systemSettings from Firestore and populate fields
+      function loadSystemSettings() {
+        db.collection("001-school").doc("systemSettings").get()
+          .then(doc => {
+            if (doc.exists) {
+              const data = doc.data();
+              // Basic details
+              document.getElementById("school-name").value = data.schoolName || "";
+              document.getElementById("academic-year").value = data.academicYear || "";
+              document.getElementById("contact-email").value = data.contactEmail || "";
+              // NEW: phoneNumber field
+              document.getElementById("phone-number").value = data.phoneNumber || "";
+              
+              // Populate module controllers if available
+              if(data.modules) {
+                document.getElementById("control-attendance").checked = data.modules.attendance || false;
+                document.getElementById("control-admission").checked = data.modules.admission || false;
+                document.getElementById("control-fees").checked = data.modules.fees || false;
+                document.getElementById("control-exams").checked = data.modules.exams || false;
+              }
+            } else {
+              console.warn("System settings document not found! Creating default...");
+              // Create default document if not exists
+              db.collection("001-school").doc("systemSettings").set({
+                schoolName: "",
+                academicYear: "",
+                contactEmail: "",
+                phoneNumber: "",
+                modules: {
+                  attendance: true,
+                  admission: true,
+                  fees: true,
+                  exams: true
+                },
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              }, { merge: true });
+            }
+          })
+          .catch(err => console.error("Error loading system settings:", err));
+      }
+
+      // Save settings form (including phoneNumber)
+      document.getElementById("settings-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const settingsData = {
+          schoolName: document.getElementById("school-name").value.trim(),
+          academicYear: document.getElementById("academic-year").value.trim(),
+          contactEmail: document.getElementById("contact-email").value.trim(),
+          // NEW: phoneNumber saved as phoneNumber in DB
+          phoneNumber: document.getElementById("phone-number").value.trim(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        
+        db.collection("001-school").doc("systemSettings").set(settingsData, { merge: true })
+          .then(() => {
+            const statusEl = document.getElementById("settings-status");
+            statusEl.textContent = "✅ Settings saved successfully!";
+            statusEl.className = "status-message success";
+            setTimeout(() => { statusEl.className = "status-message"; }, 3000);
+          })
+          .catch(err => {
+            console.error("Error saving settings:", err);
+            const statusEl = document.getElementById("settings-status");
+            statusEl.textContent = "❌ Error saving settings.";
+            statusEl.className = "status-message error";
+          });
+      });
+
+      // Save module control form
+      document.getElementById("module-control-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const modulesData = {
+          modules: {
+            attendance: document.getElementById("control-attendance").checked,
+            admission: document.getElementById("control-admission").checked,
+            fees: document.getElementById("control-fees").checked,
+            exams: document.getElementById("control-exams").checked
+          },
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        
+        db.collection("001-school").doc("systemSettings").set(modulesData, { merge: true })
+          .then(() => {
+            const statusEl = document.getElementById("module-status");
+            statusEl.textContent = "✅ Module settings saved successfully!";
+            statusEl.className = "status-message success";
+            setTimeout(() => { statusEl.className = "status-message"; }, 3000);
+          })
+          .catch(err => {
+            console.error("Error saving module settings:", err);
+            const statusEl = document.getElementById("module-status");
+            statusEl.textContent = "❌ Error saving module settings.";
+            statusEl.className = "status-message error";
+          });
+      });
+
+      // Prevent disabled shortcut cards from being clickable
+      document.querySelectorAll('.shortcut-card.disabled').forEach(card => {
+        card.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+        card.setAttribute('title', '🔒 This feature is coming soon!');
+      });
+
+      // On DOMContentLoaded, load system settings
+      window.addEventListener("DOMContentLoaded", function() {
+        loadSystemSettings();
+      });
+    </script>
+  </body>
+</html>
