@@ -60,20 +60,8 @@
     }
 
     .navbar-brand i { font-size: 1.4rem; }
-
-    /* Center Nav Items */
-    .navbar-center {
-      display: flex;
-      justify-content: center;
-      flex-grow: 1;
-    }
-
-    .navbar-center .navbar-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2px;
-    }
+    .navbar-center { display: flex; justify-content: center; flex-grow: 1; }
+    .navbar-center .navbar-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 2px; }
 
     .navbar-nav .nav-link {
       color: rgba(255,255,255,0.9) !important;
@@ -113,12 +101,8 @@
       border-radius: 2px;
     }
 
-    .navbar-nav .nav-link.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* Dropdown Styles */
     .navbar .dropdown-menu {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -152,30 +136,12 @@
       padding-left: 1.25rem;
     }
 
-    .navbar .dropdown-item.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      color: var(--text-secondary);
-    }
+    .navbar .dropdown-item.disabled { opacity: 0.5; cursor: not-allowed; color: var(--text-secondary); }
+    .navbar .dropdown-item.disabled:hover { background: transparent; padding-left: 1rem; color: var(--text-secondary); }
+    .navbar .dropdown-item.active { background: rgba(30, 64, 175, 0.12); color: var(--primary); font-weight: 500; }
+    .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
+    .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
 
-    .navbar .dropdown-item.disabled:hover {
-      background: transparent;
-      padding-left: 1rem;
-      color: var(--text-secondary);
-    }
-
-    .navbar .dropdown-divider {
-      margin: 0.4rem 0;
-      border-color: var(--border-color);
-    }
-
-    .dropdown-toggle::after {
-      margin-left: 4px;
-      font-size: 0.75rem;
-      vertical-align: middle;
-    }
-
-    /* Logo Placeholder - Circular */
     .logo-placeholder {
       width: 42px;
       height: 42px;
@@ -202,50 +168,22 @@
       transform: scale(1.05);
     }
 
-    .logo-placeholder img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+    .logo-placeholder img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
 
-    .logo-placeholder .placeholder-text {
-      font-size: 0.65rem;
-      letter-spacing: 0.5px;
-    }
-
-    /* Mobile Toggle */
-    .navbar-toggler {
-      border: none;
-      padding: 0.4rem;
-      margin-left: auto;
-    }
+    .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
     .navbar-toggler:focus { box-shadow: none; }
-    .navbar-toggler-icon {
-      filter: brightness(0) invert(1);
-    }
+    .navbar-toggler-icon { filter: brightness(0) invert(1); }
 
-    /* Mobile Layout */
     @media (max-width: 991px) {
-      .navbar-center {
-        width: 100%;
-        order: 3;
-        margin-top: 1rem;
-      }
-      .navbar-center .navbar-nav {
-        flex-direction: column;
-        align-items: center;
-      }
+      .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
+      .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
       .navbar-collapse {
         background: linear-gradient(180deg, var(--primary-dark), var(--primary));
         border-radius: 12px;
         padding: 0.75rem;
       }
-      .navbar-nav .nav-link {
-        padding: 0.6rem 1rem !important;
-        margin: 4px 0;
-        justify-content: center;
-      }
+      .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
       .navbar .dropdown-menu {
         background: rgba(255,255,255,0.1);
         border: none;
@@ -254,19 +192,9 @@
         padding-left: 1.5rem;
         text-align: center;
       }
-      .navbar .dropdown-item {
-        color: rgba(255,255,255,0.9);
-        justify-content: center;
-      }
-      .navbar .dropdown-item:hover {
-        background: rgba(255,255,255,0.15);
-        color: #fff;
-        padding-left: 1rem;
-      }
-      .logo-placeholder {
-        order: 2;
-        margin-left: 0.5rem;
-      }
+      .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
+      .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
+      .logo-placeholder { order: 2; margin-left: 0.5rem; }
     }
 
     /* ============ FORM STYLES ============ */
@@ -295,6 +223,15 @@
       font-weight: 500;
       color: var(--text-primary);
       margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .required-field::after {
+      content: "*";
+      color: #ef4444;
+      margin-left: 2px;
     }
 
     .form-control, .form-select {
@@ -330,6 +267,198 @@
       box-shadow: var(--shadow-md);
     }
 
+    .btn-secondary {
+      background: var(--text-secondary);
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    .btn-outline-dark {
+      border-color: var(--border-color);
+      padding: 0.6rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    /* Search & Filter Bar */
+    .search-filter-bar {
+      background: var(--bg-body);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-filter-bar .form-control {
+      border-radius: 8px;
+    }
+
+    .filter-badge {
+      background: var(--primary-light);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-left: 4px;
+    }
+
+    /* Student List Dropdown */
+    .student-list-container {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--bg-card);
+      margin-top: 0.5rem;
+    }
+
+    .student-list-item {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .student-list-item:hover {
+      background: rgba(30, 64, 175, 0.08);
+    }
+
+    .student-list-item.active {
+      background: rgba(30, 64, 175, 0.15);
+      border-left: 4px solid var(--primary);
+    }
+
+    .student-list-item .sr-badge {
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .student-list-item .student-info small {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .no-results {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    /* Form Cards */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .form-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Checkbox group for subjects */
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem;
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--bg-card);
+    }
+    
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      margin: 0;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    
+    .checkbox-group label:hover {
+      background: rgba(30, 64, 175, 0.08);
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* BPL conditional field */
+    .bpl-number-field { display: none; margin-top: 0.5rem; }
+    .bpl-number-field.show { display: block; }
+
+    /* Guardian type toggle */
+    .guardian-toggle {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Previous class details table */
+    .prev-class-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .prev-class-table th,
+    .prev-class-table td {
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    
+    .prev-class-table th {
+      background: var(--bg-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    
+    .prev-class-table input,
+    .prev-class-table select {
+      width: 100%;
+      padding: 0.4rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    /* Read-only badge */
+    .readonly-badge {
+      background: #f1f5f9;
+      color: var(--text-secondary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin-left: 8px;
+    }
+
     /* Instructions Box */
     .instructions {
       margin-top: 2rem;
@@ -349,10 +478,7 @@
       gap: 8px;
     }
 
-    .instructions h4::before {
-      content: '💡';
-      font-size: 1.2rem;
-    }
+    .instructions h4::before { content: '💡'; font-size: 1.2rem; }
 
     .instructions ul {
       padding-left: 1.25rem;
@@ -360,9 +486,21 @@
       font-size: 0.95rem;
     }
 
-    .instructions li {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
+    .instructions li { margin-bottom: 0.5rem; line-height: 1.5; }
+
+    /* Loading skeleton */
+    .skeleton {
+      height: 1.2em;
+      width: 100%;
+      background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+      background-size: 200% 100%;
+      margin-bottom: 0.5em;
+      border-radius: 6px;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
     }
 
     /* ============ FOOTER ============ */
@@ -426,14 +564,8 @@
       box-shadow: var(--shadow-md);
     }
 
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
+    .footer-links { list-style: none; padding: 0; margin: 0; }
     .footer-links li { margin-bottom: 0.5rem; }
-
     .footer-links a {
       color: rgba(255,255,255,0.8);
       text-decoration: none;
@@ -443,17 +575,10 @@
       align-items: center;
       gap: 6px;
     }
-
-    .footer-links a:hover {
-      color: #fff;
-      padding-left: 4px;
-    }
+    .footer-links a:hover { color: #fff; padding-left: 4px; }
 
     @media (max-width: 991px) {
-      .footer-section .row > div {
-        text-align: center !important;
-        margin-bottom: 1.5rem;
-      }
+      .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
       .footer-section .text-end { text-align: center !important; }
       .social-links { justify-content: center; display: flex; }
     }
@@ -463,30 +588,23 @@
     <!-- ============ HEADER ============ -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        
-        <!-- LEFT: Brand -->
         <a class="navbar-brand" href="#">
           <i class="bi bi-building-check"></i>
           <span>SchoolMS</span>
         </a>
         
-        <!-- TOGGLER (Mobile) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         
-        <!-- CENTER: Nav Items -->
         <div class="collapse navbar-collapse navbar-center" id="navbarContent">
           <ul class="navbar-nav">
-            
-            <!-- Dashboard -->
             <li class="nav-item">
               <a class="nav-link" href="/admin_dashboard.html">
                 <i class="bi bi-speedometer2"></i> Dashboard
               </a>
             </li>
 
-            <!-- 👥 Students Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
                 <i class="bi bi-people"></i> Students
@@ -501,7 +619,6 @@
               </ul>
             </li>
 
-            <!-- 💰 Finance Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                 <i class="bi bi-wallet2"></i> Finance
@@ -514,7 +631,6 @@
               </ul>
             </li>
 
-            <!-- 🏫 Institute Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
                 <i class="bi bi-building"></i> Institute
@@ -530,133 +646,412 @@
               </ul>
             </li>
 
-            <!-- 👔 Staff -->
             <li class="nav-item">
               <a class="nav-link disabled" href="#">
                 <i class="bi bi-briefcase"></i> Staff
               </a>
             </li>
 
-            <!-- ⚙️ Settings -->
             <li class="nav-item">
               <a class="nav-link" href="/admin_panel/admin_panel.html">
                 <i class="bi bi-gear"></i> Settings
               </a>
             </li>
-
           </ul>
         </div>
         
         <div class="logo-placeholder" title="SquadVertex Logo">
           <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
         </div>
-        
       </div>
     </nav>
 
   <!-- ============ MAIN CONTENT ============ -->
   <div class="container">
     
+    <!-- Search & Filter Bar -->
+    <div class="search-filter-bar">
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <label class="form-label">🔍 Search Students</label>
+          <input type="text" id="student-search" class="form-control" placeholder="Search by name, SR No, mobile, Aadhar..." />
+        </div>
+        <div class="col-lg-2 col-md-4">
+          <label class="form-label">Class</label>
+          <select id="filter-class" class="form-select">
+            <option value="">All Classes</option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+          </select>
+        </div>
+        <div class="col-lg-2 col-md-4">
+          <label class="form-label">Stream</label>
+          <select id="filter-stream" class="form-select">
+            <option value="">All Streams</option>
+            <option value="Arts">Arts</option>
+            <option value="Commerce">Commerce</option>
+            <option value="Science">Science</option>
+            <option value="N/A">N/A (9/10)</option>
+          </select>
+        </div>
+        <div class="col-lg-2 col-md-4">
+          <label class="form-label">Category</label>
+          <select id="filter-category" class="form-select">
+            <option value="">All</option>
+            <option value="General">General</option>
+            <option value="OBC">OBC</option>
+            <option value="SC">SC</option>
+            <option value="ST">ST</option>
+            <option value="EWS">EWS</option>
+          </select>
+        </div>
+        <div class="col-lg-1 d-flex align-items-end">
+          <button id="clear-filters" class="btn btn-secondary w-100">Clear</button>
+        </div>
+      </div>
+      <div class="mt-2 d-flex align-items-center">
+        <small class="text-muted" id="results-count">Loading students...</small>
+        <span id="active-filters" class="ms-2"></span>
+      </div>
+    </div>
+
     <!-- Edit Form Section -->
     <div class="form-section">
       <h2>Edit Student Data</h2>
-      <p class="mb-3">Please select a student from the list below to edit their details. Note that <strong>SR Number</strong> and the <strong>Admission Fee</strong> status cannot be changed.</p>
+      <p class="mb-3">Search and select a student below to edit their details. <strong>SR Number</strong> and <strong>Admission Fee</strong> status cannot be changed.</p>
       
-      <!-- Student Selection -->
+      <!-- Student Selection List -->
       <div class="mb-4">
-        <label for="student-select" class="form-label">Choose Student</label>
-        <select id="student-select" class="form-select">
-          <option value="">-- Select a Student --</option>
-          <!-- Options dynamically populated from Firebase -->
-        </select>
+        <label class="form-label">Select Student to Edit</label>
+        <div id="student-list-loading">
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+        </div>
+        <div id="student-list-container" class="student-list-container d-none">
+          <!-- Student items populated dynamically -->
+        </div>
+        <div id="no-students-found" class="no-results d-none">
+          <i class="bi bi-search me-2"></i>No students found. Try adjusting your search or filters.
+        </div>
       </div>
 
-      <!-- Edit Form -->
+      <!-- Edit Form (Hidden until student selected) -->
       <form id="edit-student-form" class="d-none">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="edit-sr" class="form-label">SR Number (Not Editable)</label>
-            <input type="text" id="edit-sr" class="form-control" readonly />
+        
+        <!-- Personal Information Section -->
+        <div class="form-card">
+          <div class="form-card-title"><i class="bi bi-person"></i> Personal Information</div>
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label">SR Number <span class="readonly-badge">Read-only</span></label>
+              <input type="text" id="edit-sr" class="form-control" readonly />
+            </div>
+            <div class="col-md-5">
+              <label for="edit-student-name" class="form-label required-field">Student Name</label>
+              <input type="text" id="edit-student-name" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+              <label for="edit-gender" class="form-label required-field">Gender</label>
+              <select id="edit-gender" class="form-select" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="edit-student-name" class="form-label">Student Name *</label>
-            <input type="text" id="edit-student-name" class="form-control" required />
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-3">
+              <label for="edit-admission-date" class="form-label required-field">Admission Date</label>
+              <input type="date" id="edit-admission-date" class="form-control" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-dob" class="form-label required-field">Date of Birth</label>
+              <input type="date" id="edit-dob" class="form-control" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-contact" class="form-label required-field">Mobile Number</label>
+              <input type="tel" id="edit-contact" class="form-control" pattern="[0-9]{10}" required />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Admission Fee <span class="readonly-badge">Read-only</span></label>
+              <input type="text" id="edit-admission-fee" class="form-control" readonly />
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="edit-gender" class="form-label">Gender *</label>
-            <select id="edit-gender" class="form-select" required>
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
+
+          <!-- Physical Details -->
+          <div class="row g-3 mt-1">
+            <div class="col-md-3">
+              <label for="edit-height" class="form-label required-field">Height (cm)</label>
+              <input type="number" id="edit-height" class="form-control" placeholder="e.g., 150" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-weight" class="form-label required-field">Weight (kg)</label>
+              <input type="number" id="edit-weight" class="form-control" placeholder="e.g., 45" step="0.1" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-blood-group" class="form-label required-field">Blood Group</label>
+              <select id="edit-blood-group" class="form-select" required>
+                <option value="">Select</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="edit-bpl-status" class="form-label">BPL Status</label>
+              <select id="edit-bpl-status" class="form-select">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="edit-father-name" class="form-label">Father's Name *</label>
-            <input type="text" id="edit-father-name" class="form-control" required />
+          
+          <div class="row g-3 mt-1">
+            <div class="col-md-6">
+              <label for="edit-bpl-number" class="form-label">BPL Card Number</label>
+              <input type="text" id="edit-bpl-number" class="form-control" placeholder="Enter if BPL = Yes" />
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="edit-guardian-name" class="form-label">Mother/Guardian Name *</label>
-            <input type="text" id="edit-guardian-name" class="form-control" required />
+
+          <!-- Identity Documents -->
+          <div class="row g-3 mt-1">
+            <div class="col-md-6">
+              <label for="edit-aadhar" class="form-label required-field">Aadhar Card Number</label>
+              <input type="text" id="edit-aadhar" class="form-control" pattern="[0-9]{12}" placeholder="12-digit Aadhar" required />
+            </div>
+            <div class="col-md-6">
+              <label for="edit-janaadhar" class="form-label">Jan Aadhar Card Number</label>
+              <input type="text" id="edit-janaadhar" class="form-control" placeholder="Optional" />
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="edit-dob" class="form-label">Date of Birth *</label>
-            <input type="date" id="edit-dob" class="form-control" required />
+
+          <!-- Demographics -->
+          <div class="row g-3 mt-1">
+            <div class="col-md-3">
+              <label for="edit-nationality" class="form-label required-field">Nationality</label>
+              <input type="text" id="edit-nationality" class="form-control" value="Indian" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-religion" class="form-label required-field">Religion</label>
+              <select id="edit-religion" class="form-select" required>
+                <option value="">Select</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Muslim">Muslim</option>
+                <option value="Sikh">Sikh</option>
+                <option value="Christian">Christian</option>
+                <option value="Jain">Jain</option>
+                <option value="Buddhist">Buddhist</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="edit-caste" class="form-label required-field">Caste</label>
+              <input type="text" id="edit-caste" class="form-control" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-category" class="form-label required-field">Category</label>
+              <select id="edit-category" class="form-select" required>
+                <option value="">Select</option>
+                <option value="General">General</option>
+                <option value="OBC">OBC</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="EWS">EWS</option>
+              </select>
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="edit-class" class="form-label">Class *</label>
-            <select id="edit-class" class="form-select" required>
-              <option value="">Select Class</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </select>
+
+          <!-- Address -->
+          <div class="row g-3 mt-1">
+            <div class="col-12">
+              <label for="edit-local-address" class="form-label required-field">Local Address (One Line)</label>
+              <input type="text" id="edit-local-address" class="form-control" placeholder="House no., street, locality" required />
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="edit-stream" class="form-label">Stream *</label>
-            <select id="edit-stream" class="form-select" required>
-              <option value="">Select Stream</option>
-              <option value="Arts">Arts</option>
-              <option value="Commerce">Commerce</option>
-              <option value="Science">Science</option>
-              <option value="Nothing">Nothing</option>
-            </select>
-          </div>
-          <div class="col-12">
-            <label for="edit-subjects" class="form-label">Subjects *</label>
-            <select id="edit-subjects" class="form-select" multiple required style="min-height:120px;">
-              <option value="Math">Math</option>
-              <option value="Science">Science</option>
-              <option value="English">English</option>
-              <option value="Social Studies">Social Studies</option>
-              <option value="History">History</option>
-              <option value="Geography">Geography</option>
-              <option value="Computer Science">Computer Science</option>
-              <option value="Physical Education">Physical Education</option>
-              <option value="Economics">Economics</option>
-              <option value="Biology">Biology</option>
-              <option value="Nothing">Nothing</option>
-              <option value="Sanskrit">Sanskrit</option>
-              <option value="Punjabi">Punjabi</option>
-            </select>
-            <small class="text-muted">Hold Ctrl/Cmd to select multiple</small>
-          </div>
-          <div class="col-md-6">
-            <label for="edit-contact" class="form-label">Contact Number *</label>
-            <input type="tel" id="edit-contact" class="form-control" required />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Admission Fee Status (Not Editable)</label>
-            <input type="text" id="edit-admission-fee" class="form-control" readonly />
-          </div>
-          <div class="col-12">
-            <label for="edit-remarks" class="form-label">Remarks</label>
-            <textarea id="edit-remarks" class="form-control" rows="3" placeholder="Enter remarks (if any)"></textarea>
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label for="edit-ward-no" class="form-label required-field">Ward No.</label>
+              <input type="text" id="edit-ward-no" class="form-control" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-city" class="form-label required-field">City</label>
+              <input type="text" id="edit-city" class="form-control" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-district" class="form-label required-field">District</label>
+              <input type="text" id="edit-district" class="form-control" required />
+            </div>
+            <div class="col-md-3">
+              <label for="edit-state" class="form-label required-field">State</label>
+              <input type="text" id="edit-state" class="form-control" value="Rajasthan" required />
+            </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-4">
+
+        <!-- Parent/Guardian Section -->
+        <div class="form-card">
+          <div class="form-card-title"><i class="bi bi-people"></i> Parent / Guardian Information</div>
+          <div class="guardian-toggle mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="edit-guardian-type" id="edit-guardian-parents" value="parents" checked>
+              <label class="form-check-label" for="edit-guardian-parents">Parents (Father & Mother)</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="edit-guardian-type" id="edit-guardian-other" value="guardian">
+              <label class="form-check-label" for="edit-guardian-other">Guardian</label>
+            </div>
+          </div>
+          
+          <div id="edit-parents-fields">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="edit-father-name" class="form-label required-field">Father's Name</label>
+                <input type="text" id="edit-father-name" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label for="edit-mother-name" class="form-label required-field">Mother's Name</label>
+                <input type="text" id="edit-mother-name" class="form-control" required />
+              </div>
+            </div>
+          </div>
+          
+          <div id="edit-guardian-fields" style="display: none;">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="edit-guardian-name" class="form-label required-field">Guardian Name</label>
+                <input type="text" id="edit-guardian-name" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="edit-guardian-relation" class="form-label required-field">Relation with Student</label>
+                <input type="text" id="edit-guardian-relation" class="form-control" placeholder="e.g., Uncle, Aunt" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Academic Information Section -->
+        <div class="form-card">
+          <div class="form-card-title"><i class="bi bi-book"></i> Academic Information</div>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="edit-class" class="form-label required-field">Class</label>
+              <select id="edit-class" class="form-select" required>
+                <option value="">Select Class</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="edit-stream" class="form-label required-field">Stream</label>
+              <select id="edit-stream" class="form-select" required disabled>
+                <option value="">Select Stream</option>
+                <option value="Arts">Arts</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Science">Science</option>
+                <option value="N/A" disabled>N/A (for Class 9/10)</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Timestamp <span class="readonly-badge">Auto</span></label>
+              <input type="text" id="edit-timestamp" class="form-control" readonly placeholder="Auto-generated" />
+            </div>
+          </div>
+
+          <!-- Subjects Selection with Checkboxes -->
+          <div class="mt-3">
+            <label class="form-label required-field">Subjects</label>
+            <div id="edit-subjects-container" class="checkbox-group">
+              <small class="text-muted w-100">Select Class/Stream to see available subjects</small>
+            </div>
+            <small class="text-muted d-block mt-1">Select one or more subjects</small>
+          </div>
+        </div>
+
+        <!-- School Information Section -->
+        <div class="form-card">
+          <div class="form-card-title"><i class="bi bi-building"></i> Previous School Information</div>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="edit-school-type" class="form-label required-field">School Type</label>
+              <select id="edit-school-type" class="form-select" required>
+                <option value="">Select Type</option>
+                <option value="Government">Government</option>
+                <option value="Private">Private</option>
+              </select>
+            </div>
+            <div class="col-md-8">
+              <label for="edit-old-school" class="form-label required-field">Previous School Name</label>
+              <select id="edit-old-school" class="form-select" required disabled>
+                <option value="">Select School Type first</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Previous Class Details Table -->
+          <div class="mt-3">
+            <label class="form-label required-field">Previous Class Details</label>
+            <table class="prev-class-table">
+              <thead>
+                <tr>
+                  <th width="15%">Class</th>
+                  <th width="20%">Academic Year</th>
+                  <th width="15%">Total Marks</th>
+                  <th width="15%">Marks Obtained</th>
+                  <th width="15%">Grade</th>
+                  <th width="20%">Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <select id="edit-prev-class" required>
+                      <option value="">Select</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="edit-prev-academic-year" placeholder="e.g., 2024-25" required /></td>
+                  <td><input type="number" id="edit-prev-total-marks" placeholder="e.g., 500" required /></td>
+                  <td><input type="number" id="edit-prev-obtained-marks" placeholder="e.g., 450" required /></td>
+                  <td><input type="text" id="edit-prev-grade" placeholder="e.g., A1" required /></td>
+                  <td>
+                    <select id="edit-prev-result" required>
+                      <option value="">Select</option>
+                      <option value="Pass">Pass</option>
+                      <option value="Fail">Fail</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Remarks -->
+        <div class="mb-3">
+          <label for="edit-remarks" class="form-label">Remarks</label>
+          <textarea id="edit-remarks" class="form-control" rows="3" placeholder="Enter remarks (if any)"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
           <i class="bi bi-check-circle me-1"></i>Update Student Data
+        </button>
+        <button type="button" id="reset-form" class="btn btn-outline-dark ms-2">
+          <i class="bi bi-x-circle me-1"></i>Reset
         </button>
       </form>
     </div>
@@ -665,12 +1060,14 @@
     <div class="instructions">
       <h4>Instructions for Editing Student Data</h4>
       <ul>
-        <li>Select a student from the dropdown above to load their current data.</li>
-        <li>You can edit the following fields: Student Name, Gender, Father's Name, Guardian Name, Date of Birth, Class, Stream, Subjects, Contact Number, and Remarks.</li>
-        <li>The SR Number and the Admission Fee status (indicating whether the ₹500 fee has been received) are displayed for reference but cannot be edited.</li>
-        <li>After making the desired changes, click the "Update Student Data" button to save the changes to the database.</li>
-        <li>Please ensure that all required fields are filled out correctly.</li>
-        <li>Only authorized administrative staff should make changes to student data.</li>
+        <li>Use the <strong>Search</strong> box to find students by name, SR Number, mobile, or Aadhar.</li>
+        <li>Apply <strong>Filters</strong> (Class, Stream, Category) to narrow down the list.</li>
+        <li>Click on a student from the list to load their data for editing.</li>
+        <li>All fields marked with <span class="text-danger">*</span> are required.</li>
+        <li><strong>SR Number</strong> and <strong>Admission Fee Status</strong> are read-only and cannot be changed.</li>
+        <li>For Class 9/10, Stream is set to N/A and only Sanskrit/Punjabi subjects are available.</li>
+        <li>For Class 11/12, select Stream first, then choose from stream-specific subjects.</li>
+        <li>Click <strong>"Update Student Data"</strong> to save changes to the database.</li>
       </ul>
     </div>
 
@@ -680,7 +1077,6 @@
   <footer class="footer-section">
     <div class="container">
       <div class="row align-items-center g-4">
-        <!-- Social -->
         <div class="col-lg-4 col-md-6">
           <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
           <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
@@ -692,7 +1088,6 @@
           </div>
         </div>
         
-        <!-- Quick Links -->
         <div class="col-lg-4 col-md-6">
           <h3>Quick Links</h3>
           <ul class="footer-links">
@@ -703,10 +1098,8 @@
           </ul>
         </div>
         
-        <!-- Copyright + Docs -->
         <div class="col-lg-4 col-md-12 text-lg-end">
-          <a href="/documentation.html" target="_blank"
-            class="btn btn-outline-light mb-3">
+          <a href="/documentation.html" target="_blank" class="btn btn-outline-light mb-3">
             <i class="bi bi-book me-1"></i>View Docs
           </a>
           <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
@@ -715,7 +1108,7 @@
     </div>
   </footer>
 
-  <!-- Firebase and Bootstrap Scripts -->
+  <!-- Firebase SDK (Compat for easier usage) -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -734,98 +1127,510 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    let students = [];
-
-    async function loadStudentsList() {
-      try {
-        const snapshot = await db.collection("001-school").doc("students").collection("list").get();
-        students = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        populateStudentSelect();
-      } catch (error) {
-        console.error("Error loading students:", error);
+    // ============ SUBJECTS CONFIGURATION ============
+    const subjectsConfig = {
+      '9': ['Sanskrit', 'Punjabi'],
+      '10': ['Sanskrit', 'Punjabi'],
+      '11': {
+        'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
+        'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
+        'Science': ['Mathematics', 'Biology']
+      },
+      '12': {
+        'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
+        'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
+        'Science': ['Mathematics', 'Biology']
       }
-    }
+    };
 
-    function populateStudentSelect() {
-      const selectElem = document.getElementById("student-select");
-      selectElem.innerHTML = '<option value="">-- Select a Student --</option>';
-      students.forEach(student => {
-        const option = document.createElement("option");
-        option.value = student.id;
-        option.textContent = `${student.srNumber} - ${student.studentName}`;
-        selectElem.appendChild(option);
+    // ============ SCHOOL LISTS ============
+    const governmentSchools = [
+      "Government Senior Secondary School, Jaipur",
+      "Government Girls School, Jodhpur",
+      "Government Model School, Udaipur",
+      "Government High School, Kota",
+      "Government Primary School, Ajmer"
+    ];
+    
+    const privateSchools = [
+      "Delhi Public School, Jaipur",
+      "Maharaja Agrasen School, Jodhpur",
+      "Ryan International School, Udaipur",
+      "Podar International School, Kota",
+      "Amity International School, Ajmer"
+    ];
+
+    let allStudents = [];
+    let filteredStudents = [];
+    let selectedStudentId = null;
+
+    // ============ HELPER FUNCTIONS ============
+    
+    function renderSubjectCheckboxes(selectedClass, selectedStream = null, selectedSubjects = []) {
+      const container = document.getElementById('edit-subjects-container');
+      container.innerHTML = '';
+      
+      let subjects = [];
+      
+      if (selectedClass === '9' || selectedClass === '10') {
+        subjects = subjectsConfig[selectedClass];
+      } else if (selectedClass === '11' || selectedClass === '12') {
+        if (selectedStream && subjectsConfig[selectedClass][selectedStream]) {
+          subjects = subjectsConfig[selectedClass][selectedStream];
+        } else {
+          container.innerHTML = '<small class="text-muted w-100">Please select Stream first</small>';
+          return;
+        }
+      }
+      
+      if (subjects.length === 0) {
+        container.innerHTML = '<small class="text-muted w-100">No subjects available</small>';
+        return;
+      }
+      
+      subjects.forEach(subject => {
+        const label = document.createElement('label');
+        const isChecked = selectedSubjects.includes(subject);
+        label.innerHTML = `
+          <input type="checkbox" name="edit-subject" value="${subject}" ${isChecked ? 'checked' : ''}>
+          <span>${subject}</span>
+        `;
+        container.appendChild(label);
       });
     }
 
-    document.getElementById("student-select").addEventListener("change", async function() {
-      const studentId = this.value;
-      if (!studentId) {
-        document.getElementById("edit-student-form").classList.add("d-none");
+    function populateSchoolDropdown(schoolType, currentValue = '') {
+      const schoolSelect = document.getElementById('edit-old-school');
+      schoolSelect.innerHTML = '<option value="">Select School</option>';
+      
+      const schools = schoolType === 'Government' ? governmentSchools : privateSchools;
+      schools.forEach(school => {
+        const option = document.createElement('option');
+        option.value = school;
+        option.textContent = school;
+        if (school === currentValue) option.selected = true;
+        schoolSelect.appendChild(option);
+      });
+      schoolSelect.disabled = false;
+    }
+
+    function toggleEditGuardianFields() {
+      const isParents = document.getElementById('edit-guardian-parents').checked;
+      document.getElementById('edit-parents-fields').style.display = isParents ? 'block' : 'none';
+      document.getElementById('edit-guardian-fields').style.display = isParents ? 'none' : 'block';
+      
+      document.getElementById('edit-father-name').required = isParents;
+      document.getElementById('edit-mother-name').required = isParents;
+      document.getElementById('edit-guardian-name').required = !isParents;
+      document.getElementById('edit-guardian-relation').required = !isParents;
+    }
+
+    function formatTimestamp(ts) {
+      if (!ts) return 'N/A';
+      if (ts.toDate) return new Date(ts.toDate()).toLocaleString('en-GB');
+      return new Date(ts).toLocaleString('en-GB');
+    }
+
+    // ============ SEARCH & FILTER LOGIC ============
+    
+    function filterStudents() {
+      const searchTerm = document.getElementById('student-search').value.toLowerCase().trim();
+      const classFilter = document.getElementById('filter-class').value;
+      const streamFilter = document.getElementById('filter-stream').value;
+      const categoryFilter = document.getElementById('filter-category').value;
+      
+      filteredStudents = allStudents.filter(student => {
+        // Search filter
+        const matchesSearch = !searchTerm || 
+          (student.studentName && student.studentName.toLowerCase().includes(searchTerm)) ||
+          (student.srNumber && student.srNumber.toString().includes(searchTerm)) ||
+          (student.contact && student.contact.includes(searchTerm)) ||
+          (student.aadhar && student.aadhar.includes(searchTerm));
+        
+        // Class filter
+        const matchesClass = !classFilter || student.class === classFilter;
+        
+        // Stream filter
+        const matchesStream = !streamFilter || 
+          (streamFilter === 'N/A' ? (!student.stream || student.stream === 'N/A') : student.stream === streamFilter);
+        
+        // Category filter
+        const matchesCategory = !categoryFilter || student.category === categoryFilter;
+        
+        return matchesSearch && matchesClass && matchesStream && matchesCategory;
+      });
+      
+      renderStudentList();
+      updateResultsCount();
+      updateActiveFilters();
+    }
+
+    function renderStudentList() {
+      const container = document.getElementById('student-list-container');
+      const noResults = document.getElementById('no-students-found');
+      
+      if (filteredStudents.length === 0) {
+        container.classList.add('d-none');
+        noResults.classList.remove('d-none');
         return;
       }
+      
+      noResults.classList.add('d-none');
+      container.classList.remove('d-none');
+      container.innerHTML = '';
+      
+      filteredStudents.forEach(student => {
+        const item = document.createElement('div');
+        item.className = `student-list-item ${student.id === selectedStudentId ? 'active' : ''}`;
+        item.dataset.id = student.id;
+        
+        const streamDisplay = student.stream && student.stream !== 'N/A' ? ` • ${student.stream}` : '';
+        const classDisplay = student.class ? `Class ${student.class}${streamDisplay}` : '';
+        
+        item.innerHTML = `
+          <div class="student-info">
+            <strong>${student.studentName || 'Unknown'}</strong><br>
+            <small>SR: ${student.srNumber || 'N/A'} • ${classDisplay || 'Class N/A'}</small>
+          </div>
+          <span class="sr-badge">SR ${student.srNumber || '?'}</span>
+        `;
+        
+        item.addEventListener('click', () => loadStudentForEdit(student.id));
+        container.appendChild(item);
+      });
+    }
+
+    function updateResultsCount() {
+      const count = document.getElementById('results-count');
+      count.textContent = `Showing ${filteredStudents.length} of ${allStudents.length} students`;
+    }
+
+    function updateActiveFilters() {
+      const container = document.getElementById('active-filters');
+      const filters = [];
+      
+      if (document.getElementById('filter-class').value) {
+        filters.push(`<span class="filter-badge">Class ${document.getElementById('filter-class').value}</span>`);
+      }
+      if (document.getElementById('filter-stream').value) {
+        filters.push(`<span class="filter-badge">${document.getElementById('filter-stream').value}</span>`);
+      }
+      if (document.getElementById('filter-category').value) {
+        filters.push(`<span class="filter-badge">${document.getElementById('filter-category').value}</span>`);
+      }
+      
+      container.innerHTML = filters.join(' ');
+    }
+
+    function clearFilters() {
+      document.getElementById('student-search').value = '';
+      document.getElementById('filter-class').value = '';
+      document.getElementById('filter-stream').value = '';
+      document.getElementById('filter-category').value = '';
+      filterStudents();
+    }
+
+    // ============ LOAD & EDIT STUDENT ============
+    
+    async function loadAllStudents() {
+      try {
+        const snapshot = await db.collection("001-school").doc("students").collection("list").get();
+        allStudents = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        filteredStudents = [...allStudents];
+        
+        document.getElementById('student-list-loading').classList.add('d-none');
+        renderStudentList();
+        updateResultsCount();
+      } catch (error) {
+        console.error("Error loading students:", error);
+        document.getElementById('student-list-loading').innerHTML = '<small class="text-danger">Error loading students. Please refresh.</small>';
+      }
+    }
+
+    async function loadStudentForEdit(studentId) {
+      selectedStudentId = studentId;
+      
+      // Update UI selection
+      document.querySelectorAll('.student-list-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.id === studentId);
+      });
+      
       try {
         const doc = await db.collection("001-school").doc("students").collection("list").doc(studentId).get();
-        if (doc.exists) {
-          const data = doc.data();
-          document.getElementById("edit-sr").value = data.srNumber || "";
-          document.getElementById("edit-student-name").value = data.studentName || "";
-          document.getElementById("edit-gender").value = data.gender || "";
-          document.getElementById("edit-father-name").value = data.fatherName || "";
-          document.getElementById("edit-guardian-name").value = data.guardianName || "";
-          document.getElementById("edit-dob").value = data.dob || "";
-          document.getElementById("edit-class").value = data.class || "";
-          document.getElementById("edit-stream").value = data.stream || "";
-          document.getElementById("edit-contact").value = data.contact || "";
-          document.getElementById("edit-admission-fee").value = data.admissionFeeStatus || "Not Available";
-          document.getElementById("edit-remarks").value = data.remarks || "";
-          
-          const subjectsSelect = document.getElementById("edit-subjects");
-          Array.from(subjectsSelect.options).forEach(option => {
-            option.selected = (data.subjects || []).includes(option.value);
-          });
-          document.getElementById("edit-student-form").classList.remove("d-none");
-        } else {
+        if (!doc.exists) {
           alert("Student not found!");
+          return;
         }
+        
+        const data = doc.data();
+        
+        // Personal Info
+        document.getElementById('edit-sr').value = data.srNumber || '';
+        document.getElementById('edit-student-name').value = data.studentName || '';
+        document.getElementById('edit-gender').value = data.gender || '';
+        document.getElementById('edit-admission-date').value = data.admissionDate || '';
+        document.getElementById('edit-dob').value = data.dob || '';
+        document.getElementById('edit-contact').value = data.contact || '';
+        document.getElementById('edit-admission-fee').value = data.admissionFeeStatus || 'Not Available';
+        
+        // Physical Details
+        document.getElementById('edit-height').value = data.height || '';
+        document.getElementById('edit-weight').value = data.weight || '';
+        document.getElementById('edit-blood-group').value = data.bloodGroup || '';
+        document.getElementById('edit-bpl-status').value = data.bplStatus || 'No';
+        document.getElementById('edit-bpl-number').value = data.bplNumber || '';
+        document.getElementById('edit-bpl-number').closest('.row').classList.toggle('show', data.bplStatus === 'Yes');
+        
+        // Identity & Demographics
+        document.getElementById('edit-aadhar').value = data.aadhar || '';
+        document.getElementById('edit-janaadhar').value = data.janaadhar || '';
+        document.getElementById('edit-nationality').value = data.nationality || 'Indian';
+        document.getElementById('edit-religion').value = data.religion || '';
+        document.getElementById('edit-caste').value = data.caste || '';
+        document.getElementById('edit-category').value = data.category || '';
+        
+        // Address
+        document.getElementById('edit-local-address').value = data.localAddress || '';
+        document.getElementById('edit-ward-no').value = data.wardNo || '';
+        document.getElementById('edit-city').value = data.city || '';
+        document.getElementById('edit-district').value = data.district || '';
+        document.getElementById('edit-state').value = data.state || 'Rajasthan';
+        
+        // Parent/Guardian
+        const hasParents = data.fatherName || data.motherName;
+        if (hasParents) {
+          document.getElementById('edit-guardian-parents').checked = true;
+          document.getElementById('edit-father-name').value = data.fatherName || '';
+          document.getElementById('edit-mother-name').value = data.motherName || '';
+        } else {
+          document.getElementById('edit-guardian-other').checked = true;
+          document.getElementById('edit-guardian-name').value = data.guardianName || '';
+          document.getElementById('edit-guardian-relation').value = data.guardianRelation || '';
+        }
+        toggleEditGuardianFields();
+        
+        // Academic
+        document.getElementById('edit-class').value = data.class || '';
+        const streamValue = data.stream || 'N/A';
+        document.getElementById('edit-stream').value = streamValue;
+        document.getElementById('edit-stream').disabled = (data.class === '9' || data.class === '10');
+        document.getElementById('edit-timestamp').value = formatTimestamp(data.timestamp);
+        
+        // Subjects
+        const selectedSubjects = data.subjects || [];
+        renderSubjectCheckboxes(data.class, streamValue !== 'N/A' ? streamValue : null, selectedSubjects);
+        
+        // School Info
+        document.getElementById('edit-school-type').value = data.schoolType || '';
+        if (data.schoolType) {
+          populateSchoolDropdown(data.schoolType, data.oldSchoolName || '');
+        }
+        
+        // Previous Class Details
+        if (data.previousClass) {
+          document.getElementById('edit-prev-class').value = data.previousClass.class || '';
+          document.getElementById('edit-prev-academic-year').value = data.previousClass.academicYear || '';
+          document.getElementById('edit-prev-total-marks').value = data.previousClass.totalMarks || '';
+          document.getElementById('edit-prev-obtained-marks').value = data.previousClass.obtainedMarks || '';
+          document.getElementById('edit-prev-grade').value = data.previousClass.grade || '';
+          document.getElementById('edit-prev-result').value = data.previousClass.result || '';
+        }
+        
+        // Remarks
+        document.getElementById('edit-remarks').value = data.remarks || '';
+        
+        // Show form
+        document.getElementById('edit-student-form').classList.remove('d-none');
+        
       } catch (error) {
         console.error("Error fetching student data:", error);
+        alert("Error loading student data. Please try again.");
+      }
+    }
+
+    // ============ EVENT LISTENERS ============
+    
+    // Search & Filters
+    document.getElementById('student-search').addEventListener('input', filterStudents);
+    document.getElementById('filter-class').addEventListener('change', filterStudents);
+    document.getElementById('filter-stream').addEventListener('change', filterStudents);
+    document.getElementById('filter-category').addEventListener('change', filterStudents);
+    document.getElementById('clear-filters').addEventListener('click', clearFilters);
+
+    // Class change handler (for subjects)
+    document.getElementById('edit-class').addEventListener('change', function() {
+      const selectedClass = this.value;
+      const streamSelect = document.getElementById('edit-stream');
+      
+      if (selectedClass === '9' || selectedClass === '10') {
+        streamSelect.disabled = true;
+        streamSelect.value = 'N/A';
+        renderSubjectCheckboxes(selectedClass, null, getSelectedEditSubjects());
+      } else if (selectedClass === '11' || selectedClass === '12') {
+        streamSelect.disabled = false;
+        if (!streamSelect.value || streamSelect.value === 'N/A') {
+          document.getElementById('edit-subjects-container').innerHTML = '<small class="text-muted w-100">Please select Stream first</small>';
+        } else {
+          renderSubjectCheckboxes(selectedClass, streamSelect.value, getSelectedEditSubjects());
+        }
+      } else {
+        streamSelect.disabled = true;
+        streamSelect.value = '';
+        document.getElementById('edit-subjects-container').innerHTML = '<small class="text-muted w-100">Select Class first</small>';
       }
     });
 
-    document.getElementById("edit-student-form").addEventListener("submit", async function(e) {
+    // Stream change handler
+    document.getElementById('edit-stream').addEventListener('change', function() {
+      const selectedClass = document.getElementById('edit-class').value;
+      const selectedStream = this.value;
+      
+      if ((selectedClass === '11' || selectedClass === '12') && selectedStream && selectedStream !== 'N/A') {
+        renderSubjectCheckboxes(selectedClass, selectedStream, getSelectedEditSubjects());
+      }
+    });
+
+    // School type change
+    document.getElementById('edit-school-type').addEventListener('change', function() {
+      populateSchoolDropdown(this.value);
+    });
+
+    // BPL toggle
+    document.getElementById('edit-bpl-status').addEventListener('change', function() {
+      const bplField = document.getElementById('edit-bpl-number');
+      if (this.value === 'Yes') {
+        bplField.closest('.row').classList.add('show');
+        bplField.required = true;
+      } else {
+        bplField.closest('.row').classList.remove('show');
+        bplField.required = false;
+        bplField.value = '';
+      }
+    });
+
+    // Guardian type toggle
+    document.querySelectorAll('input[name="edit-guardian-type"]').forEach(radio => {
+      radio.addEventListener('change', toggleEditGuardianFields);
+    });
+
+    // Get currently selected subjects from checkboxes
+    function getSelectedEditSubjects() {
+      return Array.from(document.querySelectorAll('input[name="edit-subject"]:checked')).map(cb => cb.value);
+    }
+
+    // Reset form
+    document.getElementById('reset-form').addEventListener('click', function() {
+      if (selectedStudentId) {
+        loadStudentForEdit(selectedStudentId);
+      }
+    });
+
+    // Form submission
+    document.getElementById('edit-student-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const studentId = document.getElementById("student-select").value;
-      if (!studentId) return;
       
+      if (!selectedStudentId) {
+        alert("Please select a student first.");
+        return;
+      }
+      
+      // Validate parent/guardian
+      const isParents = document.getElementById('edit-guardian-parents').checked;
+      if (isParents) {
+        if (!document.getElementById('edit-father-name').value.trim() || !document.getElementById('edit-mother-name').value.trim()) {
+          alert("Please fill both Father's Name and Mother's Name.");
+          return;
+        }
+      } else {
+        if (!document.getElementById('edit-guardian-name').value.trim() || !document.getElementById('edit-guardian-relation').value.trim()) {
+          alert("Please fill Guardian Name and Relation.");
+          return;
+        }
+      }
+      
+      // Validate subjects
+      const selectedSubjects = getSelectedEditSubjects();
+      if (selectedSubjects.length === 0) {
+        alert("Please select at least one subject.");
+        return;
+      }
+      
+      if (!confirm("Are you sure you want to update this student's data?")) return;
+
       const updatedData = {
-        studentName: document.getElementById("edit-student-name").value.trim(),
-        gender: document.getElementById("edit-gender").value,
-        fatherName: document.getElementById("edit-father-name").value.trim(),
-        guardianName: document.getElementById("edit-guardian-name").value.trim(),
-        dob: document.getElementById("edit-dob").value,
-        class: document.getElementById("edit-class").value,
-        stream: document.getElementById("edit-stream").value,
-        contact: document.getElementById("edit-contact").value.trim(),
-        remarks: document.getElementById("edit-remarks").value.trim()
+        // Personal
+        studentName: document.getElementById('edit-student-name').value.trim(),
+        gender: document.getElementById('edit-gender').value,
+        admissionDate: document.getElementById('edit-admission-date').value,
+        dob: document.getElementById('edit-dob').value,
+        contact: document.getElementById('edit-contact').value.trim(),
+        height: document.getElementById('edit-height').value,
+        weight: document.getElementById('edit-weight').value,
+        bloodGroup: document.getElementById('edit-blood-group').value,
+        bplStatus: document.getElementById('edit-bpl-status').value,
+        bplNumber: document.getElementById('edit-bpl-status').value === 'Yes' ? document.getElementById('edit-bpl-number').value : null,
+        aadhar: document.getElementById('edit-aadhar').value,
+        janaadhar: document.getElementById('edit-janaadhar').value || null,
+        nationality: document.getElementById('edit-nationality').value,
+        religion: document.getElementById('edit-religion').value,
+        caste: document.getElementById('edit-caste').value,
+        category: document.getElementById('edit-category').value,
+        localAddress: document.getElementById('edit-local-address').value,
+        wardNo: document.getElementById('edit-ward-no').value,
+        city: document.getElementById('edit-city').value,
+        district: document.getElementById('edit-district').value,
+        state: document.getElementById('edit-state').value,
+        
+        // Parent/Guardian
+        fatherName: isParents ? document.getElementById('edit-father-name').value.trim() : null,
+        motherName: isParents ? document.getElementById('edit-mother-name').value.trim() : null,
+        guardianName: !isParents ? document.getElementById('edit-guardian-name').value.trim() : null,
+        guardianRelation: !isParents ? document.getElementById('edit-guardian-relation').value.trim() : null,
+        
+        // Academic
+        class: document.getElementById('edit-class').value,
+        stream: document.getElementById('edit-stream').value === 'N/A' ? null : document.getElementById('edit-stream').value,
+        subjects: selectedSubjects,
+        
+        // School
+        schoolType: document.getElementById('edit-school-type').value,
+        oldSchoolName: document.getElementById('edit-old-school').value,
+        previousClass: {
+          class: document.getElementById('edit-prev-class').value,
+          academicYear: document.getElementById('edit-prev-academic-year').value,
+          totalMarks: parseInt(document.getElementById('edit-prev-total-marks').value) || 0,
+          obtainedMarks: parseInt(document.getElementById('edit-prev-obtained-marks').value) || 0,
+          grade: document.getElementById('edit-prev-grade').value,
+          result: document.getElementById('edit-prev-result').value
+        },
+        
+        // Existing
+        remarks: document.getElementById('edit-remarks').value.trim(),
+        admissionFeeStatus: document.getElementById('edit-admission-fee').value,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
-      
-      const subjectsSelect = document.getElementById("edit-subjects");
-      let subjects = [];
-      Array.from(subjectsSelect.options).forEach(option => {
-        if (option.selected) subjects.push(option.value);
-      });
-      updatedData.subjects = subjects;
 
       try {
-        await db.collection("001-school").doc("students").collection("list").doc(studentId).update(updatedData);
+        await db.collection("001-school").doc("students").collection("list").doc(selectedStudentId).update(updatedData);
         alert("✅ Student data updated successfully!");
+        
+        // Refresh student list to show updated data
+        await loadAllStudents();
+        
+        // Re-select the student to show updated data in form
+        loadStudentForEdit(selectedStudentId);
+        
       } catch (error) {
         console.error("Error updating student data:", error);
         alert("❌ Error updating data. Please try again.");
       }
     });
 
-    window.addEventListener("DOMContentLoaded", loadStudentsList);
+    // Initialize
+    window.addEventListener("DOMContentLoaded", function() {
+      loadAllStudents();
+      toggleEditGuardianFields();
+    });
   </script>
 </body>
 </html>
