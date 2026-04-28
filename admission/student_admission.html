@@ -297,6 +297,15 @@
       font-weight: 500;
       color: var(--text-primary);
       margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .required-field::after {
+      content: "*";
+      color: #ef4444;
+      margin-left: 2px;
     }
 
     .btn-primary {
@@ -413,6 +422,98 @@
       margin-bottom: 0.5rem;
       color: var(--text-secondary);
       font-size: 0.95rem;
+    }
+
+    /* Checkbox group styling */
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem;
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--bg-card);
+    }
+    
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      margin: 0;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    
+    .checkbox-group label:hover {
+      background: rgba(30, 64, 175, 0.08);
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* Section cards */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .form-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* BPL conditional field */
+    .bpl-number-field {
+      display: none;
+      margin-top: 0.5rem;
+    }
+    
+    .bpl-number-field.show {
+      display: block;
+    }
+
+    /* Previous class details table */
+    .prev-class-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .prev-class-table th,
+    .prev-class-table td {
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    
+    .prev-class-table th {
+      background: var(--bg-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    
+    .prev-class-table input,
+    .prev-class-table select {
+      width: 100%;
+      padding: 0.4rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.9rem;
     }
 
     /* ============ FOOTER ============ */
@@ -605,97 +706,316 @@
   <div class="container form-section">
     <h2 class="section-title">New Student Admission</h2>
     <form id="admission-form">
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label for="student-name" class="form-label">Student Name</label>
-          <input type="text" class="form-control" id="student-name" required />
+      
+      <!-- Personal Information Section -->
+      <div class="form-card">
+        <div class="form-card-title">Personal Information</div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="student-name" class="form-label required-field">Student Name</label>
+            <input type="text" class="form-control" id="student-name" required />
+          </div>
+          <div class="col-md-6">
+            <label for="gender" class="form-label required-field">Gender</label>
+            <select class="form-select" id="gender" required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
         </div>
-        <div class="col-md-6">
-          <label for="gender" class="form-label">Gender</label>
-          <select class="form-select" id="gender" required>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="admission-date" class="form-label required-field">Admission Date</label>
+            <input type="date" class="form-control" id="admission-date" required />
+          </div>
+          <div class="col-md-4">
+            <label for="dob" class="form-label required-field">Date of Birth</label>
+            <input type="date" class="form-control" id="dob" required />
+          </div>
+          <div class="col-md-4">
+            <label for="contact" class="form-label required-field">Mobile Number</label>
+            <input type="tel" class="form-control" id="contact" pattern="[0-9]{10}" placeholder="10-digit number" required />
+          </div>
+        </div>
+
+        <!-- Physical Details -->
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label for="height" class="form-label required-field">Height (cm)</label>
+            <input type="number" class="form-control" id="height" placeholder="e.g., 150" required />
+          </div>
+          <div class="col-md-3">
+            <label for="weight" class="form-label required-field">Weight (kg)</label>
+            <input type="number" class="form-control" id="weight" placeholder="e.g., 45" step="0.1" required />
+          </div>
+          <div class="col-md-3">
+            <label for="blood-group" class="form-label required-field">Blood Group</label>
+            <select class="form-select" id="blood-group" required>
+              <option value="">Select</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="bpl-status" class="form-label">BPL Status</label>
+            <select class="form-select" id="bpl-status">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="bpl-number" class="form-label">BPL Card Number</label>
+            <input type="text" class="form-control" id="bpl-number" placeholder="Enter BPL number if applicable" />
+          </div>
+        </div>
+
+        <!-- Identity Documents -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="aadhar" class="form-label required-field">Aadhar Card Number</label>
+            <input type="text" class="form-control" id="aadhar" pattern="[0-9]{12}" placeholder="12-digit Aadhar number" required />
+          </div>
+          <div class="col-md-6">
+            <label for="janaadhar" class="form-label">Jan Aadhar Card Number</label>
+            <input type="text" class="form-control" id="janaadhar" placeholder="Enter Jan Aadhar number" />
+          </div>
+        </div>
+
+        <!-- Demographics -->
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label for="nationality" class="form-label required-field">Nationality</label>
+            <input type="text" class="form-control" id="nationality" value="Indian" required />
+          </div>
+          <div class="col-md-3">
+            <label for="religion" class="form-label required-field">Religion</label>
+            <select class="form-select" id="religion" required>
+              <option value="">Select</option>
+              <option value="Hindu">Hindu</option>
+              <option value="Muslim">Muslim</option>
+              <option value="Sikh">Sikh</option>
+              <option value="Christian">Christian</option>
+              <option value="Jain">Jain</option>
+              <option value="Buddhist">Buddhist</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="caste" class="form-label required-field">Caste</label>
+            <input type="text" class="form-control" id="caste" required />
+          </div>
+          <div class="col-md-3">
+            <label for="category" class="form-label required-field">Category</label>
+            <select class="form-select" id="category" required>
+              <option value="">Select</option>
+              <option value="General">General</option>
+              <option value="OBC">OBC</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
+              <option value="EWS">EWS</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <label for="local-address" class="form-label required-field">Local Address (One Line)</label>
+            <input type="text" class="form-control" id="local-address" placeholder="House no., street, locality" required />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label for="ward-no" class="form-label required-field">Ward No.</label>
+            <input type="text" class="form-control" id="ward-no" required />
+          </div>
+          <div class="col-md-3">
+            <label for="city" class="form-label required-field">City</label>
+            <input type="text" class="form-control" id="city" required />
+          </div>
+          <div class="col-md-3">
+            <label for="district" class="form-label required-field">District</label>
+            <input type="text" class="form-control" id="district" required />
+          </div>
+          <div class="col-md-3">
+            <label for="state" class="form-label required-field">State</label>
+            <input type="text" class="form-control" id="state" value="Rajasthan" required />
+          </div>
         </div>
       </div>
 
-      <!-- Guardian and Parent Info -->
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label for="father-name" class="form-label">Father's Name</label>
-          <input type="text" class="form-control" id="father-name" required />
+      <!-- Parent/Guardian Information Section -->
+      <div class="form-card">
+        <div class="form-card-title">Parent / Guardian Information</div>
+        <div class="mb-3">
+          <label class="form-label">Guardian Type</label>
+          <div class="d-flex gap-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="guardian-type" id="guardian-parents" value="parents" checked>
+              <label class="form-check-label" for="guardian-parents">Parents (Father & Mother)</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="guardian-type" id="guardian-other" value="guardian">
+              <label class="form-check-label" for="guardian-other">Guardian</label>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <label for="guardian-name" class="form-label">Mother/Guardian Name</label>
-          <input type="text" class="form-control" id="guardian-name" required />
+        
+        <div id="parents-fields">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="father-name" class="form-label required-field">Father's Name</label>
+              <input type="text" class="form-control" id="father-name" required />
+            </div>
+            <div class="col-md-6">
+              <label for="mother-name" class="form-label required-field">Mother's Name</label>
+              <input type="text" class="form-control" id="mother-name" required />
+            </div>
+          </div>
         </div>
-      </div>
-
-      <!-- DOB and Class -->
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label for="dob" class="form-label">Date of Birth</label>
-          <input type="date" class="form-control" id="dob" required />
-        </div>
-        <div class="col-md-6">
-          <label for="class" class="form-label">Class</label>
-          <select class="form-select" id="class" required>
-            <option value="">Select Class</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Subjects Multi-select Dropdown -->
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label for="subjects" class="form-label">Subjects</label>
-          <select class="form-select" id="subjects" multiple required style="min-height: 120px;">
-            <option value="Math">Math</option>
-            <option value="Science">Science</option>
-            <option value="English">English</option>
-            <option value="Social Studies">Social Studies</option>
-            <option value="History">History</option>
-            <option value="Geography">Geography</option>
-            <option value="Computer Science">Computer Science</option>
-            <option value="Physical Education">Physical Education</option>
-            <option value="Economics">Economics</option>
-            <option value="Biology">Biology</option>
-            <option value="Nothing">Nothing</option>
-            <option value="Sanskrit">Sanskrit</option>
-            <option value="Punjabi">Punjabi</option>
-          </select>
-          <small class="text-muted">Hold Ctrl/Cmd to select multiple</small>
-        </div>
-        <div class="col-md-6">
-          <label for="contact" class="form-label">Contact Number</label>
-          <input type="tel" class="form-control" id="contact" required />
+        
+        <div id="guardian-fields" style="display: none;">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="guardian-name" class="form-label required-field">Guardian Name</label>
+              <input type="text" class="form-control" id="guardian-name" />
+            </div>
+            <div class="col-md-6">
+              <label for="guardian-relation" class="form-label required-field">Relation with Student</label>
+              <input type="text" class="form-control" id="guardian-relation" placeholder="e.g., Uncle, Aunt" />
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Stream Drop-down -->
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label for="stream" class="form-label">Stream</label>
-          <select class="form-select" id="stream" required>
-            <option value="">Select Stream</option>
-            <option value="Arts">Arts</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Science">Science</option>
-            <option value="Nothing">Nothing</option>
-          </select>
+      <!-- Academic Information Section -->
+      <div class="form-card">
+        <div class="form-card-title">Academic Information</div>
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="class" class="form-label required-field">Class</label>
+            <select class="form-select" id="class" required>
+              <option value="">Select Class</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="stream" class="form-label required-field">Stream</label>
+            <select class="form-select" id="stream" required disabled>
+              <option value="">Select Stream</option>
+              <option value="Arts">Arts</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Science">Science</option>
+              <option value="N/A" disabled>N/A (for Class 9/10)</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="sr-number" class="form-label required-field">SR Number</label>
+            <input type="number" class="form-control" id="sr-number" placeholder="e.g., 5 or 6195" required />
+            <div class="form-text">Generates ID: studentXXXXX</div>
+          </div>
+        </div>
+
+        <!-- Subjects Selection with Checkboxes -->
+        <div class="mb-3">
+          <label class="form-label required-field">Subjects</label>
+          <div id="subjects-container" class="checkbox-group">
+            <!-- Dynamically populated based on class/stream -->
+            <small class="text-muted w-100">Please select Class first to see available subjects</small>
+          </div>
+          <small class="text-muted d-block mt-1">Select one or more subjects</small>
+        </div>
+      </div>
+
+      <!-- School Information Section -->
+      <div class="form-card">
+        <div class="form-card-title">Previous School Information</div>
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="school-type" class="form-label required-field">School Type</label>
+            <select class="form-select" id="school-type" required>
+              <option value="">Select Type</option>
+              <option value="Government">Government</option>
+              <option value="Private">Private</option>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <label for="old-school" class="form-label required-field">Previous School Name</label>
+            <select class="form-select" id="old-school" required disabled>
+              <option value="">Select School Type first</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Previous Class Details Table -->
+        <div class="mb-3">
+          <label class="form-label required-field">Previous Class Details</label>
+          <table class="prev-class-table">
+            <thead>
+              <tr>
+                <th width="15%">Class</th>
+                <th width="20%">Academic Year</th>
+                <th width="15%">Total Marks</th>
+                <th width="15%">Marks Obtained</th>
+                <th width="15%">Grade</th>
+                <th width="20%">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <select id="prev-class" required>
+                    <option value="">Select</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="text" id="prev-academic-year" placeholder="e.g., 2024-25" required />
+                </td>
+                <td>
+                  <input type="number" id="prev-total-marks" placeholder="e.g., 500" required />
+                </td>
+                <td>
+                  <input type="number" id="prev-obtained-marks" placeholder="e.g., 450" required />
+                </td>
+                <td>
+                  <input type="text" id="prev-grade" placeholder="e.g., A1" required />
+                </td>
+                <td>
+                  <select id="prev-result" required>
+                    <option value="">Select</option>
+                    <option value="Pass">Pass</option>
+                    <option value="Fail">Fail</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <!-- Admission Fee Checkbox -->
       <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="admission-fee-checkbox" required>
-        <label class="form-check-label" for="admission-fee-checkbox">Admission Fee (₹500) Paid?</label>
+        <label class="form-check-label required-field" for="admission-fee-checkbox">Admission Fee (₹500) Paid?</label>
       </div>
 
       <!-- Remarks -->
@@ -703,13 +1023,6 @@
         <label for="remarks" class="form-label">Remarks</label>
         <textarea class="form-control" id="remarks" rows="3" placeholder="Max 50 words"></textarea>
         <div class="word-count" id="word-count">0/50 words</div>
-      </div>
-
-      <!-- SR Number Field -->
-      <div class="mb-3">
-        <label for="sr-number" class="form-label">SR Number</label>
-        <input type="number" class="form-control" id="sr-number" placeholder="Enter SR number (e.g., 5 or 6195)" required />
-        <div class="form-text">This SR number will be used to generate the student document ID in the format: studentXXXXX.</div>
       </div>
 
       <!-- Optional PDF Upload -->
@@ -774,9 +1087,10 @@
       <h3><i class="bi bi-info-circle me-2"></i>Admission Module Instructions</h3>
       <ul>
         <li>This page is strictly for use by authorized admin and admissions staff.</li>
-        <li>Please ensure that all student details are entered accurately; all required fields must be completed.</li>
-        <li>The Subjects field allows multiple selections. Use Ctrl (or Cmd on Mac) to select more than one subject.</li>
-        <li>The Stream field offers: Arts, Commerce, Science, and Nothing. Choose the option that best describes the student's academic focus.</li>
+        <li>Please ensure that all student details are entered accurately; all required fields marked with <span class="text-danger">*</span> must be completed.</li>
+        <li><strong>Parent/Guardian:</strong> Either fill Father & Mother names OR Guardian name with relation.</li>
+        <li><strong>Class 9/10:</strong> Stream is not applicable. Only Sanskrit & Punjabi subjects available.</li>
+        <li><strong>Class 11/12:</strong> Select Stream first, then choose from stream-specific subjects.</li>
         <li>The SR Number is used to generate the unique student document ID (e.g., SR 5 becomes student00005).</li>
         <li>An automatic timestamp is recorded upon submission.</li>
         <li>Please confirm that the ₹500 admission fee has been received by checking the Admission Fee Checkbox before submitting.</li>
@@ -854,6 +1168,173 @@
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
+    // ============ SUBJECTS CONFIGURATION ============
+    const subjectsConfig = {
+      '9': ['Sanskrit', 'Punjabi'],
+      '10': ['Sanskrit', 'Punjabi'],
+      '11': {
+        'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
+        'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
+        'Science': ['Mathematics', 'Biology']
+      },
+      '12': {
+        'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
+        'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
+        'Science': ['Mathematics', 'Biology']
+      }
+    };
+
+    // ============ SCHOOL LISTS (Hardcoded - Update as needed) ============
+    const governmentSchools = [
+      "Government Senior Secondary School, Jaipur",
+      "Government Girls School, Jodhpur",
+      "Government Model School, Udaipur",
+      "Government High School, Kota",
+      "Government Primary School, Ajmer"
+    ];
+    
+    const privateSchools = [
+      "Delhi Public School, Jaipur",
+      "Maharaja Agrasen School, Jodhpur",
+      "Ryan International School, Udaipur",
+      "Podar International School, Kota",
+      "Amity International School, Ajmer"
+    ];
+
+    // ============ HELPER FUNCTIONS ============
+    
+    // Render subject checkboxes based on class/stream
+    function renderSubjects(selectedClass, selectedStream = null) {
+      const container = document.getElementById('subjects-container');
+      container.innerHTML = '';
+      
+      let subjects = [];
+      
+      if (selectedClass === '9' || selectedClass === '10') {
+        subjects = subjectsConfig[selectedClass];
+      } else if (selectedClass === '11' || selectedClass === '12') {
+        if (selectedStream && subjectsConfig[selectedClass][selectedStream]) {
+          subjects = subjectsConfig[selectedClass][selectedStream];
+        } else {
+          container.innerHTML = '<small class="text-muted w-100">Please select Stream first</small>';
+          return;
+        }
+      }
+      
+      if (subjects.length === 0) {
+        container.innerHTML = '<small class="text-muted w-100">No subjects available</small>';
+        return;
+      }
+      
+      subjects.forEach(subject => {
+        const label = document.createElement('label');
+        label.innerHTML = `
+          <input type="checkbox" name="subject" value="${subject}">
+          <span>${subject}</span>
+        `;
+        container.appendChild(label);
+      });
+    }
+
+    // Populate school dropdown based on type
+    function populateSchools(schoolType) {
+      const schoolSelect = document.getElementById('old-school');
+      schoolSelect.innerHTML = '<option value="">Select School</option>';
+      
+      const schools = schoolType === 'Government' ? governmentSchools : privateSchools;
+      schools.forEach(school => {
+        const option = document.createElement('option');
+        option.value = school;
+        option.textContent = school;
+        schoolSelect.appendChild(option);
+      });
+      schoolSelect.disabled = false;
+    }
+
+    // Toggle parent/guardian fields
+    function toggleGuardianFields() {
+      const isParents = document.getElementById('guardian-parents').checked;
+      document.getElementById('parents-fields').style.display = isParents ? 'block' : 'none';
+      document.getElementById('guardian-fields').style.display = isParents ? 'none' : 'block';
+      
+      // Toggle required attributes
+      document.getElementById('father-name').required = isParents;
+      document.getElementById('mother-name').required = isParents;
+      document.getElementById('guardian-name').required = !isParents;
+      document.getElementById('guardian-relation').required = !isParents;
+    }
+
+    // ============ EVENT LISTENERS ============
+    
+    // Class change handler
+    document.getElementById('class').addEventListener('change', function() {
+      const selectedClass = this.value;
+      const streamSelect = document.getElementById('stream');
+      
+      if (selectedClass === '9' || selectedClass === '10') {
+        // Disable stream, set to N/A
+        streamSelect.disabled = true;
+        streamSelect.value = 'N/A';
+        renderSubjects(selectedClass);
+      } else if (selectedClass === '11' || selectedClass === '12') {
+        // Enable stream, clear subjects
+        streamSelect.disabled = false;
+        streamSelect.value = '';
+        document.getElementById('subjects-container').innerHTML = '<small class="text-muted w-100">Please select Stream first</small>';
+      } else {
+        // Reset
+        streamSelect.disabled = true;
+        streamSelect.value = '';
+        document.getElementById('subjects-container').innerHTML = '<small class="text-muted w-100">Please select Class first</small>';
+      }
+    });
+
+    // Stream change handler (for class 11/12)
+    document.getElementById('stream').addEventListener('change', function() {
+      const selectedClass = document.getElementById('class').value;
+      const selectedStream = this.value;
+      
+      if ((selectedClass === '11' || selectedClass === '12') && selectedStream) {
+        renderSubjects(selectedClass, selectedStream);
+      }
+    });
+
+    // School type change handler
+    document.getElementById('school-type').addEventListener('change', function() {
+      populateSchools(this.value);
+    });
+
+    // BPL status toggle
+    document.getElementById('bpl-status').addEventListener('change', function() {
+      const bplField = document.getElementById('bpl-number');
+      if (this.value === 'Yes') {
+        bplField.closest('.row').classList.add('show');
+        bplField.required = true;
+      } else {
+        bplField.closest('.row').classList.remove('show');
+        bplField.required = false;
+        bplField.value = '';
+      }
+    });
+
+    // Guardian type toggle
+    document.querySelectorAll('input[name="guardian-type"]').forEach(radio => {
+      radio.addEventListener('change', toggleGuardianFields);
+    });
+
+    // Word count for remarks
+    document.getElementById('remarks').addEventListener('input', function() {
+      const text = this.value.trim();
+      const wordCount = text === "" ? 0 : text.split(/\s+/).filter(w => w.length > 0).length;
+      const countEl = document.getElementById('word-count');
+      countEl.textContent = `${wordCount}/50 words`;
+      if(wordCount > 50) {
+        countEl.style.color = "#ef4444";
+      } else {
+        countEl.style.color = "var(--text-secondary)";
+      }
+    });
+
     // Load Recent Admissions from "001-school/students/list"
     async function loadRecentAdmissions() {
       try {
@@ -873,8 +1354,8 @@
             <td>${data.srNumber || ""}</td>
             <td>${data.studentName || ""}</td>
             <td>${data.gender || ""}</td>
-            <td>${data.fatherName || ""}</td>
-            <td>${data.guardianName || ""}</td>
+            <td>${data.fatherName || data.guardianName || ""}</td>
+            <td>${data.guardianName || data.motherName || ""}</td>
             <td>${data.dob || ""}</td>
             <td>${data.class || ""}</td>
             <td>${data.stream || ""}</td>
@@ -901,24 +1382,6 @@
       });
     });
 
-    // Word count for remarks
-    document.getElementById("remarks").addEventListener("input", function() {
-      const text = this.value.trim();
-      const wordCount = text === "" ? 0 : text.split(/\s+/).filter(w => w.length > 0).length;
-      const countEl = document.getElementById("word-count");
-      countEl.textContent = `${wordCount}/50 words`;
-      if(wordCount > 50) {
-        countEl.style.color = "#ef4444";
-      } else {
-        countEl.style.color = "var(--text-secondary)";
-      }
-    });
-
-    // Load data on DOMContentLoaded
-    window.addEventListener("DOMContentLoaded", function () {
-      loadRecentAdmissions();
-    });
-
     // Admission form submission
     document.getElementById("admission-form").addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -929,23 +1392,36 @@
         return;
       }
       
+      // Validate parent/guardian logic
+      const isParents = document.getElementById('guardian-parents').checked;
+      if (isParents) {
+        if (!document.getElementById('father-name').value.trim() || !document.getElementById('mother-name').value.trim()) {
+          alert("Please fill both Father's Name and Mother's Name.");
+          return;
+        }
+      } else {
+        if (!document.getElementById('guardian-name').value.trim() || !document.getElementById('guardian-relation').value.trim()) {
+          alert("Please fill Guardian Name and Relation.");
+          return;
+        }
+      }
+      
+      // Validate subjects selection
+      const selectedSubjects = Array.from(document.querySelectorAll('input[name="subject"]:checked')).map(cb => cb.value);
+      if (selectedSubjects.length === 0) {
+        alert("Please select at least one subject.");
+        return;
+      }
+      
       if (!confirm("Are you sure you want to submit this admission?")) return;
 
       const studentName = document.getElementById("student-name").value.trim();
       const gender = document.getElementById("gender").value;
-      const fatherName = document.getElementById("father-name").value.trim();
-      const guardianName = document.getElementById("guardian-name").value.trim();
       const dob = document.getElementById("dob").value;
-      const sClass = document.getElementById("class").value;
-      
-      const subjectsSelect = document.getElementById("subjects");
-      let subjects = [];
-      for (const option of subjectsSelect.options) {
-        if (option.selected) subjects.push(option.value);
-      }
-      
+      const admissionDate = document.getElementById("admission-date").value;
       const contact = document.getElementById("contact").value.trim();
-      const remarks = document.getElementById("remarks").value.trim();
+      const sClass = document.getElementById("class").value;
+      const stream = document.getElementById("stream").value;
       const srNumber = document.getElementById("sr-number").value.trim();
       
       if (!srNumber) {
@@ -955,18 +1431,57 @@
 
       const docId = "student" + srNumber.toString().padStart(5, "0");
 
+      // Build student data object with all new fields
       const studentData = {
+        // Personal Info
         studentName,
         gender,
-        fatherName,
-        guardianName,
         dob,
-        class: sClass,
-        subjects,
-        stream: document.getElementById("stream").value,
+        admissionDate,
         contact,
-        remarks,
+        height: document.getElementById('height').value,
+        weight: document.getElementById('weight').value,
+        bloodGroup: document.getElementById('blood-group').value,
+        bplStatus: document.getElementById('bpl-status').value,
+        bplNumber: document.getElementById('bpl-status').value === 'Yes' ? document.getElementById('bpl-number').value : null,
+        aadhar: document.getElementById('aadhar').value,
+        janaadhar: document.getElementById('janaadhar').value || null,
+        nationality: document.getElementById('nationality').value,
+        religion: document.getElementById('religion').value,
+        caste: document.getElementById('caste').value,
+        category: document.getElementById('category').value,
+        localAddress: document.getElementById('local-address').value,
+        wardNo: document.getElementById('ward-no').value,
+        city: document.getElementById('city').value,
+        district: document.getElementById('district').value,
+        state: document.getElementById('state').value,
+        
+        // Parent/Guardian Info
+        fatherName: isParents ? document.getElementById('father-name').value.trim() : null,
+        motherName: isParents ? document.getElementById('mother-name').value.trim() : null,
+        guardianName: !isParents ? document.getElementById('guardian-name').value.trim() : null,
+        guardianRelation: !isParents ? document.getElementById('guardian-relation').value.trim() : null,
+        
+        // Academic Info
+        class: sClass,
+        stream: stream === 'N/A' ? null : stream,
+        subjects: selectedSubjects,
         srNumber,
+        
+        // School Info
+        schoolType: document.getElementById('school-type').value,
+        oldSchoolName: document.getElementById('old-school').value,
+        previousClass: {
+          class: document.getElementById('prev-class').value,
+          academicYear: document.getElementById('prev-academic-year').value,
+          totalMarks: parseInt(document.getElementById('prev-total-marks').value) || 0,
+          obtainedMarks: parseInt(document.getElementById('prev-obtained-marks').value) || 0,
+          grade: document.getElementById('prev-grade').value,
+          result: document.getElementById('prev-result').value
+        },
+        
+        // Existing fields
+        remarks: document.getElementById("remarks").value.trim(),
         admissionFeeStatus: "Done",
         timestamp: serverTimestamp()
       };
@@ -976,11 +1491,22 @@
         alert("Admission submitted successfully!");
         document.getElementById("admission-form").reset();
         document.getElementById("word-count").innerText = "0/50 words";
+        document.getElementById('subjects-container').innerHTML = '<small class="text-muted w-100">Please select Class first to see available subjects</small>';
+        document.getElementById('stream').disabled = true;
+        document.getElementById('old-school').disabled = true;
+        document.getElementById('old-school').innerHTML = '<option value="">Select School Type first</option>';
+        toggleGuardianFields();
         loadRecentAdmissions(); // Refresh table
       } catch (error) {
         console.error("Error submitting admission: ", error);
         alert("Error submitting admission. Please try again.");
       }
+    });
+
+    // Load data on DOMContentLoaded
+    window.addEventListener("DOMContentLoaded", function () {
+      loadRecentAdmissions();
+      toggleGuardianFields(); // Initialize guardian fields
     });
   </script>
 
