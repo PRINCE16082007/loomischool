@@ -60,20 +60,8 @@
     }
 
     .navbar-brand i { font-size: 1.4rem; }
-
-    /* Center Nav Items */
-    .navbar-center {
-      display: flex;
-      justify-content: center;
-      flex-grow: 1;
-    }
-
-    .navbar-center .navbar-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2px;
-    }
+    .navbar-center { display: flex; justify-content: center; flex-grow: 1; }
+    .navbar-center .navbar-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 2px; }
 
     .navbar-nav .nav-link {
       color: rgba(255,255,255,0.9) !important;
@@ -113,12 +101,8 @@
       border-radius: 2px;
     }
 
-    .navbar-nav .nav-link.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* Dropdown Styles */
     .navbar .dropdown-menu {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -152,36 +136,12 @@
       padding-left: 1.25rem;
     }
 
-    .navbar .dropdown-item.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      color: var(--text-secondary);
-    }
+    .navbar .dropdown-item.disabled { opacity: 0.5; cursor: not-allowed; color: var(--text-secondary); }
+    .navbar .dropdown-item.disabled:hover { background: transparent; padding-left: 1rem; color: var(--text-secondary); }
+    .navbar .dropdown-item.active { background: rgba(30, 64, 175, 0.12); color: var(--primary); font-weight: 500; }
+    .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
+    .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
 
-    .navbar .dropdown-item.disabled:hover {
-      background: transparent;
-      padding-left: 1rem;
-      color: var(--text-secondary);
-    }
-
-    .navbar .dropdown-item.active {
-      background: rgba(30, 64, 175, 0.12);
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    .navbar .dropdown-divider {
-      margin: 0.4rem 0;
-      border-color: var(--border-color);
-    }
-
-    .dropdown-toggle::after {
-      margin-left: 4px;
-      font-size: 0.75rem;
-      vertical-align: middle;
-    }
-
-    /* Logo Placeholder - Circular */
     .logo-placeholder {
       width: 42px;
       height: 42px;
@@ -208,50 +168,22 @@
       transform: scale(1.05);
     }
 
-    .logo-placeholder img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+    .logo-placeholder img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
 
-    .logo-placeholder .placeholder-text {
-      font-size: 0.65rem;
-      letter-spacing: 0.5px;
-    }
-
-    /* Mobile Toggle */
-    .navbar-toggler {
-      border: none;
-      padding: 0.4rem;
-      margin-left: auto;
-    }
+    .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
     .navbar-toggler:focus { box-shadow: none; }
-    .navbar-toggler-icon {
-      filter: brightness(0) invert(1);
-    }
+    .navbar-toggler-icon { filter: brightness(0) invert(1); }
 
-    /* Mobile Layout */
     @media (max-width: 991px) {
-      .navbar-center {
-        width: 100%;
-        order: 3;
-        margin-top: 1rem;
-      }
-      .navbar-center .navbar-nav {
-        flex-direction: column;
-        align-items: center;
-      }
+      .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
+      .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
       .navbar-collapse {
         background: linear-gradient(180deg, var(--primary-dark), var(--primary));
         border-radius: 12px;
         padding: 0.75rem;
       }
-      .navbar-nav .nav-link {
-        padding: 0.6rem 1rem !important;
-        margin: 4px 0;
-        justify-content: center;
-      }
+      .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
       .navbar .dropdown-menu {
         background: rgba(255,255,255,0.1);
         border: none;
@@ -260,26 +192,13 @@
         padding-left: 1.5rem;
         text-align: center;
       }
-      .navbar .dropdown-item {
-        color: rgba(255,255,255,0.9);
-        justify-content: center;
-      }
-      .navbar .dropdown-item:hover {
-        background: rgba(255,255,255,0.15);
-        color: #fff;
-        padding-left: 1rem;
-      }
-      .logo-placeholder {
-        order: 2;
-        margin-left: 0.5rem;
-      }
+      .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
+      .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
+      .logo-placeholder { order: 2; margin-left: 0.5rem; }
     }
 
     /* ============ FORM STYLES ============ */
-    .form-section {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-    }
+    .form-section { margin-top: 2rem; margin-bottom: 2rem; }
 
     .form-control, .form-select {
       border-radius: 10px;
@@ -302,11 +221,7 @@
       gap: 4px;
     }
 
-    .required-field::after {
-      content: "*";
-      color: #ef4444;
-      margin-left: 2px;
-    }
+    .required-field::after { content: "*"; color: #ef4444; margin-left: 2px; }
 
     .btn-primary {
       background: var(--primary);
@@ -347,22 +262,13 @@
       font-weight: 500;
     }
 
-    /* Word count styling */
-    .word-count {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      text-align: right;
-      margin-top: 0.25rem;
-    }
+    .word-count { font-size: 0.85rem; color: var(--text-secondary); text-align: right; margin-top: 0.25rem; }
 
-    /* Skeleton screen styling */
     .skeleton {
-      height: 1.2em;
-      width: 100%;
+      height: 1.2em; width: 100%;
       background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
       background-size: 200% 100%;
-      margin-bottom: 0.5em;
-      border-radius: 6px;
+      margin-bottom: 0.5em; border-radius: 6px;
       animation: shimmer 1.5s infinite;
     }
     @keyframes shimmer {
@@ -370,150 +276,98 @@
       100% { background-position: 200% 0; }
     }
 
-    /* Table Styles */
     .table th {
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-secondary);
-      background: var(--bg-card) !important;
+      font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--text-secondary); background: var(--bg-card) !important;
     }
     .table-dark { background: var(--primary) !important; }
     .table-striped tbody tr:nth-of-type(odd) { background: rgba(30, 64, 175, 0.03); }
 
-    /* Section Titles */
     .section-title {
-      position: relative;
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
+      position: relative; padding-bottom: 0.75rem; margin-bottom: 1.5rem;
+      font-weight: 700; color: var(--text-primary);
     }
     .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 50px;
-      height: 4px;
-      background: var(--secondary);
-      border-radius: 2px;
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 50px; height: 4px; background: var(--secondary); border-radius: 2px;
     }
 
-    /* Instructions Box */
     .instructions-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-top: 2rem;
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 1.25rem; margin-top: 2rem;
     }
-    .instructions-box h3 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-    .instructions-box ul {
-      padding-left: 1.25rem;
-      margin: 0;
-    }
-    .instructions-box li {
-      margin-bottom: 0.5rem;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
+    .instructions-box h3 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary); }
+    .instructions-box ul { padding-left: 1.25rem; margin: 0; }
+    .instructions-box li { margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.95rem; }
 
-    /* Checkbox group styling */
     .checkbox-group {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 0.5rem;
-      max-height: 200px;
-      overflow-y: auto;
-      padding: 0.5rem;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      background: var(--bg-card);
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem; max-height: 200px; overflow-y: auto; padding: 0.5rem;
+      border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card);
     }
     
     .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.9rem;
-      margin: 0;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: var(--transition);
+      display: flex; align-items: center; gap: 6px; font-size: 0.9rem; margin: 0;
+      cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: var(--transition);
     }
     
-    .checkbox-group label:hover {
-      background: rgba(30, 64, 175, 0.08);
-    }
-    
-    .checkbox-group input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-    }
+    .checkbox-group label:hover { background: rgba(30, 64, 175, 0.08); }
+    .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
 
-    /* Section cards */
     .form-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-      box-shadow: var(--shadow-sm);
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);
     }
     
     .form-card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-color);
+      font-size: 1.1rem; font-weight: 600; color: var(--primary);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);
     }
 
-    /* BPL conditional field */
-    .bpl-number-field {
-      display: none;
-      margin-top: 0.5rem;
+    .bpl-number-field { display: none; margin-top: 0.5rem; }
+    .bpl-number-field.show { display: block; }
+
+    .prev-class-table { width: 100%; border-collapse: collapse; }
+    
+    .prev-class-table th, .prev-class-table td {
+      padding: 0.5rem; border: 1px solid var(--border-color); text-align: left;
     }
     
-    .bpl-number-field.show {
-      display: block;
+    .prev-class-table th { background: var(--bg-body); font-weight: 500; font-size: 0.9rem; }
+    
+    .prev-class-table input, .prev-class-table select {
+      width: 100%; padding: 0.4rem; border: 1px solid var(--border-color);
+      border-radius: 6px; font-size: 0.9rem;
+    }
+    
+    .prev-class-table input:disabled, .prev-class-table select:disabled {
+      background-color: #f1f5f9; color: var(--text-secondary); cursor: not-allowed;
     }
 
-    /* Previous class details table */
-    .prev-class-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    
-    .prev-class-table th,
-    .prev-class-table td {
-      padding: 0.5rem;
+    /* Fee section styling */
+    .fee-section {
+      background: rgba(30, 64, 175, 0.05);
       border: 1px solid var(--border-color);
-      text-align: left;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1rem;
     }
     
-    .prev-class-table th {
-      background: var(--bg-body);
-      font-weight: 500;
-      font-size: 0.9rem;
+    .fee-section.new-admission {
+      border-left: 4px solid var(--secondary);
     }
     
-    .prev-class-table input,
-    .prev-class-table select {
-      width: 100%;
-      padding: 0.4rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 0.9rem;
+    .fee-section.re-admission {
+      border-left: 4px solid var(--accent);
+    }
+
+    .info-badge {
+      background: var(--primary-light);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin-left: 8px;
     }
 
     /* ============ FOOTER ============ */
@@ -525,27 +379,14 @@
       border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    .footer-section h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #fff;
-    }
+    .footer-section h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff; }
 
     .social-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      margin-right: 8px;
-      transition: var(--transition);
-      border: 1px solid transparent;
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.1rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.1); margin-right: 8px;
+      transition: var(--transition); border: 1px solid transparent;
+      color: #fff; text-decoration: none; font-size: 1.1rem;
     }
 
     .social-links a:hover {
@@ -554,54 +395,30 @@
       border-color: rgba(255,255,255,0.3);
     }
 
-    .footer-section .copyright {
-      font-size: 0.9rem;
-      opacity: 0.85;
-      margin: 0;
-    }
+    .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
 
     .footer-section .btn-outline-light {
-      border-color: rgba(255,255,255,0.4);
-      color: #fff;
-      font-weight: 500;
-      padding: 0.5rem 1.5rem;
-      border-radius: 50px;
+      border-color: rgba(255,255,255,0.4); color: #fff;
+      font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px;
       transition: var(--transition);
     }
 
     .footer-section .btn-outline-light:hover {
-      background: #fff;
-      color: var(--primary);
-      border-color: #fff;
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      background: #fff; color: var(--primary); border-color: #fff;
+      transform: translateY(-2px); box-shadow: var(--shadow-md);
     }
 
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    .footer-links { list-style: none; padding: 0; margin: 0; }
     .footer-links li { margin-bottom: 0.5rem; }
     .footer-links a {
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 0.9rem; transition: var(--transition);
+      display: flex; align-items: center; gap: 6px;
     }
-    .footer-links a:hover {
-      color: #fff;
-      padding-left: 4px;
-    }
+    .footer-links a:hover { color: #fff; padding-left: 4px; }
 
     @media (max-width: 991px) {
-      .footer-section .row > div {
-        text-align: center !important;
-        margin-bottom: 1.5rem;
-      }
+      .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
       .footer-section .text-end { text-align: center !important; }
       .social-links { justify-content: center; display: flex; }
     }
@@ -611,30 +428,23 @@
     <!-- ============ HEADER ============ -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        
-        <!-- LEFT: Brand -->
         <a class="navbar-brand" href="#">
           <i class="bi bi-building-check"></i>
           <span>SchoolMS</span>
         </a>
         
-        <!-- TOGGLER (Mobile) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         
-        <!-- CENTER: Nav Items -->
         <div class="collapse navbar-collapse navbar-center" id="navbarContent">
           <ul class="navbar-nav">
-            
-            <!-- Dashboard -->
             <li class="nav-item">
               <a class="nav-link" href="/admin_dashboard.html">
                 <i class="bi bi-speedometer2"></i> Dashboard
               </a>
             </li>
 
-            <!-- 👥 Students Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
                 <i class="bi bi-people"></i> Students
@@ -649,7 +459,6 @@
               </ul>
             </li>
 
-            <!-- 💰 Finance Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                 <i class="bi bi-wallet2"></i> Finance
@@ -662,7 +471,6 @@
               </ul>
             </li>
 
-            <!-- 🏫 Institute Dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
                 <i class="bi bi-building"></i> Institute
@@ -678,27 +486,23 @@
               </ul>
             </li>
 
-            <!-- 👔 Staff -->
             <li class="nav-item">
               <a class="nav-link disabled" href="#">
                 <i class="bi bi-briefcase"></i> Staff
               </a>
             </li>
 
-            <!-- ⚙️ Settings -->
             <li class="nav-item">
               <a class="nav-link" href="/admin_panel/admin_panel.html">
                 <i class="bi bi-gear"></i> Settings
               </a>
             </li>
-
           </ul>
         </div>
         
         <div class="logo-placeholder" title="SquadVertex Logo">
           <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
         </div>
-        
       </div>
     </nav>
 
@@ -935,7 +739,6 @@
         <div class="mb-3">
           <label class="form-label required-field">Subjects</label>
           <div id="subjects-container" class="checkbox-group">
-            <!-- Dynamically populated based on class/stream -->
             <small class="text-muted w-100">Please select Class first to see available subjects</small>
           </div>
           <small class="text-muted d-block mt-1">Select one or more subjects</small>
@@ -955,10 +758,10 @@
             </select>
           </div>
           <div class="col-md-8">
+            <!-- ✅ CHANGE #1: Previous School Name - Now simple text input (independent) -->
             <label for="old-school" class="form-label required-field">Previous School Name</label>
-            <select class="form-select" id="old-school" required disabled>
-              <option value="">Select School Type first</option>
-            </select>
+            <input type="text" class="form-control" id="old-school" placeholder="Enter previous school name" required />
+            <small class="text-muted">Enter school name manually</small>
           </div>
         </div>
 
@@ -979,28 +782,32 @@
             <tbody>
               <tr>
                 <td>
-                  <select id="prev-class" required>
+                  <!-- ✅ CHANGE #4b: Added Class 12 option for students who failed -->
+                  <select id="prev-class" class="form-select" required>
                     <option value="">Select</option>
                     <option value="8">8</option>
                     <option value="9">9</option>
                     <option value="10">10</option>
                     <option value="11">11</option>
+                    <option value="12">12</option>
                   </select>
                 </td>
                 <td>
-                  <input type="text" id="prev-academic-year" placeholder="e.g., 2024-25" required />
+                  <input type="text" id="prev-academic-year" class="form-control" placeholder="e.g., 2024-25" required />
                 </td>
                 <td>
-                  <input type="number" id="prev-total-marks" placeholder="e.g., 500" required />
+                  <!-- ✅ CHANGE #4c: Marks fields disabled for class 8 -->
+                  <input type="number" id="prev-total-marks" class="form-control" placeholder="e.g., 500" />
                 </td>
                 <td>
-                  <input type="number" id="prev-obtained-marks" placeholder="e.g., 450" required />
+                  <input type="number" id="prev-obtained-marks" class="form-control" placeholder="e.g., 450" />
                 </td>
                 <td>
-                  <input type="text" id="prev-grade" placeholder="e.g., A1" required />
+                  <!-- ✅ CHANGE #4c: Grade enabled only for class 8 -->
+                  <input type="text" id="prev-grade" class="form-control" placeholder="e.g., A1" />
                 </td>
                 <td>
-                  <select id="prev-result" required>
+                  <select id="prev-result" class="form-select" required>
                     <option value="">Select</option>
                     <option value="Pass">Pass</option>
                     <option value="Fail">Fail</option>
@@ -1009,13 +816,62 @@
               </tr>
             </tbody>
           </table>
+          
+          <!-- ✅ CHANGE #4a: Previous Stream field (only for class 11/12) -->
+          <div class="mt-3" id="prev-stream-container" style="display: none;">
+            <label for="prev-stream" class="form-label">Previous Stream <span class="info-badge">11/12 only</span></label>
+            <select id="prev-stream" class="form-select">
+              <option value="">Select Previous Stream</option>
+              <option value="Arts">Arts</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Science">Science</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      <!-- Admission Fee Checkbox -->
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="admission-fee-checkbox" required>
-        <label class="form-check-label required-field" for="admission-fee-checkbox">Admission Fee (₹500) Paid?</label>
+      <!-- ✅ CHANGE #3: Admission Type Dropdown -->
+      <div class="form-card">
+        <div class="form-card-title">Admission Type & Fees</div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="admission-type" class="form-label required-field">Admission Type</label>
+            <select class="form-select" id="admission-type" required>
+              <option value="">Select Type</option>
+              <option value="new">New Admission</option>
+              <option value="re">Re-Admission</option>
+            </select>
+            <small class="text-muted">Select "New Admission" for first-time students, "Re-Admission" for returning students</small>
+          </div>
+        </div>
+
+        <!-- Fee Section - Conditional based on admission type -->
+        <div id="fee-section" class="fee-section d-none">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="admission-fee" class="form-label required-field">Admission Fee Amount (₹)</label>
+              <input type="number" id="admission-fee" class="form-control" placeholder="e.g., 500" min="0" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Payment Mode</label>
+              <input type="text" class="form-control" value="N/A" readonly />
+              <small class="text-muted">Mode will be set to "N/A"</small>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Fee Status</label>
+              <input type="text" class="form-control" value="Done" readonly />
+              <small class="text-muted">Auto-set on submission</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Re-Admission Info -->
+        <div id="re-admission-info" class="fee-section re-admission d-none">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-info-circle-fill text-warning me-2"></i>
+            <small><strong>Re-Admission:</strong> No admission fee transaction will be created. Only <code>admissionFeeStatus: "Done"</code> will be saved.</small>
+          </div>
+        </div>
       </div>
 
       <!-- Remarks -->
@@ -1041,13 +897,11 @@
   <div class="container form-section">
     <h2 class="section-title">Recent Admissions</h2>
     <input type="text" id="admissions-search" class="form-control mb-3" placeholder="Quick Search by Student Name" />
-    <!-- Skeleton placeholder -->
     <div id="admissions-loading">
       <div class="skeleton"></div>
       <div class="skeleton"></div>
       <div class="skeleton"></div>
     </div>
-    <!-- Admissions Table -->
     <div class="table-responsive d-none" id="admissions-table-container">
       <table class="table table-striped" id="admissions-table">
         <thead class="table-dark">
@@ -1064,21 +918,15 @@
             <th>Timestamp</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Data populated from Firebase ("001-school/students/list" subcollection) -->
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
   </div>
 
   <!-- Navigation Buttons -->
   <div class="container nav-btns mb-4">
-    <button class="btn btn-secondary me-2" onclick="location.href='edit_student.html'">
-      Edit Student Data
-    </button>
-    <button class="btn btn-outline-dark" onclick="location.href='../admin_dashboard.html'">
-      Home Dashboard
-    </button>
+    <button class="btn btn-secondary me-2" onclick="location.href='edit_student.html'">Edit Student Data</button>
+    <button class="btn btn-outline-dark" onclick="location.href='../admin_dashboard.html'">Home Dashboard</button>
   </div>
 
   <!-- Admission Module Instructions -->
@@ -1086,15 +934,15 @@
     <div class="instructions-box">
       <h3><i class="bi bi-info-circle me-2"></i>Admission Module Instructions</h3>
       <ul>
-        <li>This page is strictly for use by authorized admin and admissions staff.</li>
-        <li>Please ensure that all student details are entered accurately; all required fields marked with <span class="text-danger">*</span> must be completed.</li>
-        <li><strong>Parent/Guardian:</strong> Either fill Father & Mother names OR Guardian name with relation.</li>
-        <li><strong>Class 9/10:</strong> Stream is not applicable. Only Sanskrit & Punjabi subjects available.</li>
-        <li><strong>Class 11/12:</strong> Select Stream first, then choose from stream-specific subjects.</li>
-        <li>The SR Number is used to generate the unique student document ID (e.g., SR 5 becomes student00005).</li>
-        <li>An automatic timestamp is recorded upon submission.</li>
-        <li>Please confirm that the ₹500 admission fee has been received by checking the Admission Fee Checkbox before submitting.</li>
-        <li>All data management and updates in this module are the responsibility of the designated administrative staff.</li>
+        <li>All required fields marked with <span class="text-danger">*</span> must be completed.</li>
+        <li><strong>Admission Type:</strong> Select "New Admission" for first-time students (fee applicable) or "Re-Admission" for returning students (no fee transaction).</li>
+        <li><strong>Previous School:</strong> Enter school name manually in the text field.</li>
+        <li><strong>Previous Class 8:</strong> Only Grade field is enabled; Marks fields are disabled.</li>
+        <li><strong>Previous Class 9/10/11/12:</strong> Grade field disabled; Total Marks & Obtained Marks enabled.</li>
+        <li><strong>Previous Stream:</strong> Only shown when previous class is 11 or 12.</li>
+        <li><strong>Class 9/10:</strong> Stream is N/A; only Sanskrit & Punjabi subjects available.</li>
+        <li><strong>Class 11/12:</strong> Select Stream first, then choose stream-specific subjects.</li>
+        <li>SR Number generates unique student ID: studentXXXXX.</li>
       </ul>
     </div>
   </div>
@@ -1103,7 +951,6 @@
   <footer class="footer-section">
     <div class="container">
       <div class="row align-items-center g-4">
-        <!-- Social -->
         <div class="col-lg-4 col-md-6">
           <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
           <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management solutions.</p>
@@ -1115,7 +962,6 @@
           </div>
         </div>
         
-        <!-- Quick Links -->
         <div class="col-lg-4 col-md-6">
           <h3>Quick Links</h3>
           <ul class="footer-links">
@@ -1126,10 +972,8 @@
           </ul>
         </div>
         
-        <!-- Copyright + Docs -->
         <div class="col-lg-4 col-md-12 text-lg-end">
-          <a href="/documentation.html" target="_blank"
-            class="btn btn-outline-light mb-3">
+          <a href="/documentation.html" target="_blank" class="btn btn-outline-light mb-3">
             <i class="bi bi-book me-1"></i>View Docs
           </a>
           <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
@@ -1142,15 +986,8 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
     import {
-      getFirestore,
-      collection,
-      setDoc,
-      doc,
-      getDocs,
-      query,
-      orderBy,
-      limit,
-      serverTimestamp
+      getFirestore, collection, setDoc, doc, getDocs, query, orderBy, limit, serverTimestamp,
+      getDoc, updateDoc, increment
     } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
     
@@ -1184,30 +1021,11 @@
       }
     };
 
-    // ============ SCHOOL LISTS (Hardcoded - Update as needed) ============
-    const governmentSchools = [
-      "Government Senior Secondary School, Jaipur",
-      "Government Girls School, Jodhpur",
-      "Government Model School, Udaipur",
-      "Government High School, Kota",
-      "Government Primary School, Ajmer"
-    ];
-    
-    const privateSchools = [
-      "Delhi Public School, Jaipur",
-      "Maharaja Agrasen School, Jodhpur",
-      "Ryan International School, Udaipur",
-      "Podar International School, Kota",
-      "Amity International School, Ajmer"
-    ];
-
     // ============ HELPER FUNCTIONS ============
     
-    // Render subject checkboxes based on class/stream
     function renderSubjects(selectedClass, selectedStream = null) {
       const container = document.getElementById('subjects-container');
       container.innerHTML = '';
-      
       let subjects = [];
       
       if (selectedClass === '9' || selectedClass === '10') {
@@ -1228,83 +1046,158 @@
       
       subjects.forEach(subject => {
         const label = document.createElement('label');
-        label.innerHTML = `
-          <input type="checkbox" name="subject" value="${subject}">
-          <span>${subject}</span>
-        `;
+        label.innerHTML = `<input type="checkbox" name="subject" value="${subject}"><span>${subject}</span>`;
         container.appendChild(label);
       });
     }
 
-    // Populate school dropdown based on type
-    function populateSchools(schoolType) {
-      const schoolSelect = document.getElementById('old-school');
-      schoolSelect.innerHTML = '<option value="">Select School</option>';
-      
-      const schools = schoolType === 'Government' ? governmentSchools : privateSchools;
-      schools.forEach(school => {
-        const option = document.createElement('option');
-        option.value = school;
-        option.textContent = school;
-        schoolSelect.appendChild(option);
-      });
-      schoolSelect.disabled = false;
-    }
-
-    // Toggle parent/guardian fields
     function toggleGuardianFields() {
       const isParents = document.getElementById('guardian-parents').checked;
       document.getElementById('parents-fields').style.display = isParents ? 'block' : 'none';
       document.getElementById('guardian-fields').style.display = isParents ? 'none' : 'block';
-      
-      // Toggle required attributes
       document.getElementById('father-name').required = isParents;
       document.getElementById('mother-name').required = isParents;
       document.getElementById('guardian-name').required = !isParents;
       document.getElementById('guardian-relation').required = !isParents;
     }
 
+    function togglePrevClassFields() {
+      const prevClass = document.getElementById('prev-class').value;
+      const gradeField = document.getElementById('prev-grade');
+      const totalMarksField = document.getElementById('prev-total-marks');
+      const obtainedMarksField = document.getElementById('prev-obtained-marks');
+      
+      if (prevClass === '8') {
+        gradeField.disabled = false; gradeField.required = true;
+        totalMarksField.disabled = true; totalMarksField.required = false; totalMarksField.value = '';
+        obtainedMarksField.disabled = true; obtainedMarksField.required = false; obtainedMarksField.value = '';
+      } else if (prevClass && prevClass !== '8') {
+        gradeField.disabled = true; gradeField.required = false; gradeField.value = '';
+        totalMarksField.disabled = false; totalMarksField.required = true;
+        obtainedMarksField.disabled = false; obtainedMarksField.required = true;
+      } else {
+        gradeField.disabled = false; gradeField.required = false;
+        totalMarksField.disabled = false; totalMarksField.required = false;
+        obtainedMarksField.disabled = false; obtainedMarksField.required = false;
+      }
+    }
+
+    function togglePrevStreamField() {
+      const prevClass = document.getElementById('prev-class').value;
+      const container = document.getElementById('prev-stream-container');
+      const streamSelect = document.getElementById('prev-stream');
+      if (prevClass === '11' || prevClass === '12') {
+        container.style.display = 'block';
+        streamSelect.required = true;
+      } else {
+        container.style.display = 'none';
+        streamSelect.required = false;
+        streamSelect.value = '';
+      }
+    }
+
+    function toggleFeeSection() {
+      const admissionType = document.getElementById('admission-type').value;
+      const feeSection = document.getElementById('fee-section');
+      const reAdmissionInfo = document.getElementById('re-admission-info');
+      const feeInput = document.getElementById('admission-fee');
+      
+      if (admissionType === 'new') {
+        feeSection.classList.remove('d-none');
+        feeSection.classList.add('new-admission');
+        feeSection.classList.remove('re-admission');
+        reAdmissionInfo.classList.add('d-none');
+        feeInput.required = true;
+      } else if (admissionType === 're') {
+        feeSection.classList.add('d-none');
+        reAdmissionInfo.classList.remove('d-none');
+        feeInput.required = false;
+        feeInput.value = '';
+      } else {
+        feeSection.classList.add('d-none');
+        reAdmissionInfo.classList.add('d-none');
+        feeInput.required = false;
+      }
+    }
+
+    // ✅ FIXED: Create transaction with correct path under 001-school
+    async function createAdmissionTransaction(studentId, className, amount) {
+      try {
+        const classId = `class${className}`;
+        const txnDocId = `txn_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        
+        const transactionData = {
+          amount: parseFloat(amount) || 0,
+          date: new Date().toISOString().split('T')[0],
+          mode: "N/A",
+          paymentType: "admission fee",
+          timestamp: serverTimestamp()
+        };
+        
+        // ✅ Correct path: 001-school/transactions/{classId}/{studentId}/payments/{txnDocId}
+        const studentTxnRef = doc(db, "001-school", "transactions", classId, studentId);
+        const paymentRef = doc(studentTxnRef, "payments", txnDocId);
+        
+        // ✅ Step 1: Create student doc in transactions if it doesn't exist
+        const studentSnap = await getDoc(studentTxnRef);
+        if (!studentSnap.exists()) {
+          await setDoc(studentTxnRef, {
+            studentId: studentId,
+            className: className,
+            createdAt: serverTimestamp(),
+            totalPayments: 0
+          });
+          console.log("📄 Created student doc in transactions:", studentId);
+        }
+        
+        // ✅ Step 2: Create the payment transaction
+        await setDoc(paymentRef, transactionData);
+        
+        // ✅ Step 3: Update counter
+        await updateDoc(studentTxnRef, {
+          totalPayments: increment(1),
+          lastPaymentDate: new Date().toISOString().split('T')[0]
+        });
+        
+        console.log("✅ Transaction created:", txnDocId);
+        return true;
+        
+      } catch (error) {
+        console.error("❌ Error creating transaction:", error);
+        return false;
+      }
+    }
+
     // ============ EVENT LISTENERS ============
-    
-    // Class change handler
     document.getElementById('class').addEventListener('change', function() {
       const selectedClass = this.value;
       const streamSelect = document.getElementById('stream');
-      
       if (selectedClass === '9' || selectedClass === '10') {
-        // Disable stream, set to N/A
-        streamSelect.disabled = true;
-        streamSelect.value = 'N/A';
-        renderSubjects(selectedClass);
+        streamSelect.disabled = true; streamSelect.value = 'N/A'; renderSubjects(selectedClass);
       } else if (selectedClass === '11' || selectedClass === '12') {
-        // Enable stream, clear subjects
-        streamSelect.disabled = false;
-        streamSelect.value = '';
+        streamSelect.disabled = false; streamSelect.value = '';
         document.getElementById('subjects-container').innerHTML = '<small class="text-muted w-100">Please select Stream first</small>';
       } else {
-        // Reset
-        streamSelect.disabled = true;
-        streamSelect.value = '';
+        streamSelect.disabled = true; streamSelect.value = '';
         document.getElementById('subjects-container').innerHTML = '<small class="text-muted w-100">Please select Class first</small>';
       }
     });
 
-    // Stream change handler (for class 11/12)
     document.getElementById('stream').addEventListener('change', function() {
       const selectedClass = document.getElementById('class').value;
       const selectedStream = this.value;
-      
       if ((selectedClass === '11' || selectedClass === '12') && selectedStream) {
         renderSubjects(selectedClass, selectedStream);
       }
     });
 
-    // School type change handler
-    document.getElementById('school-type').addEventListener('change', function() {
-      populateSchools(this.value);
+    document.getElementById('prev-class').addEventListener('change', function() {
+      togglePrevClassFields();
+      togglePrevStreamField();
     });
 
-    // BPL status toggle
+    document.getElementById('admission-type').addEventListener('change', toggleFeeSection);
+
     document.getElementById('bpl-status').addEventListener('change', function() {
       const bplField = document.getElementById('bpl-number');
       if (this.value === 'Yes') {
@@ -1317,36 +1210,24 @@
       }
     });
 
-    // Guardian type toggle
     document.querySelectorAll('input[name="guardian-type"]').forEach(radio => {
       radio.addEventListener('change', toggleGuardianFields);
     });
 
-    // Word count for remarks
     document.getElementById('remarks').addEventListener('input', function() {
       const text = this.value.trim();
       const wordCount = text === "" ? 0 : text.split(/\s+/).filter(w => w.length > 0).length;
       const countEl = document.getElementById('word-count');
       countEl.textContent = `${wordCount}/50 words`;
-      if(wordCount > 50) {
-        countEl.style.color = "#ef4444";
-      } else {
-        countEl.style.color = "var(--text-secondary)";
-      }
+      countEl.style.color = wordCount > 50 ? "#ef4444" : "var(--text-secondary)";
     });
 
-    // Load Recent Admissions from "001-school/students/list"
     async function loadRecentAdmissions() {
       try {
-        const q = query(
-          collection(db, "001-school", "students", "list"),
-          orderBy("timestamp", "desc"),
-          limit(5)
-        );
+        const q = query(collection(db, "001-school", "students", "list"), orderBy("timestamp", "desc"), limit(5));
         const querySnapshot = await getDocs(q);
         const admissionsTableBody = document.querySelector("#admissions-table tbody");
         admissionsTableBody.innerHTML = "";
-
         querySnapshot.forEach((docSnap) => {
           const data = docSnap.data();
           const tr = document.createElement("tr");
@@ -1364,15 +1245,11 @@
           `;
           admissionsTableBody.appendChild(tr);
         });
-
         document.getElementById("admissions-loading").classList.add("d-none");
         document.getElementById("admissions-table-container").classList.remove("d-none");
-      } catch (err) {
-        console.error("Error fetching recent admissions: ", err);
-      }
+      } catch (err) { console.error("Error fetching recent admissions: ", err); }
     }
 
-    // Quick search for Recent Admissions
     document.getElementById("admissions-search").addEventListener("input", function () {
       const filter = this.value.toLowerCase();
       const rows = document.querySelectorAll("#admissions-table tbody tr");
@@ -1382,35 +1259,42 @@
       });
     });
 
-    // Admission form submission
     document.getElementById("admission-form").addEventListener("submit", async function (e) {
       e.preventDefault();
       
-      const feePaid = document.getElementById("admission-fee-checkbox").checked;
-      if (!feePaid) {
-        alert("Admission fee of ₹500 has not been paid. Please confirm payment before submitting admission.");
-        return;
-      }
+      const admissionType = document.getElementById('admission-type').value;
+      if (!admissionType) { alert("Please select Admission Type (New or Re-Admission)."); return; }
       
-      // Validate parent/guardian logic
       const isParents = document.getElementById('guardian-parents').checked;
       if (isParents) {
         if (!document.getElementById('father-name').value.trim() || !document.getElementById('mother-name').value.trim()) {
-          alert("Please fill both Father's Name and Mother's Name.");
-          return;
+          alert("Please fill both Father's Name and Mother's Name."); return;
         }
       } else {
         if (!document.getElementById('guardian-name').value.trim() || !document.getElementById('guardian-relation').value.trim()) {
-          alert("Please fill Guardian Name and Relation.");
-          return;
+          alert("Please fill Guardian Name and Relation."); return;
         }
       }
       
-      // Validate subjects selection
       const selectedSubjects = Array.from(document.querySelectorAll('input[name="subject"]:checked')).map(cb => cb.value);
-      if (selectedSubjects.length === 0) {
-        alert("Please select at least one subject.");
-        return;
+      if (selectedSubjects.length === 0) { alert("Please select at least one subject."); return; }
+      
+      const prevClass = document.getElementById('prev-class').value;
+      if (prevClass === '8') {
+        if (!document.getElementById('prev-grade').value.trim()) { alert("Please enter Grade for previous Class 8."); return; }
+      } else if (prevClass && prevClass !== '8') {
+        if (!document.getElementById('prev-total-marks').value || !document.getElementById('prev-obtained-marks').value) {
+          alert("Please enter Total Marks and Obtained Marks for previous class."); return;
+        }
+      }
+      
+      if ((prevClass === '11' || prevClass === '12') && !document.getElementById('prev-stream').value) {
+        alert("Please select Previous Stream for Class 11/12."); return;
+      }
+      
+      if (admissionType === 'new') {
+        const feeAmount = document.getElementById('admission-fee').value;
+        if (!feeAmount || parseFloat(feeAmount) <= 0) { alert("Please enter a valid Admission Fee amount for New Admission."); return; }
       }
       
       if (!confirm("Are you sure you want to submit this admission?")) return;
@@ -1424,21 +1308,11 @@
       const stream = document.getElementById("stream").value;
       const srNumber = document.getElementById("sr-number").value.trim();
       
-      if (!srNumber) {
-        alert("SR Number is required.");
-        return;
-      }
-
+      if (!srNumber) { alert("SR Number is required."); return; }
       const docId = "student" + srNumber.toString().padStart(5, "0");
 
-      // Build student data object with all new fields
       const studentData = {
-        // Personal Info
-        studentName,
-        gender,
-        dob,
-        admissionDate,
-        contact,
+        studentName, gender, dob, admissionDate, contact,
         height: document.getElementById('height').value,
         weight: document.getElementById('weight').value,
         bloodGroup: document.getElementById('blood-group').value,
@@ -1455,58 +1329,65 @@
         city: document.getElementById('city').value,
         district: document.getElementById('district').value,
         state: document.getElementById('state').value,
-        
-        // Parent/Guardian Info
         fatherName: isParents ? document.getElementById('father-name').value.trim() : null,
         motherName: isParents ? document.getElementById('mother-name').value.trim() : null,
         guardianName: !isParents ? document.getElementById('guardian-name').value.trim() : null,
         guardianRelation: !isParents ? document.getElementById('guardian-relation').value.trim() : null,
-        
-        // Academic Info
         class: sClass,
         stream: stream === 'N/A' ? null : stream,
         subjects: selectedSubjects,
         srNumber,
-        
-        // School Info
+        admissionType,
         schoolType: document.getElementById('school-type').value,
-        oldSchoolName: document.getElementById('old-school').value,
+        oldSchoolName: document.getElementById('old-school').value.trim(),
         previousClass: {
           class: document.getElementById('prev-class').value,
           academicYear: document.getElementById('prev-academic-year').value,
-          totalMarks: parseInt(document.getElementById('prev-total-marks').value) || 0,
-          obtainedMarks: parseInt(document.getElementById('prev-obtained-marks').value) || 0,
-          grade: document.getElementById('prev-grade').value,
-          result: document.getElementById('prev-result').value
+          totalMarks: prevClass === '8' ? null : (parseInt(document.getElementById('prev-total-marks').value) || 0),
+          obtainedMarks: prevClass === '8' ? null : (parseInt(document.getElementById('prev-obtained-marks').value) || 0),
+          grade: prevClass === '8' ? document.getElementById('prev-grade').value : null,
+          result: document.getElementById('prev-result').value,
+          previousStream: (prevClass === '11' || prevClass === '12') ? document.getElementById('prev-stream').value : null
         },
-        
-        // Existing fields
-        remarks: document.getElementById("remarks").value.trim(),
         admissionFeeStatus: "Done",
+        admissionFee: admissionType === 'new' ? parseFloat(document.getElementById('admission-fee').value) || 0 : null,
+        remarks: document.getElementById("remarks").value.trim(),
         timestamp: serverTimestamp()
       };
 
       try {
         await setDoc(doc(db, "001-school", "students", "list", docId), studentData);
-        alert("Admission submitted successfully!");
+        
+        // ✅ Create transaction ONLY for New Admissions
+        if (admissionType === 'new') {
+          const feeAmount = document.getElementById('admission-fee').value;
+          const txnSuccess = await createAdmissionTransaction(docId, sClass, feeAmount);
+          if (!txnSuccess) console.warn("Student saved but transaction creation failed.");
+        }
+        
+        alert("✅ Admission submitted successfully!" + (admissionType === 'new' ? "\nTransaction record created." : ""));
         document.getElementById("admission-form").reset();
         document.getElementById("word-count").innerText = "0/50 words";
         document.getElementById('subjects-container').innerHTML = '<small class="text-muted w-100">Please select Class first to see available subjects</small>';
         document.getElementById('stream').disabled = true;
-        document.getElementById('old-school').disabled = true;
-        document.getElementById('old-school').innerHTML = '<option value="">Select School Type first</option>';
+        document.getElementById('fee-section').classList.add('d-none');
+        document.getElementById('re-admission-info').classList.add('d-none');
+        document.getElementById('prev-stream-container').style.display = 'none';
         toggleGuardianFields();
-        loadRecentAdmissions(); // Refresh table
+        togglePrevClassFields();
+        loadRecentAdmissions();
+        
       } catch (error) {
         console.error("Error submitting admission: ", error);
-        alert("Error submitting admission. Please try again.");
+        alert("❌ Error submitting admission. Please try again.");
       }
     });
 
-    // Load data on DOMContentLoaded
     window.addEventListener("DOMContentLoaded", function () {
       loadRecentAdmissions();
-      toggleGuardianFields(); // Initialize guardian fields
+      toggleGuardianFields();
+      togglePrevClassFields();
+      togglePrevStreamField();
     });
   </script>
 
