@@ -14,569 +14,283 @@
   
   <style>
     :root {
-      --primary: #1e40af;
-      --primary-dark: #1e3a8a;
-      --primary-light: #3b82f6;
-      --secondary: #10b981;
-      --accent: #f59e0b;
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --text-primary: #1e293b;
-      --text-secondary: #64748b;
+      --primary: #1e40af; --primary-dark: #1e3a8a; --primary-light: #3b82f6;
+      --secondary: #10b981; --accent: #f59e0b;
+      --bg-body: #f8fafc; --bg-card: #ffffff;
+      --text-primary: #1e293b; --text-secondary: #64748b;
       --border-color: #e2e8f0;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
       --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
       --transition: all 0.2s ease-in-out;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
     body {
       background-color: var(--bg-body);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: var(--text-primary);
-      line-height: 1.6;
+      color: var(--text-primary); line-height: 1.6;
     }
 
-    /* ============ NAVBAR STYLES ============ */
+    /* ============ NAVBAR ============ */
     .navbar {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      box-shadow: var(--shadow-md);
-      padding: 0.5rem 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 1030;
+      box-shadow: var(--shadow-md); padding: 0.5rem 1rem;
+      position: sticky; top: 0; z-index: 1030;
     }
-
     .navbar-brand {
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: #fff !important;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
+      font-weight: 700; font-size: 1.3rem; color: #fff !important;
+      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
     }
-
     .navbar-brand i { font-size: 1.4rem; }
     .navbar-center { display: flex; justify-content: center; flex-grow: 1; }
     .navbar-center .navbar-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 2px; }
-
     .navbar-nav .nav-link {
-      color: rgba(255,255,255,0.9) !important;
-      font-weight: 500;
-      padding: 0.5rem 0.75rem !important;
-      border-radius: 8px;
-      transition: var(--transition);
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
+      color: rgba(255,255,255,0.9) !important; font-weight: 500;
+      padding: 0.5rem 0.75rem !important; border-radius: 8px;
+      transition: var(--transition); font-size: 0.9rem;
+      display: flex; align-items: center; gap: 4px; white-space: nowrap;
     }
-
-    .navbar-nav .nav-link:hover,
-    .navbar-nav .nav-link:focus {
-      color: #fff !important;
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-1px);
+    .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+      color: #fff !important; background: rgba(255,255,255,0.15); transform: translateY(-1px);
     }
-
     .navbar-nav .nav-link.active {
-      background: rgba(255,255,255,0.25);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      position: relative;
+      background: rgba(255,255,255,0.25); box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative;
     }
-
     .navbar-nav .nav-link.active::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 3px;
-      background: var(--accent);
-      border-radius: 2px;
+      content: ''; position: absolute; bottom: -3px; left: 50%;
+      transform: translateX(-50%); width: 24px; height: 3px;
+      background: var(--accent); border-radius: 2px;
     }
-
     .navbar-nav .nav-link.disabled { opacity: 0.5; cursor: not-allowed; }
-
+    
+    /* ============ DROPDOWN FIX - CORE ============ */
+    .navbar .nav-item.dropdown { position: relative; }
     .navbar .dropdown-menu {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      padding: 0.5rem;
-      margin-top: 8px;
-      min-width: 220px;
-      animation: slideDown 0.2s ease;
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 12px; box-shadow: var(--shadow-lg);
+      padding: 0.5rem; margin-top: 8px; min-width: 220px;
+      position: absolute; left: 0; top: 100%; z-index: 1050;
+      transform: none !important;
     }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     .navbar .dropdown-item {
-      font-size: 0.9rem;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
+      font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 8px;
+      color: var(--text-primary); display: flex; align-items: center; gap: 8px; transition: var(--transition);
     }
-
-    .navbar .dropdown-item:hover {
-      background: rgba(30, 64, 175, 0.08);
-      color: var(--primary);
-      padding-left: 1.25rem;
-    }
-
+    .navbar .dropdown-item:hover { background: rgba(30, 64, 175, 0.08); color: var(--primary); padding-left: 1.25rem; }
     .navbar .dropdown-item.disabled { opacity: 0.5; cursor: not-allowed; color: var(--text-secondary); }
     .navbar .dropdown-item.disabled:hover { background: transparent; padding-left: 1rem; color: var(--text-secondary); }
     .navbar .dropdown-item.active { background: rgba(30, 64, 175, 0.12); color: var(--primary); font-weight: 500; }
     .navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--border-color); }
     .dropdown-toggle::after { margin-left: 4px; font-size: 0.75rem; vertical-align: middle; }
-
+    
     .logo-placeholder {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      border: 2px solid rgba(255,255,255,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      cursor: pointer;
-      transition: var(--transition);
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.75rem;
-      text-align: center;
-      line-height: 1.2;
-      padding: 4px;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      cursor: pointer; transition: var(--transition); color: #fff;
+      font-weight: 600; font-size: 0.75rem; text-align: center; line-height: 1.2; padding: 4px;
     }
-
-    .logo-placeholder:hover {
-      background: rgba(255,255,255,0.25);
-      border-color: var(--accent);
-      transform: scale(1.05);
-    }
-
+    .logo-placeholder:hover { background: rgba(255,255,255,0.25); border-color: var(--accent); transform: scale(1.05); }
     .logo-placeholder img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
     .logo-placeholder .placeholder-text { font-size: 0.65rem; letter-spacing: 0.5px; }
-
     .navbar-toggler { border: none; padding: 0.4rem; margin-left: auto; }
     .navbar-toggler:focus { box-shadow: none; }
     .navbar-toggler-icon { filter: brightness(0) invert(1); }
-
+    
     @media (max-width: 991px) {
       .navbar-center { width: 100%; order: 3; margin-top: 1rem; }
       .navbar-center .navbar-nav { flex-direction: column; align-items: center; }
-      .navbar-collapse {
-        background: linear-gradient(180deg, var(--primary-dark), var(--primary));
-        border-radius: 12px;
-        padding: 0.75rem;
-      }
+      .navbar-collapse { background: linear-gradient(180deg, var(--primary-dark), var(--primary)); border-radius: 12px; padding: 0.75rem; }
       .navbar-nav .nav-link { padding: 0.6rem 1rem !important; margin: 4px 0; justify-content: center; }
+      
+      /* Mobile dropdown fix */
+      .navbar .nav-item.dropdown { position: static; }
       .navbar .dropdown-menu {
-        background: rgba(255,255,255,0.1);
-        border: none;
-        box-shadow: none;
-        margin: 0;
-        padding-left: 1.5rem;
-        text-align: center;
+        position: static !important; float: none; width: 100%; max-width: 100%;
+        background: rgba(255,255,255,0.1); border: none; box-shadow: none;
+        margin: 0; padding-left: 1.5rem; text-align: center; animation: none !important;
       }
-      .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; }
-      .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem; }
+      .navbar .dropdown-item { color: rgba(255,255,255,0.9); justify-content: center; padding-left: 1rem !important; }
+      .navbar .dropdown-item:hover { background: rgba(255,255,255,0.15); color: #fff; padding-left: 1rem !important; }
       .logo-placeholder { order: 2; margin-left: 0.5rem; }
+    }
+    
+    @media (min-width: 992px) {
+      .navbar .dropdown-menu { animation: slideDown 0.2s ease; }
     }
 
     /* ============ FORM STYLES ============ */
     .form-section {
-      margin-top: 2rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: var(--shadow-sm);
+      margin-top: 2rem; background: var(--bg-card);
+      border: 1px solid var(--border-color); border-radius: 16px;
+      padding: 1.5rem; box-shadow: var(--shadow-sm);
     }
-
-    .form-section h2 {
-      color: var(--primary);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .form-section > p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .form-label {
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 0.4rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .required-field::after {
-      content: "*";
-      color: #ef4444;
-      margin-left: 2px;
-    }
-
+    .form-section h2 { color: var(--primary); font-weight: 700; margin-bottom: 0.5rem; }
+    .form-section > p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .form-label { font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 4px; }
+    .required-field::after { content: "*"; color: #ef4444; margin-left: 2px; }
     .form-control, .form-select {
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-      padding: 0.6rem 1rem;
-      transition: var(--transition);
+      border-radius: 10px; border: 1px solid var(--border-color);
+      padding: 0.6rem 1rem; transition: var(--transition);
     }
-
     .form-control:focus, .form-select:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
-
-    .form-control[readonly] {
-      background-color: #f1f5f9;
-      color: var(--text-secondary);
-      cursor: not-allowed;
-    }
-
+    .form-control[readonly] { background-color: #f1f5f9; color: var(--text-secondary); cursor: not-allowed; }
     .btn-primary {
-      background: var(--primary);
-      border: none;
-      padding: 0.6rem 1.5rem;
-      border-radius: 10px;
-      font-weight: 500;
-      transition: var(--transition);
+      background: var(--primary); border: none; padding: 0.6rem 1.5rem;
+      border-radius: 10px; font-weight: 500; transition: var(--transition);
     }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .btn-secondary {
-      background: var(--text-secondary);
-      border: none;
-      padding: 0.6rem 1.5rem;
-      border-radius: 10px;
-      font-weight: 500;
-    }
-
-    .btn-outline-dark {
-      border-color: var(--border-color);
-      padding: 0.6rem 1.5rem;
-      border-radius: 10px;
-      font-weight: 500;
-    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: var(--text-secondary); border: none; padding: 0.6rem 1.5rem; border-radius: 10px; font-weight: 500; }
+    .btn-outline-dark { border-color: var(--border-color); padding: 0.6rem 1.5rem; border-radius: 10px; font-weight: 500; }
 
     /* Search & Filter Bar */
     .search-filter-bar {
-      background: var(--bg-body);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
+      background: var(--bg-body); border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;
     }
-
-    .search-filter-bar .form-control {
-      border-radius: 8px;
-    }
-
+    .search-filter-bar .form-control { border-radius: 8px; }
     .filter-badge {
-      background: var(--primary-light);
-      color: #fff;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      margin-left: 4px;
+      background: var(--primary-light); color: #fff;
+      padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; margin-left: 4px;
     }
 
-    /* Student List Dropdown */
+    /* Student List */
     .student-list-container {
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      background: var(--bg-card);
-      margin-top: 0.5rem;
+      max-height: 300px; overflow-y: auto;
+      border: 1px solid var(--border-color); border-radius: 10px;
+      background: var(--bg-card); margin-top: 0.5rem;
     }
-
     .student-list-item {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border-color);
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);
+      cursor: pointer; transition: var(--transition);
+      display: flex; justify-content: space-between; align-items: center;
     }
-
-    .student-list-item:hover {
-      background: rgba(30, 64, 175, 0.08);
-    }
-
-    .student-list-item.active {
-      background: rgba(30, 64, 175, 0.15);
-      border-left: 4px solid var(--primary);
-    }
-
+    .student-list-item:hover { background: rgba(30, 64, 175, 0.08); }
+    .student-list-item.active { background: rgba(30, 64, 175, 0.15); border-left: 4px solid var(--primary); }
     .student-list-item .sr-badge {
-      background: var(--accent);
-      color: #fff;
-      padding: 2px 10px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      background: var(--accent); color: #fff;
+      padding: 2px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;
     }
-
-    .student-list-item .student-info small {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-    }
-
-    .no-results {
-      padding: 1.5rem;
-      text-align: center;
-      color: var(--text-secondary);
-    }
+    .student-list-item .student-info small { color: var(--text-secondary); font-size: 0.85rem; }
+    .no-results { padding: 1.5rem; text-align: center; color: var(--text-secondary); }
 
     /* Form Cards */
     .form-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-      box-shadow: var(--shadow-sm);
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);
     }
-    
     .form-card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 1.1rem; font-weight: 600; color: var(--primary);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);
+      display: flex; align-items: center; gap: 8px;
     }
 
-    /* Checkbox group for subjects */
+    /* Checkbox group */
     .checkbox-group {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 0.5rem;
-      max-height: 200px;
-      overflow-y: auto;
-      padding: 0.5rem;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      background: var(--bg-card);
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem; max-height: 200px; overflow-y: auto; padding: 0.5rem;
+      border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card);
     }
-    
     .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.9rem;
-      margin: 0;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: var(--transition);
+      display: flex; align-items: center; gap: 6px; font-size: 0.9rem; margin: 0;
+      cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: var(--transition);
     }
-    
-    .checkbox-group label:hover {
-      background: rgba(30, 64, 175, 0.08);
-    }
-    
-    .checkbox-group input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-    }
+    .checkbox-group label:hover { background: rgba(30, 64, 175, 0.08); }
+    .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
 
-    /* BPL conditional field */
     .bpl-number-field { display: none; margin-top: 0.5rem; }
     .bpl-number-field.show { display: block; }
+    .guardian-toggle { display: flex; gap: 1.5rem; margin-bottom: 1rem; }
 
-    /* Guardian type toggle */
-    .guardian-toggle {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Previous class details table */
-    .prev-class-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    
-    .prev-class-table th,
-    .prev-class-table td {
-      padding: 0.5rem;
-      border: 1px solid var(--border-color);
-      text-align: left;
-    }
-    
-    .prev-class-table th {
-      background: var(--bg-body);
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-    
-    .prev-class-table input,
-    .prev-class-table select {
-      width: 100%;
-      padding: 0.4rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 0.9rem;
+    /* Previous class table */
+    .prev-class-table { width: 100%; border-collapse: collapse; }
+    .prev-class-table th, .prev-class-table td { padding: 0.5rem; border: 1px solid var(--border-color); text-align: left; }
+    .prev-class-table th { background: var(--bg-body); font-weight: 500; font-size: 0.9rem; }
+    .prev-class-table input, .prev-class-table select {
+      width: 100%; padding: 0.4rem; border: 1px solid var(--border-color);
+      border-radius: 6px; font-size: 0.9rem;
     }
 
-    /* Read-only badge */
+    /* Read-only & Badge Styles */
     .readonly-badge {
-      background: #f1f5f9;
-      color: var(--text-secondary);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      margin-left: 8px;
+      background: #f1f5f9; color: var(--text-secondary);
+      padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-left: 8px;
     }
-
-    /* Instructions Box */
-    .instructions {
-      margin-top: 2rem;
-      background: var(--bg-card);
+    .admission-type-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 20px; font-weight: 500; font-size: 0.85rem;
+    }
+    .admission-type-badge.new {
+      background: rgba(16, 185, 129, 0.15); color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .admission-type-badge.re {
+      background: rgba(245, 158, 11, 0.15); color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .admission-type-badge.unknown {
+      background: #f1f5f9; color: var(--text-secondary);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: var(--shadow-sm);
     }
 
+    /* Instructions */
+    .instructions {
+      margin-top: 2rem; background: var(--bg-card);
+      border: 1px solid var(--border-color); border-radius: 16px;
+      padding: 1.5rem; box-shadow: var(--shadow-sm);
+    }
     .instructions h4 {
-      color: var(--primary);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: var(--primary); font-weight: 600; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 8px;
     }
-
     .instructions h4::before { content: '💡'; font-size: 1.2rem; }
-
-    .instructions ul {
-      padding-left: 1.25rem;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
+    .instructions ul { padding-left: 1.25rem; color: var(--text-secondary); font-size: 0.95rem; }
     .instructions li { margin-bottom: 0.5rem; line-height: 1.5; }
 
     /* Loading skeleton */
     .skeleton {
-      height: 1.2em;
-      width: 100%;
+      height: 1.2em; width: 100%;
       background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-      background-size: 200% 100%;
-      margin-bottom: 0.5em;
-      border-radius: 6px;
+      background-size: 200% 100%; margin-bottom: 0.5em; border-radius: 6px;
       animation: shimmer 1.5s infinite;
     }
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
-    /* ============ FOOTER ============ */
+    /* Footer */
     .footer-section {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-      color: rgba(255,255,255,0.9);
-      padding: 2rem 0 1.5rem;
-      margin-top: 3rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.9); padding: 2rem 0 1.5rem;
+      margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1);
     }
-
-    .footer-section h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #fff;
-    }
-
+    .footer-section h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #fff; }
     .social-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      margin-right: 8px;
-      transition: var(--transition);
-      border: 1px solid transparent;
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.1rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.1); margin-right: 8px;
+      transition: var(--transition); border: 1px solid transparent;
+      color: #fff; text-decoration: none; font-size: 1.1rem;
     }
-
-    .social-links a:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,0.3);
-    }
-
-    .footer-section .copyright {
-      font-size: 0.9rem;
-      opacity: 0.85;
-      margin: 0;
-    }
-
+    .social-links a:hover { background: rgba(255,255,255,0.2); transform: translateY(-3px); border-color: rgba(255,255,255,0.3); }
+    .footer-section .copyright { font-size: 0.9rem; opacity: 0.85; margin: 0; }
     .footer-section .btn-outline-light {
-      border-color: rgba(255,255,255,0.4);
-      color: #fff;
-      font-weight: 500;
-      padding: 0.5rem 1.5rem;
-      border-radius: 50px;
-      transition: var(--transition);
+      border-color: rgba(255,255,255,0.4); color: #fff;
+      font-weight: 500; padding: 0.5rem 1.5rem; border-radius: 50px; transition: var(--transition);
     }
-
     .footer-section .btn-outline-light:hover {
-      background: #fff;
-      color: var(--primary);
-      border-color: #fff;
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      background: #fff; color: var(--primary); border-color: #fff;
+      transform: translateY(-2px); box-shadow: var(--shadow-md);
     }
-
     .footer-links { list-style: none; padding: 0; margin: 0; }
     .footer-links li { margin-bottom: 0.5rem; }
     .footer-links a {
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 0.9rem; transition: var(--transition);
+      display: flex; align-items: center; gap: 6px;
     }
     .footer-links a:hover { color: #fff; padding-left: 4px; }
-
     @media (max-width: 991px) {
       .footer-section .row > div { text-align: center !important; margin-bottom: 1.5rem; }
       .footer-section .text-end { text-align: center !important; }
@@ -588,27 +302,15 @@
     <!-- ============ HEADER ============ -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-building-check"></i>
-          <span>SchoolMS</span>
-        </a>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#"><i class="bi bi-building-check"></i><span>SchoolMS</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
           <span class="navbar-toggler-icon"></span>
         </button>
-        
         <div class="collapse navbar-collapse navbar-center" id="navbarContent">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/admin_dashboard.html">
-                <i class="bi bi-speedometer2"></i> Dashboard
-              </a>
-            </li>
-
+            <li class="nav-item"><a class="nav-link" href="/admin_dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-people"></i> Students
-              </a>
+              <a class="nav-link dropdown-toggle active" href="javascript:void(0)" data-bs-toggle="dropdown"><i class="bi bi-people"></i> Students</a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/admission/admission.html"><i class="bi bi-person-plus"></i> Admission</a></li>
                 <li><a class="dropdown-item disabled" href="/attendance/attendance.html"><i class="bi bi-calendar-check"></i> Attendance</a></li>
@@ -618,11 +320,8 @@
                 <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
               </ul>
             </li>
-
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-wallet2"></i> Finance
-              </a>
+              <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"><i class="bi bi-wallet2"></i> Finance</a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/payment_module/payment_module.html"><i class="bi bi-currency-dollar"></i> Payment Module</a></li>
                 <li><a class="dropdown-item disabled" href="/exam_module/exam_module.html"><i class="bi bi-clipboard2-check"></i> Exam Module</a></li>
@@ -630,11 +329,8 @@
                 <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
               </ul>
             </li>
-
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-building"></i> Institute
-              </a>
+              <a class="nav-link dropdown-toggle disabled" href="javascript:void(0)" data-bs-toggle="dropdown"><i class="bi bi-building"></i> Institute</a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a></li>
                 <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
@@ -645,21 +341,10 @@
                 <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
               </ul>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                <i class="bi bi-briefcase"></i> Staff
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="/admin_panel/admin_panel.html">
-                <i class="bi bi-gear"></i> Settings
-              </a>
-            </li>
+            <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-briefcase"></i> Staff</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin_panel/admin_panel.html"><i class="bi bi-gear"></i> Settings</a></li>
           </ul>
         </div>
-        
         <div class="logo-placeholder" title="SquadVertex Logo">
           <img src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0" alt="SquadVertex Logo" class="sv-logo">
         </div>
@@ -726,13 +411,9 @@
       <div class="mb-4">
         <label class="form-label">Select Student to Edit</label>
         <div id="student-list-loading">
-          <div class="skeleton"></div>
-          <div class="skeleton"></div>
-          <div class="skeleton"></div>
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
         </div>
-        <div id="student-list-container" class="student-list-container d-none">
-          <!-- Student items populated dynamically -->
-        </div>
+        <div id="student-list-container" class="student-list-container d-none"></div>
         <div id="no-students-found" class="no-results d-none">
           <i class="bi bi-search me-2"></i>No students found. Try adjusting your search or filters.
         </div>
@@ -783,6 +464,19 @@
             </div>
           </div>
 
+          <!-- ✅ CHANGE #1: Admission Type Badge (Read-only) -->
+          <div class="row g-3 mt-1">
+            <div class="col-12">
+              <label class="form-label">Admission Type <span class="readonly-badge">Read-only</span></label>
+              <div>
+                <span id="edit-admission-type-badge" class="admission-type-badge unknown">
+                  <i class="bi bi-question-circle"></i> Not Set
+                </span>
+                <small class="text-muted ms-2">Cannot be changed from edit page</small>
+              </div>
+            </div>
+          </div>
+
           <!-- Physical Details -->
           <div class="row g-3 mt-1">
             <div class="col-md-3">
@@ -797,21 +491,16 @@
               <label for="edit-blood-group" class="form-label required-field">Blood Group</label>
               <select id="edit-blood-group" class="form-select" required>
                 <option value="">Select</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
+                <option value="A+">A+</option><option value="A-">A-</option>
+                <option value="B+">B+</option><option value="B-">B-</option>
+                <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                <option value="O+">O+</option><option value="O-">O-</option>
               </select>
             </div>
             <div class="col-md-3">
               <label for="edit-bpl-status" class="form-label">BPL Status</label>
               <select id="edit-bpl-status" class="form-select">
-                <option value="No">No</option>
-                <option value="Yes">Yes</option>
+                <option value="No">No</option><option value="Yes">Yes</option>
               </select>
             </div>
           </div>
@@ -845,12 +534,9 @@
               <label for="edit-religion" class="form-label required-field">Religion</label>
               <select id="edit-religion" class="form-select" required>
                 <option value="">Select</option>
-                <option value="Hindu">Hindu</option>
-                <option value="Muslim">Muslim</option>
-                <option value="Sikh">Sikh</option>
-                <option value="Christian">Christian</option>
-                <option value="Jain">Jain</option>
-                <option value="Buddhist">Buddhist</option>
+                <option value="Hindu">Hindu</option><option value="Muslim">Muslim</option>
+                <option value="Sikh">Sikh</option><option value="Christian">Christian</option>
+                <option value="Jain">Jain</option><option value="Buddhist">Buddhist</option>
                 <option value="Other">Other</option>
               </select>
             </div>
@@ -862,11 +548,8 @@
               <label for="edit-category" class="form-label required-field">Category</label>
               <select id="edit-category" class="form-select" required>
                 <option value="">Select</option>
-                <option value="General">General</option>
-                <option value="OBC">OBC</option>
-                <option value="SC">SC</option>
-                <option value="ST">ST</option>
-                <option value="EWS">EWS</option>
+                <option value="General">General</option><option value="OBC">OBC</option>
+                <option value="SC">SC</option><option value="ST">ST</option><option value="EWS">EWS</option>
               </select>
             </div>
           </div>
@@ -947,18 +630,15 @@
               <label for="edit-class" class="form-label required-field">Class</label>
               <select id="edit-class" class="form-select" required>
                 <option value="">Select Class</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
+                <option value="9">9</option><option value="10">10</option>
+                <option value="11">11</option><option value="12">12</option>
               </select>
             </div>
             <div class="col-md-4">
               <label for="edit-stream" class="form-label required-field">Stream</label>
               <select id="edit-stream" class="form-select" required disabled>
                 <option value="">Select Stream</option>
-                <option value="Arts">Arts</option>
-                <option value="Commerce">Commerce</option>
+                <option value="Arts">Arts</option><option value="Commerce">Commerce</option>
                 <option value="Science">Science</option>
                 <option value="N/A" disabled>N/A (for Class 9/10)</option>
               </select>
@@ -992,10 +672,10 @@
               </select>
             </div>
             <div class="col-md-8">
+              <!-- ✅ CHANGE: Previous School Name - Now simple text input -->
               <label for="edit-old-school" class="form-label required-field">Previous School Name</label>
-              <select id="edit-old-school" class="form-select" required disabled>
-                <option value="">Select School Type first</option>
-              </select>
+              <input type="text" id="edit-old-school" class="form-control" placeholder="Enter previous school name" required />
+              <small class="text-muted">Enter school name manually</small>
             </div>
           </div>
 
@@ -1005,39 +685,45 @@
             <table class="prev-class-table">
               <thead>
                 <tr>
-                  <th width="15%">Class</th>
-                  <th width="20%">Academic Year</th>
-                  <th width="15%">Total Marks</th>
-                  <th width="15%">Marks Obtained</th>
-                  <th width="15%">Grade</th>
-                  <th width="20%">Result</th>
+                  <th width="15%">Class</th><th width="20%">Academic Year</th>
+                  <th width="15%">Total Marks</th><th width="15%">Marks Obtained</th>
+                  <th width="15%">Grade</th><th width="20%">Result</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
-                    <select id="edit-prev-class" required>
+                    <select id="edit-prev-class" class="form-select" required>
                       <option value="">Select</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
+                      <option value="8">8</option><option value="9">9</option>
+                      <option value="10">10</option><option value="11">11</option>
+                      <option value="12">12</option>
                     </select>
                   </td>
-                  <td><input type="text" id="edit-prev-academic-year" placeholder="e.g., 2024-25" required /></td>
-                  <td><input type="number" id="edit-prev-total-marks" placeholder="e.g., 500" required /></td>
-                  <td><input type="number" id="edit-prev-obtained-marks" placeholder="e.g., 450" required /></td>
-                  <td><input type="text" id="edit-prev-grade" placeholder="e.g., A1" required /></td>
+                  <td><input type="text" id="edit-prev-academic-year" class="form-control" placeholder="e.g., 2024-25" required /></td>
+                  <td><input type="number" id="edit-prev-total-marks" class="form-control" placeholder="e.g., 500" /></td>
+                  <td><input type="number" id="edit-prev-obtained-marks" class="form-control" placeholder="e.g., 450" /></td>
+                  <td><input type="text" id="edit-prev-grade" class="form-control" placeholder="e.g., A1" /></td>
                   <td>
-                    <select id="edit-prev-result" required>
+                    <select id="edit-prev-result" class="form-select" required>
                       <option value="">Select</option>
-                      <option value="Pass">Pass</option>
-                      <option value="Fail">Fail</option>
+                      <option value="Pass">Pass</option><option value="Fail">Fail</option>
                     </select>
                   </td>
                 </tr>
               </tbody>
             </table>
+            
+            <!-- Previous Stream field (only for class 11/12) -->
+            <div class="mt-3" id="edit-prev-stream-container" style="display: none;">
+              <label for="edit-prev-stream" class="form-label">Previous Stream <span class="readonly-badge">11/12 only</span></label>
+              <select id="edit-prev-stream" class="form-select">
+                <option value="">Select Previous Stream</option>
+                <option value="Arts">Arts</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Science">Science</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -1064,10 +750,10 @@
         <li>Apply <strong>Filters</strong> (Class, Stream, Category) to narrow down the list.</li>
         <li>Click on a student from the list to load their data for editing.</li>
         <li>All fields marked with <span class="text-danger">*</span> are required.</li>
-        <li><strong>SR Number</strong> and <strong>Admission Fee Status</strong> are read-only and cannot be changed.</li>
+        <li><strong>SR Number</strong>, <strong>Admission Fee Status</strong>, and <strong>Admission Type</strong> are read-only and cannot be changed.</li>
         <li>For Class 9/10, Stream is set to N/A and only Sanskrit/Punjabi subjects are available.</li>
         <li>For Class 11/12, select Stream first, then choose from stream-specific subjects.</li>
-        <li>Click <strong>"Update Student Data"</strong> to save changes to the database.</li>
+        <li>After saving, the form will automatically clear and hide for the next student.</li>
       </ul>
     </div>
 
@@ -1087,7 +773,6 @@
             <a href="#" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
-        
         <div class="col-lg-4 col-md-6">
           <h3>Quick Links</h3>
           <ul class="footer-links">
@@ -1097,7 +782,6 @@
             <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
           </ul>
         </div>
-        
         <div class="col-lg-4 col-md-12 text-lg-end">
           <a href="/documentation.html" target="_blank" class="btn btn-outline-light mb-3">
             <i class="bi bi-book me-1"></i>View Docs
@@ -1108,13 +792,20 @@
     </div>
   </footer>
 
-  <!-- Firebase SDK (Compat for easier usage) -->
+  <!-- ✅ Single set of scripts (removed duplicates) -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Firebase configuration
+    // ✅ Initialize Bootstrap Dropdowns manually (ensures proper working)
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+      dropdownElementList.map(function(dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl);
+      });
+    });
+
     const firebaseConfig = {
       apiKey: "AIzaSyAXAs_j7Six8N3aW9yc3zUJcy_yodZgeJo",
       authDomain: "loomischool-26.firebaseapp.com",
@@ -1127,98 +818,40 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // ============ SUBJECTS CONFIGURATION ============
     const subjectsConfig = {
-      '9': ['Sanskrit', 'Punjabi'],
-      '10': ['Sanskrit', 'Punjabi'],
-      '11': {
-        'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
-        'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
-        'Science': ['Mathematics', 'Biology']
-      },
-      '12': {
-        'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
-        'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
-        'Science': ['Mathematics', 'Biology']
-      }
+      '9': ['Sanskrit', 'Punjabi'], '10': ['Sanskrit', 'Punjabi'],
+      '11': { 'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
+              'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
+              'Science': ['Mathematics', 'Biology'] },
+      '12': { 'Arts': ['Geography', 'Political Science', 'History', 'Mathematics', 'Computer Science', 'Hindi Literature', 'English Literature'],
+              'Commerce': ['Economics', 'Mathematics', 'Computer Science'],
+              'Science': ['Mathematics', 'Biology'] }
     };
 
-    // ============ SCHOOL LISTS ============
-    const governmentSchools = [
-      "Government Senior Secondary School, Jaipur",
-      "Government Girls School, Jodhpur",
-      "Government Model School, Udaipur",
-      "Government High School, Kota",
-      "Government Primary School, Ajmer"
-    ];
-    
-    const privateSchools = [
-      "Delhi Public School, Jaipur",
-      "Maharaja Agrasen School, Jodhpur",
-      "Ryan International School, Udaipur",
-      "Podar International School, Kota",
-      "Amity International School, Ajmer"
-    ];
+    let allStudents = [], filteredStudents = [], selectedStudentId = null;
 
-    let allStudents = [];
-    let filteredStudents = [];
-    let selectedStudentId = null;
-
-    // ============ HELPER FUNCTIONS ============
-    
     function renderSubjectCheckboxes(selectedClass, selectedStream = null, selectedSubjects = []) {
       const container = document.getElementById('edit-subjects-container');
       container.innerHTML = '';
-      
       let subjects = [];
-      
-      if (selectedClass === '9' || selectedClass === '10') {
-        subjects = subjectsConfig[selectedClass];
-      } else if (selectedClass === '11' || selectedClass === '12') {
-        if (selectedStream && subjectsConfig[selectedClass][selectedStream]) {
-          subjects = subjectsConfig[selectedClass][selectedStream];
-        } else {
-          container.innerHTML = '<small class="text-muted w-100">Please select Stream first</small>';
-          return;
-        }
+      if (selectedClass === '9' || selectedClass === '10') subjects = subjectsConfig[selectedClass];
+      else if (selectedClass === '11' || selectedClass === '12') {
+        if (selectedStream && subjectsConfig[selectedClass][selectedStream]) subjects = subjectsConfig[selectedClass][selectedStream];
+        else { container.innerHTML = '<small class="text-muted w-100">Please select Stream first</small>'; return; }
       }
-      
-      if (subjects.length === 0) {
-        container.innerHTML = '<small class="text-muted w-100">No subjects available</small>';
-        return;
-      }
-      
+      if (subjects.length === 0) { container.innerHTML = '<small class="text-muted w-100">No subjects available</small>'; return; }
       subjects.forEach(subject => {
         const label = document.createElement('label');
         const isChecked = selectedSubjects.includes(subject);
-        label.innerHTML = `
-          <input type="checkbox" name="edit-subject" value="${subject}" ${isChecked ? 'checked' : ''}>
-          <span>${subject}</span>
-        `;
+        label.innerHTML = `<input type="checkbox" name="edit-subject" value="${subject}" ${isChecked ? 'checked' : ''}><span>${subject}</span>`;
         container.appendChild(label);
       });
-    }
-
-    function populateSchoolDropdown(schoolType, currentValue = '') {
-      const schoolSelect = document.getElementById('edit-old-school');
-      schoolSelect.innerHTML = '<option value="">Select School</option>';
-      
-      const schools = schoolType === 'Government' ? governmentSchools : privateSchools;
-      schools.forEach(school => {
-        const option = document.createElement('option');
-        option.value = school;
-        option.textContent = school;
-        if (school === currentValue) option.selected = true;
-        schoolSelect.appendChild(option);
-      });
-      schoolSelect.disabled = false;
     }
 
     function toggleEditGuardianFields() {
       const isParents = document.getElementById('edit-guardian-parents').checked;
       document.getElementById('edit-parents-fields').style.display = isParents ? 'block' : 'none';
       document.getElementById('edit-guardian-fields').style.display = isParents ? 'none' : 'block';
-      
       document.getElementById('edit-father-name').required = isParents;
       document.getElementById('edit-mother-name').required = isParents;
       document.getElementById('edit-guardian-name').required = !isParents;
@@ -1231,97 +864,103 @@
       return new Date(ts).toLocaleString('en-GB');
     }
 
-    // ============ SEARCH & FILTER LOGIC ============
-    
+    // ✅ Render Admission Type Badge
+    function renderAdmissionTypeBadge(admissionType) {
+      const badge = document.getElementById('edit-admission-type-badge');
+      if (admissionType === 'new') {
+        badge.className = 'admission-type-badge new';
+        badge.innerHTML = '<i class="bi bi-check-circle-fill"></i> New Admission';
+      } else if (admissionType === 're') {
+        badge.className = 'admission-type-badge re';
+        badge.innerHTML = '<i class="bi bi-arrow-repeat"></i> Re-Admission';
+      } else {
+        badge.className = 'admission-type-badge unknown';
+        badge.innerHTML = '<i class="bi bi-question-circle"></i> Not Set';
+      }
+    }
+
+    function togglePrevClassFields() {
+      const prevClass = document.getElementById('edit-prev-class').value;
+      const gradeField = document.getElementById('edit-prev-grade');
+      const totalMarksField = document.getElementById('edit-prev-total-marks');
+      const obtainedMarksField = document.getElementById('edit-prev-obtained-marks');
+      if (prevClass === '8') {
+        gradeField.disabled = false; gradeField.required = true;
+        totalMarksField.disabled = true; totalMarksField.required = false; totalMarksField.value = '';
+        obtainedMarksField.disabled = true; obtainedMarksField.required = false; obtainedMarksField.value = '';
+      } else if (prevClass && prevClass !== '8') {
+        gradeField.disabled = true; gradeField.required = false; gradeField.value = '';
+        totalMarksField.disabled = false; totalMarksField.required = true;
+        obtainedMarksField.disabled = false; obtainedMarksField.required = true;
+      } else {
+        gradeField.disabled = false; gradeField.required = false;
+        totalMarksField.disabled = false; totalMarksField.required = false;
+        obtainedMarksField.disabled = false; obtainedMarksField.required = false;
+      }
+    }
+
+    function togglePrevStreamField() {
+      const prevClass = document.getElementById('edit-prev-class').value;
+      const container = document.getElementById('edit-prev-stream-container');
+      const streamSelect = document.getElementById('edit-prev-stream');
+      if (prevClass === '11' || prevClass === '12') {
+        container.style.display = 'block'; streamSelect.required = true;
+      } else {
+        container.style.display = 'none'; streamSelect.required = false; streamSelect.value = '';
+      }
+    }
+
     function filterStudents() {
       const searchTerm = document.getElementById('student-search').value.toLowerCase().trim();
       const classFilter = document.getElementById('filter-class').value;
       const streamFilter = document.getElementById('filter-stream').value;
       const categoryFilter = document.getElementById('filter-category').value;
-      
       filteredStudents = allStudents.filter(student => {
-        // Search filter
         const matchesSearch = !searchTerm || 
           (student.studentName && student.studentName.toLowerCase().includes(searchTerm)) ||
           (student.srNumber && student.srNumber.toString().includes(searchTerm)) ||
           (student.contact && student.contact.includes(searchTerm)) ||
           (student.aadhar && student.aadhar.includes(searchTerm));
-        
-        // Class filter
         const matchesClass = !classFilter || student.class === classFilter;
-        
-        // Stream filter
-        const matchesStream = !streamFilter || 
-          (streamFilter === 'N/A' ? (!student.stream || student.stream === 'N/A') : student.stream === streamFilter);
-        
-        // Category filter
+        const matchesStream = !streamFilter || (streamFilter === 'N/A' ? (!student.stream || student.stream === 'N/A') : student.stream === streamFilter);
         const matchesCategory = !categoryFilter || student.category === categoryFilter;
-        
         return matchesSearch && matchesClass && matchesStream && matchesCategory;
       });
-      
-      renderStudentList();
-      updateResultsCount();
-      updateActiveFilters();
+      renderStudentList(); updateResultsCount(); updateActiveFilters();
     }
 
     function renderStudentList() {
       const container = document.getElementById('student-list-container');
       const noResults = document.getElementById('no-students-found');
-      
-      if (filteredStudents.length === 0) {
-        container.classList.add('d-none');
-        noResults.classList.remove('d-none');
-        return;
-      }
-      
-      noResults.classList.add('d-none');
-      container.classList.remove('d-none');
-      container.innerHTML = '';
-      
+      if (filteredStudents.length === 0) { container.classList.add('d-none'); noResults.classList.remove('d-none'); return; }
+      noResults.classList.add('d-none'); container.classList.remove('d-none'); container.innerHTML = '';
       filteredStudents.forEach(student => {
         const item = document.createElement('div');
         item.className = `student-list-item ${student.id === selectedStudentId ? 'active' : ''}`;
         item.dataset.id = student.id;
-        
         const streamDisplay = student.stream && student.stream !== 'N/A' ? ` • ${student.stream}` : '';
         const classDisplay = student.class ? `Class ${student.class}${streamDisplay}` : '';
-        
+        const typeBadge = student.admissionType === 'new' ? '🟢' : student.admissionType === 're' ? '🟡' : '⚪';
         item.innerHTML = `
           <div class="student-info">
             <strong>${student.studentName || 'Unknown'}</strong><br>
-            <small>SR: ${student.srNumber || 'N/A'} • ${classDisplay || 'Class N/A'}</small>
+            <small>SR: ${student.srNumber || 'N/A'} • ${classDisplay || 'Class N/A'} ${typeBadge}</small>
           </div>
           <span class="sr-badge">SR ${student.srNumber || '?'}</span>
         `;
-        
         item.addEventListener('click', () => loadStudentForEdit(student.id));
         container.appendChild(item);
       });
     }
 
-    function updateResultsCount() {
-      const count = document.getElementById('results-count');
-      count.textContent = `Showing ${filteredStudents.length} of ${allStudents.length} students`;
-    }
-
+    function updateResultsCount() { document.getElementById('results-count').textContent = `Showing ${filteredStudents.length} of ${allStudents.length} students`; }
     function updateActiveFilters() {
-      const container = document.getElementById('active-filters');
-      const filters = [];
-      
-      if (document.getElementById('filter-class').value) {
-        filters.push(`<span class="filter-badge">Class ${document.getElementById('filter-class').value}</span>`);
-      }
-      if (document.getElementById('filter-stream').value) {
-        filters.push(`<span class="filter-badge">${document.getElementById('filter-stream').value}</span>`);
-      }
-      if (document.getElementById('filter-category').value) {
-        filters.push(`<span class="filter-badge">${document.getElementById('filter-category').value}</span>`);
-      }
-      
+      const container = document.getElementById('active-filters'); const filters = [];
+      if (document.getElementById('filter-class').value) filters.push(`<span class="filter-badge">Class ${document.getElementById('filter-class').value}</span>`);
+      if (document.getElementById('filter-stream').value) filters.push(`<span class="filter-badge">${document.getElementById('filter-stream').value}</span>`);
+      if (document.getElementById('filter-category').value) filters.push(`<span class="filter-badge">${document.getElementById('filter-category').value}</span>`);
       container.innerHTML = filters.join(' ');
     }
-
     function clearFilters() {
       document.getElementById('student-search').value = '';
       document.getElementById('filter-class').value = '';
@@ -1330,17 +969,13 @@
       filterStudents();
     }
 
-    // ============ LOAD & EDIT STUDENT ============
-    
     async function loadAllStudents() {
       try {
         const snapshot = await db.collection("001-school").doc("students").collection("list").get();
         allStudents = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         filteredStudents = [...allStudents];
-        
         document.getElementById('student-list-loading').classList.add('d-none');
-        renderStudentList();
-        updateResultsCount();
+        renderStudentList(); updateResultsCount();
       } catch (error) {
         console.error("Error loading students:", error);
         document.getElementById('student-list-loading').innerHTML = '<small class="text-danger">Error loading students. Please refresh.</small>';
@@ -1349,19 +984,10 @@
 
     async function loadStudentForEdit(studentId) {
       selectedStudentId = studentId;
-      
-      // Update UI selection
-      document.querySelectorAll('.student-list-item').forEach(item => {
-        item.classList.toggle('active', item.dataset.id === studentId);
-      });
-      
+      document.querySelectorAll('.student-list-item').forEach(item => item.classList.toggle('active', item.dataset.id === studentId));
       try {
         const doc = await db.collection("001-school").doc("students").collection("list").doc(studentId).get();
-        if (!doc.exists) {
-          alert("Student not found!");
-          return;
-        }
-        
+        if (!doc.exists) { alert("Student not found!"); return; }
         const data = doc.data();
         
         // Personal Info
@@ -1372,6 +998,9 @@
         document.getElementById('edit-dob').value = data.dob || '';
         document.getElementById('edit-contact').value = data.contact || '';
         document.getElementById('edit-admission-fee').value = data.admissionFeeStatus || 'Not Available';
+        
+        // Admission Type Badge
+        renderAdmissionTypeBadge(data.admissionType);
         
         // Physical Details
         document.getElementById('edit-height').value = data.height || '';
@@ -1420,11 +1049,9 @@
         const selectedSubjects = data.subjects || [];
         renderSubjectCheckboxes(data.class, streamValue !== 'N/A' ? streamValue : null, selectedSubjects);
         
-        // School Info
+        // ✅ School Info - FIXED: Load old school name directly into text input
         document.getElementById('edit-school-type').value = data.schoolType || '';
-        if (data.schoolType) {
-          populateSchoolDropdown(data.schoolType, data.oldSchoolName || '');
-        }
+        document.getElementById('edit-old-school').value = data.oldSchoolName || '';
         
         // Previous Class Details
         if (data.previousClass) {
@@ -1434,7 +1061,9 @@
           document.getElementById('edit-prev-obtained-marks').value = data.previousClass.obtainedMarks || '';
           document.getElementById('edit-prev-grade').value = data.previousClass.grade || '';
           document.getElementById('edit-prev-result').value = data.previousClass.result || '';
+          if (data.previousClass.previousStream) document.getElementById('edit-prev-stream').value = data.previousClass.previousStream;
         }
+        togglePrevClassFields(); togglePrevStreamField();
         
         // Remarks
         document.getElementById('edit-remarks').value = data.remarks || '';
@@ -1443,122 +1072,104 @@
         document.getElementById('edit-student-form').classList.remove('d-none');
         
       } catch (error) {
-        console.error("Error fetching student data:", error);
+        console.error("Error fetching student ", error);
         alert("Error loading student data. Please try again.");
       }
     }
 
-    // ============ EVENT LISTENERS ============
-    
-    // Search & Filters
+    function clearAndHideForm() {
+      document.getElementById('edit-student-form').reset();
+      document.getElementById('edit-bpl-number').closest('.row').classList.remove('show');
+      document.getElementById('edit-prev-stream-container').style.display = 'none';
+      document.getElementById('edit-subjects-container').innerHTML = '<small class="text-muted w-100">Select Class/Stream to see available subjects</small>';
+      document.getElementById('edit-stream').disabled = true;
+      document.getElementById('edit-old-school').value = '';
+      renderAdmissionTypeBadge(null);
+      document.getElementById('edit-guardian-parents').checked = true;
+      toggleEditGuardianFields();
+      togglePrevClassFields();
+      document.getElementById('edit-student-form').classList.add('d-none');
+      selectedStudentId = null;
+      document.querySelectorAll('.student-list-item').forEach(item => item.classList.remove('active'));
+    }
+
+    // Event Listeners
     document.getElementById('student-search').addEventListener('input', filterStudents);
     document.getElementById('filter-class').addEventListener('change', filterStudents);
     document.getElementById('filter-stream').addEventListener('change', filterStudents);
     document.getElementById('filter-category').addEventListener('change', filterStudents);
     document.getElementById('clear-filters').addEventListener('click', clearFilters);
 
-    // Class change handler (for subjects)
     document.getElementById('edit-class').addEventListener('change', function() {
       const selectedClass = this.value;
       const streamSelect = document.getElementById('edit-stream');
-      
       if (selectedClass === '9' || selectedClass === '10') {
-        streamSelect.disabled = true;
-        streamSelect.value = 'N/A';
-        renderSubjectCheckboxes(selectedClass, null, getSelectedEditSubjects());
+        streamSelect.disabled = true; streamSelect.value = 'N/A';
+        renderSubjectCheckboxes(selectedClass, null, Array.from(document.querySelectorAll('input[name="edit-subject"]:checked')).map(cb => cb.value));
       } else if (selectedClass === '11' || selectedClass === '12') {
         streamSelect.disabled = false;
         if (!streamSelect.value || streamSelect.value === 'N/A') {
           document.getElementById('edit-subjects-container').innerHTML = '<small class="text-muted w-100">Please select Stream first</small>';
         } else {
-          renderSubjectCheckboxes(selectedClass, streamSelect.value, getSelectedEditSubjects());
+          renderSubjectCheckboxes(selectedClass, streamSelect.value, Array.from(document.querySelectorAll('input[name="edit-subject"]:checked')).map(cb => cb.value));
         }
       } else {
-        streamSelect.disabled = true;
-        streamSelect.value = '';
+        streamSelect.disabled = true; streamSelect.value = '';
         document.getElementById('edit-subjects-container').innerHTML = '<small class="text-muted w-100">Select Class first</small>';
       }
     });
 
-    // Stream change handler
     document.getElementById('edit-stream').addEventListener('change', function() {
       const selectedClass = document.getElementById('edit-class').value;
       const selectedStream = this.value;
-      
       if ((selectedClass === '11' || selectedClass === '12') && selectedStream && selectedStream !== 'N/A') {
-        renderSubjectCheckboxes(selectedClass, selectedStream, getSelectedEditSubjects());
+        renderSubjectCheckboxes(selectedClass, selectedStream, Array.from(document.querySelectorAll('input[name="edit-subject"]:checked')).map(cb => cb.value));
       }
     });
 
-    // School type change
-    document.getElementById('edit-school-type').addEventListener('change', function() {
-      populateSchoolDropdown(this.value);
-    });
-
-    // BPL toggle
     document.getElementById('edit-bpl-status').addEventListener('change', function() {
       const bplField = document.getElementById('edit-bpl-number');
-      if (this.value === 'Yes') {
-        bplField.closest('.row').classList.add('show');
-        bplField.required = true;
-      } else {
-        bplField.closest('.row').classList.remove('show');
-        bplField.required = false;
-        bplField.value = '';
-      }
+      if (this.value === 'Yes') { bplField.closest('.row').classList.add('show'); bplField.required = true; }
+      else { bplField.closest('.row').classList.remove('show'); bplField.required = false; bplField.value = ''; }
     });
-
-    // Guardian type toggle
-    document.querySelectorAll('input[name="edit-guardian-type"]').forEach(radio => {
-      radio.addEventListener('change', toggleEditGuardianFields);
-    });
-
-    // Get currently selected subjects from checkboxes
-    function getSelectedEditSubjects() {
-      return Array.from(document.querySelectorAll('input[name="edit-subject"]:checked')).map(cb => cb.value);
-    }
-
-    // Reset form
-    document.getElementById('reset-form').addEventListener('click', function() {
-      if (selectedStudentId) {
-        loadStudentForEdit(selectedStudentId);
-      }
-    });
+    document.querySelectorAll('input[name="edit-guardian-type"]').forEach(radio => radio.addEventListener('change', toggleEditGuardianFields));
+    document.getElementById('edit-prev-class').addEventListener('change', function() { togglePrevClassFields(); togglePrevStreamField(); });
+    document.getElementById('reset-form').addEventListener('click', function() { if (selectedStudentId) loadStudentForEdit(selectedStudentId); });
 
     // Form submission
     document.getElementById('edit-student-form').addEventListener('submit', async function(e) {
       e.preventDefault();
+      if (!selectedStudentId) { alert("Please select a student first."); return; }
       
-      if (!selectedStudentId) {
-        alert("Please select a student first.");
-        return;
-      }
-      
-      // Validate parent/guardian
       const isParents = document.getElementById('edit-guardian-parents').checked;
       if (isParents) {
         if (!document.getElementById('edit-father-name').value.trim() || !document.getElementById('edit-mother-name').value.trim()) {
-          alert("Please fill both Father's Name and Mother's Name.");
-          return;
+          alert("Please fill both Father's Name and Mother's Name."); return;
         }
       } else {
         if (!document.getElementById('edit-guardian-name').value.trim() || !document.getElementById('edit-guardian-relation').value.trim()) {
-          alert("Please fill Guardian Name and Relation.");
-          return;
+          alert("Please fill Guardian Name and Relation."); return;
         }
       }
       
-      // Validate subjects
-      const selectedSubjects = getSelectedEditSubjects();
-      if (selectedSubjects.length === 0) {
-        alert("Please select at least one subject.");
-        return;
+      const selectedSubjects = Array.from(document.querySelectorAll('input[name="edit-subject"]:checked')).map(cb => cb.value);
+      if (selectedSubjects.length === 0) { alert("Please select at least one subject."); return; }
+      
+      const prevClass = document.getElementById('edit-prev-class').value;
+      if (prevClass === '8') {
+        if (!document.getElementById('edit-prev-grade').value.trim()) { alert("Please enter Grade for previous Class 8."); return; }
+      } else if (prevClass && prevClass !== '8') {
+        if (!document.getElementById('edit-prev-total-marks').value || !document.getElementById('edit-prev-obtained-marks').value) {
+          alert("Please enter Total Marks and Obtained Marks for previous class."); return;
+        }
+      }
+      if ((prevClass === '11' || prevClass === '12') && !document.getElementById('edit-prev-stream').value) {
+        alert("Please select Previous Stream for Class 11/12."); return;
       }
       
       if (!confirm("Are you sure you want to update this student's data?")) return;
 
       const updatedData = {
-        // Personal
         studentName: document.getElementById('edit-student-name').value.trim(),
         gender: document.getElementById('edit-gender').value,
         admissionDate: document.getElementById('edit-admission-date').value,
@@ -1580,31 +1191,24 @@
         city: document.getElementById('edit-city').value,
         district: document.getElementById('edit-district').value,
         state: document.getElementById('edit-state').value,
-        
-        // Parent/Guardian
         fatherName: isParents ? document.getElementById('edit-father-name').value.trim() : null,
         motherName: isParents ? document.getElementById('edit-mother-name').value.trim() : null,
         guardianName: !isParents ? document.getElementById('edit-guardian-name').value.trim() : null,
         guardianRelation: !isParents ? document.getElementById('edit-guardian-relation').value.trim() : null,
-        
-        // Academic
         class: document.getElementById('edit-class').value,
         stream: document.getElementById('edit-stream').value === 'N/A' ? null : document.getElementById('edit-stream').value,
         subjects: selectedSubjects,
-        
-        // School
         schoolType: document.getElementById('edit-school-type').value,
-        oldSchoolName: document.getElementById('edit-old-school').value,
+        oldSchoolName: document.getElementById('edit-old-school').value.trim(),
         previousClass: {
           class: document.getElementById('edit-prev-class').value,
           academicYear: document.getElementById('edit-prev-academic-year').value,
-          totalMarks: parseInt(document.getElementById('edit-prev-total-marks').value) || 0,
-          obtainedMarks: parseInt(document.getElementById('edit-prev-obtained-marks').value) || 0,
-          grade: document.getElementById('edit-prev-grade').value,
-          result: document.getElementById('edit-prev-result').value
+          totalMarks: prevClass === '8' ? null : (parseInt(document.getElementById('edit-prev-total-marks').value) || 0),
+          obtainedMarks: prevClass === '8' ? null : (parseInt(document.getElementById('edit-prev-obtained-marks').value) || 0),
+          grade: prevClass === '8' ? document.getElementById('edit-prev-grade').value : null,
+          result: document.getElementById('edit-prev-result').value,
+          previousStream: (prevClass === '11' || prevClass === '12') ? document.getElementById('edit-prev-stream').value : null
         },
-        
-        // Existing
         remarks: document.getElementById('edit-remarks').value.trim(),
         admissionFeeStatus: document.getElementById('edit-admission-fee').value,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -1613,20 +1217,14 @@
       try {
         await db.collection("001-school").doc("students").collection("list").doc(selectedStudentId).update(updatedData);
         alert("✅ Student data updated successfully!");
-        
-        // Refresh student list to show updated data
+        clearAndHideForm();
         await loadAllStudents();
-        
-        // Re-select the student to show updated data in form
-        loadStudentForEdit(selectedStudentId);
-        
       } catch (error) {
-        console.error("Error updating student data:", error);
+        console.error("Error updating student ", error);
         alert("❌ Error updating data. Please try again.");
       }
     });
 
-    // Initialize
     window.addEventListener("DOMContentLoaded", function() {
       loadAllStudents();
       toggleEditGuardianFields();
