@@ -17,7 +17,6 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-
   <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -35,16 +34,12 @@
       --secondary: #10b981;
       --accent: #f59e0b;
       --danger: #ef4444;
-      --bg-body: #f8fafc;
       --bg-card: #ffffff;
       --text-primary: #1e293b;
       --text-secondary: #64748b;
-      --border-color: #e2e8f0;
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      --transition: all 0.2s ease-in-out;
-
     }
 
     * {
@@ -53,7 +48,6 @@
       box-sizing: border-box;
     }
 
-    /* Gap and Margin Fix */
     body {
       background-color: var(--bg-body);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -61,7 +55,6 @@
       line-height: 1.6;
     }
 
-    /* ============ NAVBAR (Same as Dashboard) ============ */
     .navbar {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       box-shadow: var(--shadow-md);
@@ -300,7 +293,6 @@
       }
     }
 
-    /* ============ FOOTER (Same as Dashboard) ============ */
     .footer-section {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
       color: rgba(255, 255, 255, 0.9);
@@ -401,6 +393,52 @@
         display: flex;
       }
     }
+
+    .transaction-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md);
+      margin: 2rem 0;
+    }
+
+    .table thead th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      padding: 0.85rem 1rem;
+    }
+
+    .table tbody td {
+      padding: 0.85rem 1rem;
+      vertical-align: middle;
+      border-color: var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    .table tbody tr:hover {
+      background: rgba(30, 64, 175, 0.03);
+    }
+
+    .badge {
+      padding: 0.4em 0.8em;
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 
@@ -408,35 +446,16 @@
   <!-- ============ HEADER ============ -->
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-
-      <!-- LEFT: Brand -->
-      <a class="navbar-brand" href="#">
-        <i class="bi bi-building-check"></i>
-        <span>SchoolMS</span>
-      </a>
-
-      <!-- TOGGLER (Mobile) -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- CENTER: Nav Items -->
+      <a class="navbar-brand" href="#"><i class="bi bi-building-check"></i><span>SchoolMS</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"><span
+          class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse navbar-center" id="navbarContent">
         <ul class="navbar-nav">
-
-          <!-- Dashboard -->
-          <li class="nav-item">
-            <a class="nav-link" href="/admin_dashboard.html">
-              <i class="bi bi-speedometer2"></i> Dashboard
-            </a>
-          </li>
-
-          <!-- 👥 Students Dropdown -->
+          <li class="nav-item"><a class="nav-link" href="/admin_dashboard.html"><i class="bi bi-speedometer2"></i>
+              Dashboard</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-people"></i> Students
-            </a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-people"></i>
+              Students</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="../admission/admission.html"><i class="bi bi-person-plus"></i>
                   Admission</a></li>
@@ -448,15 +467,11 @@
               </li>
               <li><a class="dropdown-item" href="../students/student_profile.html"><i class="bi bi-person-badge"></i>
                   Student Profile</a></li>
-              <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Promotions</a></li>
             </ul>
           </li>
-
-          <!-- 💰 Finance Dropdown -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-wallet2"></i> Finance
-            </a>
+            <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown"><i class="bi bi-wallet2"></i>
+              Finance</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="../payment_module/payment_module.html"><i
                     class="bi bi-currency-dollar"></i> Payment Module</a></li>
@@ -468,15 +483,14 @@
               <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Result Analysis</a></li>
             </ul>
           </li>
-
-          <!-- 🏫 Institute Dropdown -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle disabled" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-building"></i> Institute
-            </a>
+            <a class="nav-link dropdown-toggle disabled" href="#" data-bs-toggle="dropdown"><i
+                class="bi bi-building"></i> Institute</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a></li>
-              <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a></li>
+              <li><a class="dropdown-item disabled" href="/library/library.html"><i class="bi bi-book"></i> Library</a>
+              </li>
+              <li><a class="dropdown-item disabled" href="/hostel/hostel.html"><i class="bi bi-house"></i> Hostel</a>
+              </li>
               <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Transport</a></li>
               <li><a class="dropdown-item disabled" href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
               <li>
@@ -486,30 +500,16 @@
               <li><a class="dropdown-item disabled" href="#"><i class="bi bi-lock"></i> Communications</a></li>
             </ul>
           </li>
-
-          <!-- 👔 Staff -->
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <i class="bi bi-briefcase"></i> Staff
-            </a>
-          </li>
-
-          <!-- ⚙️ Settings -->
-          <li class="nav-item">
-            <a class="nav-link" href="/admin_panel/admin_panel.html">
-              <i class="bi bi-gear"></i> Settings
-            </a>
-          </li>
-
+          <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-briefcase"></i> Staff</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin_panel/admin_panel.html"><i class="bi bi-gear"></i>
+              Settings</a></li>
         </ul>
       </div>
-
       <div class="logo-placeholder" title="SquadVertex Logo">
         <img
           src="https://dl.dropboxusercontent.com/scl/fi/rdtc85btzut3b445l4e9b/1000027989-modified.png?rlkey=6fhr94reyqvb3qtj7gspdjgui&st=vns6krx0&dl=0"
           alt="SquadVertex Logo" class="sv-logo">
       </div>
-
     </div>
   </nav>
 
@@ -555,33 +555,27 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tbody id="transactions-table">
-          </tbody>
+          <tbody id="transactions-table"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- ============ FOOTER (Same as Dashboard) ============ -->
+  <!-- ============ FOOTER ============ -->
   <footer class="footer-section">
     <div class="container">
       <div class="row align-items-center g-4">
-        <!-- Social -->
         <div class="col-lg-4 col-md-6">
           <h3><i class="bi bi-building-check me-2"></i>SchoolMS</h3>
           <p class="mb-3" style="opacity:0.9;font-size:0.95rem;">Empowering schools with intelligent management
             solutions.</p>
           <div class="social-links">
-            <a href="https://www.instagram.com/squadvertex/" target="_blank" title="Instagram"><i
-                class="bi bi-instagram"></i></a>
-            <a href="https://x.com/SquadVertex_" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" target="_blank" title="Discord"><i class="bi bi-discord"></i></a>
-            <a href="https://youtube.com/@prince_squadvertex" target="_blank" title="YouTube"><i
-                class="bi bi-youtube"></i></a>
+            <a href="https://www.instagram.com/squadvertex/" target="_blank"><i class="bi bi-instagram"></i></a>
+            <a href="https://x.com/SquadVertex_" target="_blank"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" target="_blank"><i class="bi bi-discord"></i></a>
+            <a href="https://youtube.com/@prince_squadvertex" target="_blank"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
-
-        <!-- Quick Links -->
         <div class="col-lg-4 col-md-6">
           <h3>Quick Links</h3>
           <ul class="footer-links">
@@ -591,13 +585,9 @@
             <li><a href="#"><i class="bi bi-chevron-right"></i> Terms of Service</a></li>
           </ul>
         </div>
-
-        <!-- Copyright + Docs -->
         <div class="col-lg-4 col-md-12 text-lg-end">
-          <a href="/documentation.html" target="_blank"
-            class="btn btn-outline-light mb-3">
-            <i class="bi bi-book me-1"></i>View Docs
-          </a>
+          <a href="/documentation.html" target="_blank" class="btn btn-outline-light mb-3"><i
+              class="bi bi-book me-1"></i>View Docs</a>
           <p class="copyright">&copy; 2025 <strong>SquadVertex</strong>. All rights reserved.</p>
         </div>
       </div>
@@ -625,16 +615,13 @@
 
     // Global variables
     let transactions = [];
-    const fixedAmount = 1000;
-    const fixedAmountWords = "One Thousand Rupees";
+    // ✅ TASK 1: REMOVED hardcoded fixedAmount and fixedAmountWords
     let schoolDetails = {
       schoolName: "",
       address: "",
       contact: "",
       email: ""
     };
-
-    // Logo URL
     const logoURL = "https://dl.dropboxusercontent.com/scl/fi/fkq02zrhmtjo8q0j66pj4/Screenshot_20240901-172502.png?rlkey=256r98hep0tclyuznt3yjqdj1&dl=0";
 
     // Fetch school settings from 001-school/systemSettings document
@@ -647,96 +634,76 @@
           schoolDetails.address = data.address || "";
           schoolDetails.contact = data.phoneNumber || "Default Phone Number";
           schoolDetails.email = data.contactEmail || "Default Email";
-        } else {
-          console.warn("System settings document not found.");
         }
       } catch (error) {
         console.error("Error fetching school settings:", error);
       }
     }
 
-    // Load transactions from Firebase (UPDATED: Extract nested path params)
+    // ✅ TASK 2: Load transactions using denormalized data (NO nested studentRef.get())
     async function loadTransactions() {
       const transactionsTable = document.getElementById('transactions-table');
-      transactionsTable.innerHTML = '<tr><td colspan="9">Loading... (Check console for details)</td></tr>';
-      try {
-        console.log("[DEBUG] Starting payments collection group query");
-        const paymentsQuery = await db.collectionGroup('payments').get();
-        console.log(`[DEBUG] Found ${paymentsQuery.size} payment documents`);
+      transactionsTable.innerHTML = '<tr><td colspan="9">Loading...</td></tr>';
 
+      try {
+        const paymentsQuery = await db.collectionGroup('payments').get();
         transactions = [];
-        let studentFetchErrors = 0;
 
         for (const paymentDoc of paymentsQuery.docs) {
-          try {
-            console.groupCollapsed(`[DEBUG] Processing payment: ${paymentDoc.id}`);
-            const paymentData = paymentDoc.data();
+          const paymentData = paymentDoc.data();
 
-            // Parse the nested path to extract required IDs
-            // Path format: {activeSchoolFolder}/transactions/{class_id}/{student_id}/payments/{txn_doc_id}
-            const pathParts = paymentDoc.ref.path.split('/');
-            // pathParts[0] = activeSchoolFolder (e.g., "001-school")
-            // pathParts[1] = "transactions"
-            const class_id = pathParts[2];      // e.g., "class10"
-            const student_id = pathParts[3];    // e.g., "student10293"
-            // pathParts[4] = "payments"
-            const txn_doc_id = paymentDoc.id;   // actual payment document ID
+          // Parse the nested path to extract required IDs
+          const pathParts = paymentDoc.ref.path.split('/');
+          const class_id = pathParts[2];
+          const student_id = pathParts[3];
+          const txn_doc_id = paymentDoc.id;
 
-            console.log("Extracted IDs:", { class_id, student_id, txn_doc_id });
+          // ✅ TASK 2: Use denormalized fields directly from payment doc
+          // ✅ TASK 5: Handle legacy docs with missing fields
+          const rollNo = paymentData.srNumber || "Unknown (Legacy Data)";
+          const studentName = paymentData.studentName || "Unknown (Legacy Data)";
+          const classDisplay = paymentData.class || class_id || "N/A";
+          const amountPaid = paymentData.amount || 0;
+          const mode = paymentData.mode || "Cash";
+          const transactionId = paymentData.txnId || "N/A";
 
-            // Get student document for display data
-            const studentRef = db.doc(`001-school/students/list/${student_id}`);
-            const studentDoc = await studentRef.get();
-            if (!studentDoc.exists) {
-              console.warn("[ERROR] Student document not found!");
-              studentFetchErrors++;
-              continue;
-            }
-            const studentData = studentDoc.data();
-            console.log("Student data:", studentData);
-
-            let transactionDate;
-            if (paymentData.timestamp && paymentData.timestamp.toDate) {
-              transactionDate = paymentData.timestamp.toDate();
-            } else if (paymentData.date) {
-              transactionDate = new Date(paymentData.date);
-            } else {
-              transactionDate = new Date();
-            }
-
-            // Build transaction object WITH nested path params for redirect
-            transactions.push({
-              rollNo: studentData.srNumber || 'N/A',
-              studentName: studentData.studentName || 'Unknown',
-              class: class_id || 'N/A',
-              transactionId: paymentData.txnId || 'N/A',
-              amountPaid: paymentData.amount || 0,
-              mode: paymentData.mode || 'Cash',
-              dateTime: transactionDate.toLocaleString(),
-              notes: paymentData.notes || "Thank you for your payment. Please keep this receipt for your records.",
-              status: 'Success',
-              // === NEW: Store nested path params for receipt redirect ===
-              _pathParams: {
-                class_id: class_id,
-                student_id: student_id,
-                txn_doc_id: txn_doc_id
-              }
-            });
-            console.groupEnd();
-          } catch (error) {
-            console.error("[ERROR] Processing document:", error);
+          let transactionDate;
+          if (paymentData.timestamp && paymentData.timestamp.toDate) {
+            transactionDate = paymentData.timestamp.toDate();
+          } else if (paymentData.date) {
+            transactionDate = new Date(paymentData.date);
+          } else {
+            transactionDate = new Date();
           }
+
+          // Build transaction object WITH nested path params for redirect
+          transactions.push({
+            rollNo,
+            studentName,
+            class: classDisplay,
+            transactionId,
+            amountPaid,
+            mode,
+            dateTime: transactionDate.toLocaleString(),
+            notes: paymentData.notes || "Thank you for your payment. Please keep this receipt for your records.",
+            status: 'Success',
+            // === TASK 3: Preserve receipt navigation ===
+            _pathParams: {
+              class_id: class_id,
+              student_id: student_id,
+              txn_doc_id: txn_doc_id
+            }
+          });
         }
-        console.log(`[DEBUG] Processed ${transactions.length} valid transactions`);
-        console.log(`[DEBUG] ${studentFetchErrors} student documents not found`);
+
         renderTransactions(transactions);
       } catch (error) {
-        console.error("[CRITICAL ERROR] Main error:", error);
+        console.error("Error loading transactions:", error);
         transactionsTable.innerHTML = '<tr><td colspan="9">Error loading transactions</td></tr>';
       }
     }
 
-    // Render transactions table with View Receipt button (UPDATED: Pass nested params)
+    // ✅ TASK 4: Render transactions table with filters using new mapped fields
     function renderTransactions(transactionsArray) {
       const transactionsTable = document.getElementById('transactions-table');
       transactionsTable.innerHTML = '';
@@ -759,15 +726,14 @@
         return;
       }
 
-      filtered.forEach((txn, index) => {
+      filtered.forEach((txn) => {
         const row = document.createElement('tr');
-        // CHANGED: Button now calls viewReceipt with nested path params
         row.innerHTML = `
           <td>${txn.rollNo}</td>
           <td>${txn.studentName}</td>
           <td>${txn.class}</td>
           <td>${txn.transactionId}</td>
-          <td>₹${txn.amountPaid.toLocaleString()}</td>
+          <td>₹${Number(txn.amountPaid).toLocaleString()}</td>
           <td>${txn.mode}</td>
           <td>${txn.dateTime}</td>
           <td><span class="badge badge-success">${txn.status}</span></td>
@@ -781,18 +747,15 @@
       });
     }
 
-    // NEW FUNCTION: Redirect to print_receipt.html with ALL required nested path params
+    // ✅ TASK 3: Redirect to print_receipt.html with ALL required nested path params
     function viewReceipt(class_id, student_id, txn_doc_id) {
-      // Build URL with all three required parameters
       const receiptUrl = `/loomischool/payment_module/print_receipt.html?class_id=${encodeURIComponent(class_id)}&student_id=${encodeURIComponent(student_id)}&txn_doc_id=${encodeURIComponent(txn_doc_id)}`;
-
       console.log("Redirecting to:", receiptUrl);
       window.location.href = receiptUrl;
     }
 
     // On page load, fetch school settings first then load transactions
     document.addEventListener('DOMContentLoaded', async () => {
-      console.log("[INIT] Page loaded, fetching school settings...");
       await fetchSchoolSettings();
       loadTransactions();
     });
